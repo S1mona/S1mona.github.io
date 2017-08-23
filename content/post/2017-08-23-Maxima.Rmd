@@ -201,7 +201,7 @@ while(j&k<length(inds)){
 # if(res$tex[[4]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[4]]%>%grepl("\\}\\}\\$\\$$", .)){
 #     res$tex[[4]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
 # }#
-x%>%paste0(., collapse="")%>%cat(.,  "\n")
+#x%>%paste0(., collapse="")%>%cat(.,  "\n")
 #res$tex[[4]]%>%cat(.,  "\n")
 ```
 
