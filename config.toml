@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "/./"
 languageCode = "en-us"
 title = "Hugo XMag"
 theme = "hugo-xmag"
@@ -10,6 +10,7 @@ footnotereturnlinkcontents = "↩"
 hasCJKLanguage = true
 enableEmoji = true
 paginate = 6
+publishDir = "./"
 
 [permalinks]
     post = "/post/:year/:month/:day/:slug/"

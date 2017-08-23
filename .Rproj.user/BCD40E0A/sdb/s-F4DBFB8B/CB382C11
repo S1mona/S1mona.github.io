@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "baseurl = \"/./\"\nlanguageCode = \"en-us\"\ntitle = \"Hugo XMag\"\ntheme = \"hugo-xmag\"\ngoogleAnalytics = \"\"\ndisqusShortname = \"\"\nignoreFiles = [\"\\\\.Rmd$\", \"_files$\", \"_cache$\"]\npreserveTaxonomyNames = true\nfootnotereturnlinkcontents = \"↩\"\nhasCJKLanguage = true\nenableEmoji = true\npaginate = 6\npublishDir = \"./\"\n\n[permalinks]\n    post = \"/post/:year/:month/:day/:slug/\"\n\n[[menu.main]]\n    name = \"Home\"\n    url = \"/\"\n    weight = 1\n[[menu.main]]\n    name = \"About\"\n    url = \"/about/\"\n    weight = 2\n[[menu.main]]\n    name = \"Categories\"\n    url = \"/categories/\"\n    weight = 3\n[[menu.main]]\n    name = \"Tags\"\n    url = \"/tags/\"\n    weight = 4\n[[menu.main]]\n    name = \"Subscribe\"\n    url = \"/index.xml\"\n\n[params]\n    description = \"A website built through Hugo and blogdown.\"\n    summary_length = 300\n    github_edit = \"https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/\"\n    footer = \"&copy; [Yihui Xie](https://yihui.name) 2017 | [Github](https://github.com/yihui) | [Twitter](https://twitter.com/xieyihui)\"\n\n[params.text]\n    back = \"&larr; Back to Home\"\n    edit = \"Edit this page &rarr;\"\n    truncated = \"&hellip;\"\n",
+    "created" : 1503475632331.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1356634350",
+    "id" : "CB382C11",
+    "lastKnownWriteTime" : 1503475650,
+    "last_content_update" : 1503475650937,
+    "path" : "~/GitHub/S1mona.github.io/config.toml",
+    "project_path" : "config.toml",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "text"
+}
