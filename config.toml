@@ -10,7 +10,7 @@ footnotereturnlinkcontents = "↩"
 hasCJKLanguage = true
 enableEmoji = true
 paginate = 6
-publishDir = "./"
+publishDir = "."
 
 [permalinks]
     post = "/post/:year/:month/:day/:slug/"
