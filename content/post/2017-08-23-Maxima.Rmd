@@ -204,10 +204,7 @@ Exponent,  `r rinline("res$tex[[3]]")`:
 
 
 ```{r, results='asis', echo=FALSE}
-if(res$tex[[3]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[3]]%>%grepl("\\}\\}\\$\\$$", .)){
-  res$tex[[3]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
-}
-
+res$tex[[3]]%>%mod_string%>%cat(.,  "\n")
 ```
 
 A Density,  `r rinline("res$tex[[4]]")`:
@@ -216,8 +213,6 @@ A Density,  `r rinline("res$tex[[4]]")`:
 res$tex[[4]]%>%mod_string%>%cat(.,  "\n")
 ```
 
-asdasd3
-easa
 
 ## Evaluate expression from Maxima in R:
 
