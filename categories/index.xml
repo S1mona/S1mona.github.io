@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Tales of R - Rmarkdown Blog </title>
+    <title>Categories on Untitled</title>
     <link>/./categories/</link>
-    <description>Recent content in Categories on Tales of R - Rmarkdown Blog </description>
+    <description>Recent content in Categories on Untitled</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
@@ -11,20 +11,11 @@
     
     
     <item>
-      <title>Maxima</title>
-      <link>/./categories/maxima/</link>
-      <pubDate>Thu, 17 Aug 2017 21:13:14 -0500</pubDate>
+      <title>R&#43;maxima</title>
+      <link>/./categories/r&#43;maxima/</link>
+      <pubDate>Fri, 18 Aug 2017 21:13:14 -0500</pubDate>
       
-      <guid>/./categories/maxima/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Test</title>
-      <link>/./categories/test/</link>
-      <pubDate>Thu, 17 Aug 2017 21:13:14 -0500</pubDate>
-      
-      <guid>/./categories/test/</guid>
+      <guid>/./categories/r&#43;maxima/</guid>
       <description></description>
     </item>
     

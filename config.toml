@@ -15,10 +15,10 @@
 baseurl = "/./"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
-title = "Tales of R - Rmarkdown Blog "
+title = "Untitled"
 theme = "hugo-tranquilpeak-theme"
 disqusShortname = ""
-googleAnalytics = "UA-104312945-5"
+#googleAnalytics = "UA-104312945-5"
 paginate = 7
 canonifyurls = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
@@ -35,15 +35,15 @@ publishDir = "./"
   archive = "archives"
 
 [author]
-  name = "aurora-mareviv"
-  bio = "Anesthesiologist, MD, PhD. Utter Rstats geek"
-  job = "Universidade de Santiago de Compostela"
-  location = "Spain"
+  name = "Simona Jokubauskaite"
+  bio = "Statistician, MSc"
+  job = "University of Natural Resources and Life Sciences, Vienna"
+  location = "Austria"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
   gravatarEmail = ""
   # Your profile picture
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
-  picture = "logo.png"
+  picture = "FOTO.jpg"
   # Your Twitter username without the @. E.g : thibaudlepretre
   twitter = "maureviv"
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311

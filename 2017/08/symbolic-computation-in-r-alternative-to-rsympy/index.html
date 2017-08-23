@@ -22,25 +22,22 @@
     <meta name="generator" content="Hugo 0.26">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
     <title>Symbolic Computation in R, alternative to rSympy</title>
-    <meta name="author" content="aurora-mareviv">
+    <meta name="author" content="Simona Jokubauskaite">
     <meta name="keywords" content="">
 
     <link rel="icon" href="/./favicon.png">
     
 
     
-    <meta name="description" content="\[\alpha\]
-During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.">
-    <meta property="og:description" content="\[\alpha\]
-During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.">
+    <meta name="description" content="During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima.">
+    <meta property="og:description" content="During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima.">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Symbolic Computation in R, alternative to rSympy">
     <meta property="og:url" content="/2017/08/symbolic-computation-in-r-alternative-to-rsympy/">
-    <meta property="og:site_name" content="Tales of R - Rmarkdown Blog ">
+    <meta property="og:site_name" content="Untitled">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Tales of R - Rmarkdown Blog ">
-    <meta name="twitter:description" content="\[\alpha\]
-During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.">
+    <meta name="twitter:title" content="Untitled">
+    <meta name="twitter:description" content="During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima.">
     
       <meta name="twitter:creator" content="@maureviv">
     
@@ -50,14 +47,14 @@ During my bachelor studies I had to derive enormous amount of derivatives, integ
     
 
     
-      <meta property="og:image" content="/logo.png">
+      <meta property="og:image" content="/FOTO.jpg">
     
 
     
-      <meta property="og:image" content="/images/hexbins.png">
+      <meta property="og:image" content="/images/wxMaximaLogo.jpg">
     
     
-      <meta property="og:image" content="/logo1.png">
+      <meta property="og:image" content="/FOTO.jpg">
     
     
 
@@ -77,16 +74,6 @@ During my bachelor studies I had to derive enormous amount of derivatives, integ
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-104312945-5', 'auto');
-ga('send', 'pageview');
-</script>
-
     
     
   </head>
@@ -96,7 +83,7 @@ ga('send', 'pageview');
       <header id="header" data-behavior="4">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
-    <a class="header-title-link" href="/./">Tales of R - Rmarkdown Blog </a>
+    <a class="header-title-link" href="/./">Untitled</a>
   </div>
   
     
@@ -106,7 +93,7 @@ ga('send', 'pageview');
     
     
       
-        <img class="header-picture" src="/./logo.png" alt="Author&#39;s picture" />
+        <img class="header-picture" src="/./FOTO.jpg" alt="Author&#39;s picture" />
       
     
     </a>
@@ -118,11 +105,11 @@ ga('send', 'pageview');
     
       <div class="sidebar-profile">
         <a href="/./#about">
-          <img class="sidebar-profile-picture" src="/./logo.png" alt="Author&#39;s picture" />
+          <img class="sidebar-profile-picture" src="/./FOTO.jpg" alt="Author&#39;s picture" />
         </a>
-        <h4 class="sidebar-profile-name">aurora-mareviv</h4>
+        <h4 class="sidebar-profile-name">Simona Jokubauskaite</h4>
         
-          <h5 class="sidebar-profile-bio">Anesthesiologist, MD, PhD. Utter Rstats geek</h5>
+          <h5 class="sidebar-profile-bio">Statistician, MSc</h5>
         
       </div>
     
@@ -232,7 +219,7 @@ ga('send', 'pageview');
   <div class="post-header-cover
               text-center
               "
-       style="background-image:url('./logo1.png')"
+       style="background-image:url('./FOTO.jpg')"
        data-behavior="4">
     
       <div class="post-header main-content-wrap text-center">
@@ -243,9 +230,9 @@ ga('send', 'pageview');
   
   <div class="postShorten-meta post-meta">
   
-    <time itemprop="datePublished" datetime="2017-08-17T21:13:14-05:00">
+    <time itemprop="datePublished" datetime="2017-08-18T21:13:14-05:00">
       
-  August 17, 2017
+  August 18, 2017
 
     </time>
   
@@ -254,7 +241,7 @@ ga('send', 'pageview');
   
     <span>in</span>
     
-      <a class="category-link" href="/./categories/maxima">Maxima</a>
+      <a class="category-link" href="/./categories/r&#43;maxima">R&#43;Maxima</a>
     
   
 
@@ -278,17 +265,18 @@ ga('send', 'pageview');
               <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
 
 
-<p><span class="math display">\[\alpha\]</span></p>
-<p>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a> an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima. I knew that one can do symbolic calculation in R with  and I even tried it, but it performed slow for my tasks, so I stayed with Maxima.<br />
-In this post I will provide some instructions for Windows users. So the first step is to download and install <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a>. I wrote a function, which feeds commands into Maxima, executes them, returns expressions, that can be evaluated in R, and allows the user to get tex expressions.</p>
+<p>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a> an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima. I knew that one can do symbolic calculation in R with rSymPy and I even tried it, but it performed slow for my tasks, so I stayed with Maxima.<br />
+In this post I will provide some instructions for Windows users. The first step is to download and install <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a>. I wrote a function, which feeds commands into Maxima, executes them, returns expressions, that can be evaluated in R, and allows the user to get tex expressions.</p>
 <div id="function" class="section level2">
 <h2>Function</h2>
-<pre class="r"><code>runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&quot;, tex=TRUE){
-  #obj - intermediate Maxima calculations
-  #out - output from Maxima
-  #pathm - path to maxima.bat
-  #tex - include tex expressions
-  #execute lines in wxMaxima
+<pre class="r"><code>#&#39; Execute lines in Maxima
+#&#39; @param obj - intermediate Maxima calculations
+#&#39; @param out - output from Maxima
+#&#39; @param pathm - path to maxima.bat
+#&#39; @param tex - include tex expressions
+#&#39; @return returns equations for errors where parameters are from vector par and the original list with formulas
+require(magrittr)
+runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&quot;, tex=TRUE){
   com &lt;- c(paste0(obj, &quot; ; &quot;), paste0(out, &quot; ; &quot;))%&gt;%paste0( collapse = &quot;&quot;)
   a &lt;- shell(paste0(&#39;echo &#39;, com , &#39; | &quot;&#39;, pathm, &#39;&quot;&#39;), intern=TRUE)
   #form blocks of output
@@ -393,10 +381,10 @@ r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
 <h2>Comparison with results from other functions and packages:</h2>
 <pre class="r"><code>require(emdbook)
 yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 1.847904e-16</code></pre>
+## [1] 1.994915e-16</code></pre>
 <pre class="r"><code>require(mnormt)
 yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 1.978821e-16</code></pre>
+## [1] 1.927932e-16</code></pre>
 </div>
 
               
@@ -410,13 +398,13 @@ yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="/././/tags/r-markdown/">R Markdown</a>
+  <a class="tag tag--primary tag--small" href="/././/tags/r/">R</a>
 
-  <a class="tag tag--primary tag--small" href="/././/tags/plot/">plot</a>
+  <a class="tag tag--primary tag--small" href="/././/tags/wxmaxima/">wxMaxima</a>
 
-  <a class="tag tag--primary tag--small" href="/././/tags/blogdown/">blogdown</a>
+  <a class="tag tag--primary tag--small" href="/././/tags/maxima/">Maxima</a>
 
-  <a class="tag tag--primary tag--small" href="/././/tags/#rstats/">#rstats</a>
+  <a class="tag tag--primary tag--small" href="/././/tags/symboliccomputation/">SymbolicComputation</a>
 
                   </div>
                 
@@ -428,7 +416,7 @@ yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/./2017/08/r-blogdown-setup-in-gihub/" data-tooltip="R Blogdown Setup in GiHub">
+            <a class="post-action-btn btn btn--disabled">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -487,7 +475,7 @@ yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2017 aurora-mareviv. All Rights Reserved
+    &copy; 2017 Simona Jokubauskaite. All Rights Reserved
   </span>
 </footer>
 
@@ -499,7 +487,7 @@ yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/./2017/08/r-blogdown-setup-in-gihub/" data-tooltip="R Blogdown Setup in GiHub">
+            <a class="post-action-btn btn btn--disabled">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -580,24 +568,24 @@ yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
       <i class="fa fa-remove"></i>
     </div>
     
-      <img id="about-card-picture" src="/./logo.png" alt="Author&#39;s picture" />
+      <img id="about-card-picture" src="/./FOTO.jpg" alt="Author&#39;s picture" />
     
-    <h4 id="about-card-name">aurora-mareviv</h4>
+    <h4 id="about-card-name">Simona Jokubauskaite</h4>
     
-      <div id="about-card-bio">Anesthesiologist, MD, PhD. Utter Rstats geek</div>
+      <div id="about-card-bio">Statistician, MSc</div>
     
     
       <div id="about-card-job">
         <i class="fa fa-briefcase"></i>
         <br/>
-        Universidade de Santiago de Compostela
+        University of Natural Resources and Life Sciences, Vienna
       </div>
     
     
       <div id="about-card-location">
         <i class="fa fa-map-marker"></i>
         <br/>
-        Spain
+        Austria
       </div>
     
   </div>
@@ -625,25 +613,6 @@ yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="/././2017/08/r-blogdown-setup-in-gihub/">
-                <h3 class="media-heading">R Blogdown Setup in GiHub</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Aug 8, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">The blogdown R package Finally, -after 24h of failed attempts-, I could get my favourite Hugo theme up and running with R Studio and Blogdown.
-After exploring some alternatives, like Shirin’s (with Jekyll), and Amber Thomas advice (which involved Git skills beyond my basic abilities), I was able to install Yihui’s hugo-lithium-theme in a new repository.
-However, I wanted to explore other blog templates, hosted in GiHub, like:</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
               <a class="link-unstyled" href="/././2017/08/symbolic-computation-in-r-alternative-to-rsympy/">
                 <h3 class="media-heading">Symbolic Computation in R, alternative to rSympy</h3>
               </a>
@@ -652,8 +621,7 @@ However, I wanted to explore other blog templates, hosted in GiHub, like:</div>
                   Aug 8, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">\[\alpha\]
-During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.</div>
+              <div class="media-content hide-xs font-merryweather">During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -683,7 +651,7 @@ During my bachelor studies I had to derive enormous amount of derivatives, integ
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         3 posts found
+         2 posts found
       </p>
     </div>
   </div>

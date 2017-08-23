@@ -3,29 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/./2017/08/r-blogdown-setup-in-gihub/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/./2017/08/symbolic-computation-in-r-alternative-to-rsympy/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/./tags/#rstats/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>/./archives/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/blogdown/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -35,44 +18,50 @@
   </url>
   
   <url>
-    <loc>/./categories/maxima/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/plot/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
+    <loc>/./tags/maxima/</loc>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/./post/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/./tags/r-markdown/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
+    <loc>/./tags/r/</loc>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./categories/r&#43;maxima/</loc>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./tags/symboliccomputation/</loc>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/./tags/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/./</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/./categories/test/</loc>
-    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
+    <loc>/./tags/wxmaxima/</loc>
+    <lastmod>2017-08-18T21:13:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   

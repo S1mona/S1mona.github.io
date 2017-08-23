@@ -1,12 +1,12 @@
 ---
 title: "Symbolic Computation in R, alternative to rSympy"
 author: "Simona Jokubauskaite"
-date: 2017-08-17T21:13:14-05:00
-categories: ["Maxima"]
-tags: ["R Markdown", "plot", "blogdown", "#rstats"]
+date: 2017-08-18T21:13:14-05:00
+categories: ["R+Maxima"]
+tags: ["R", "wxMaxima", "Maxima", "SymbolicComputation"]
 thumbnailImagePosition: left
-thumbnailImage: ./images/hexbins.png
-coverImage: ./logo1.png
+thumbnailImage: ./images/wxMaximaLogo.jpg
+coverImage: ./FOTO.jpg
 metaAlignment: center
 disable_comments: true
 output:
@@ -19,17 +19,18 @@ output:
   <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
 
 
-<p><span class="math display">\[\alpha\]</span></p>
-<p>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a> an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima. I knew that one can do symbolic calculation in R with  and I even tried it, but it performed slow for my tasks, so I stayed with Maxima.<br />
-In this post I will provide some instructions for Windows users. So the first step is to download and install <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a>. I wrote a function, which feeds commands into Maxima, executes them, returns expressions, that can be evaluated in R, and allows the user to get tex expressions.</p>
+<p>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a> an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima. I knew that one can do symbolic calculation in R with rSymPy and I even tried it, but it performed slow for my tasks, so I stayed with Maxima.<br />
+In this post I will provide some instructions for Windows users. The first step is to download and install <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a>. I wrote a function, which feeds commands into Maxima, executes them, returns expressions, that can be evaluated in R, and allows the user to get tex expressions.</p>
 <div id="function" class="section level2">
 <h2>Function</h2>
-<pre class="r"><code>runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&quot;, tex=TRUE){
-  #obj - intermediate Maxima calculations
-  #out - output from Maxima
-  #pathm - path to maxima.bat
-  #tex - include tex expressions
-  #execute lines in wxMaxima
+<pre class="r"><code>#&#39; Execute lines in Maxima
+#&#39; @param obj - intermediate Maxima calculations
+#&#39; @param out - output from Maxima
+#&#39; @param pathm - path to maxima.bat
+#&#39; @param tex - include tex expressions
+#&#39; @return returns equations for errors where parameters are from vector par and the original list with formulas
+require(magrittr)
+runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&quot;, tex=TRUE){
   com &lt;- c(paste0(obj, &quot; ; &quot;), paste0(out, &quot; ; &quot;))%&gt;%paste0( collapse = &quot;&quot;)
   a &lt;- shell(paste0(&#39;echo &#39;, com , &#39; | &quot;&#39;, pathm, &#39;&quot;&#39;), intern=TRUE)
   #form blocks of output
@@ -134,8 +135,8 @@ r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
 <h2>Comparison with results from other functions and packages:</h2>
 <pre class="r"><code>require(emdbook)
 yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 1.847904e-16</code></pre>
+## [1] 1.994915e-16</code></pre>
 <pre class="r"><code>require(mnormt)
 yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 1.978821e-16</code></pre>
+## [1] 1.927932e-16</code></pre>
 </div>

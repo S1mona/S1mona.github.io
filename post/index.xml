@@ -1,35 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Tales of R - Rmarkdown Blog </title>
+    <title>Posts on Untitled</title>
     <link>/./post/</link>
-    <description>Recent content in Posts on Tales of R - Rmarkdown Blog </description>
+    <description>Recent content in Posts on Untitled</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Aug 2017 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 18 Aug 2017 21:13:14 -0500</lastBuildDate>
     
 	<atom:link href="/./post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>R Blogdown Setup in GiHub</title>
-      <link>/./2017/08/r-blogdown-setup-in-gihub/</link>
-      <pubDate>Thu, 17 Aug 2017 21:13:14 -0500</pubDate>
-      
-      <guid>/./2017/08/r-blogdown-setup-in-gihub/</guid>
-      <description>The blogdown R package Finally, -after 24h of failed attempts-, I could get my favourite Hugo theme up and running with R Studio and Blogdown.
-After exploring some alternatives, like Shirin’s (with Jekyll), and Amber Thomas advice (which involved Git skills beyond my basic abilities), I was able to install Yihui’s hugo-lithium-theme in a new repository.
-However, I wanted to explore other blog templates, hosted in GiHub, like:</description>
-    </item>
-    
-    <item>
       <title>Symbolic Computation in R, alternative to rSympy</title>
       <link>/./2017/08/symbolic-computation-in-r-alternative-to-rsympy/</link>
-      <pubDate>Thu, 17 Aug 2017 21:13:14 -0500</pubDate>
+      <pubDate>Fri, 18 Aug 2017 21:13:14 -0500</pubDate>
       
       <guid>/./2017/08/symbolic-computation-in-r-alternative-to-rsympy/</guid>
-      <description>\[\alpha\]
-During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.</description>
+      <description>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima.</description>
     </item>
     
   </channel>
