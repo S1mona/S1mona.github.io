@@ -6,7 +6,7 @@
     <description>Recent content in R on Untitled</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Aug 2017 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 23 Aug 2017 21:13:14 -0500</lastBuildDate>
     
 	<atom:link href="/./tags/r/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Symbolic Computation in R, alternative to rSympy</title>
       <link>/./2017/08/symbolic-computation-in-r-alternative-to-rsympy/</link>
-      <pubDate>Fri, 18 Aug 2017 21:13:14 -0500</pubDate>
+      <pubDate>Wed, 23 Aug 2017 21:13:14 -0500</pubDate>
       
       <guid>/./2017/08/symbolic-computation-in-r-alternative-to-rsympy/</guid>
       <description>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima.</description>
