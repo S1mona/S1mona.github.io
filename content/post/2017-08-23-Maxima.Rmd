@@ -142,12 +142,12 @@ Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:asdasf
 
 ```{r, results='asis', echo=FALSE}
 #res$tex[[2]]%>%strsplit(., "*")%>%unlist%>%bracket_match(., 12, 1, 0)
-if(res$tex[[2]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[2]]%>%grepl("\\}\\}\\$\\$$", .)){
-     x <- res$tex[[2]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)
-}else{
-  x <- res$tex[[2]]
-}
-x%>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$")%>%cat(.,  "\n")
+#if(res$tex[[2]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[2]]%>%grepl("\\}\\}\\$\\$$", .)){
+#     x <- res$tex[[2]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)
+#}else{
+#  x <- res$tex[[2]]
+#}
+#x%>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$")%>%cat(.,  "\n")
 ```
 
 
