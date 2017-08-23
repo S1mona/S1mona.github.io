@@ -126,6 +126,54 @@ bracket_match<- function(s, i, indl, indr){
   #browser()
   return(i-1)
 }
+
+mod_string <- function(str){
+  x <- str%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist
+  # sum(x=="}")
+  # sum(x=="{")
+  # y <- x[4:413]
+  # sum(y=="}")
+  # sum(y=="{")
+  #start of {
+  inds <- which(x=="{")
+  #end of }
+  inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
+  j <- any((inds[-1]-inds[-length(inds)])==1)&any((inde[-1]-inde[-length(inde)])==-1)
+  k <- 1
+  while(j&k<length(inds)){
+    #if {{..}} appears
+    if((inds[k+1]-inds[k])==1&(inde[k+1]-inde[k])==-1){
+      x <- x[-c(inds[k], inde[k])] 
+      #start of {
+      inds <- which(x=="{")
+      #end of }
+      inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
+      j <- any((inds[-1]-inds[-length(inds)])==1)&any((inde[-1]-inde[-length(inde)])==-1)
+    }
+    k <- k + 1
+    #print(k)
+  }
+  
+  # x%>%bracket_match(., 8, 1, 0)
+  # x%>%bracket_match(., 9, 1, 0)
+  # (res$tex[[4]]%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist)[4]
+  
+  # if(res$tex[[4]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[4]]%>%grepl("\\}\\}\\$\\$$", .)){
+  #     res$tex[[4]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
+  # }#
+  if(bracket_match(x, 4, 1, 0)==(length(x)-2)){
+    x <- x[-c(4,bracket_match(x, 4, 1, 0))]
+  }
+  #replace \over with frac
+  inds <- which(x=="{")
+  #end of }
+  inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
+  xx <- x%>%paste0(., collapse="")
+  st <- gregexpr("\\\\\\over", xx)[[1]]
+  x[inds[which(inde%in%(st-1))]] <- "\\frac{"
+  
+  x%>%paste0(., collapse="")%>%gsub("\\over","", ., fixed=TRUE)  
+}
 ```
 
 ## Some tex output.
@@ -165,64 +213,10 @@ if(res$tex[[3]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[3]]%>%grepl("\\}\\}\\
 A Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r, results='asis', echo=FALSE}
-#problems with {{...}}
-#{}\over{} should be \frac{}{}
-#cat( res$tex[[4]], "\n")
-x <- res$tex[[4]]%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist
-# sum(x=="}")
-# sum(x=="{")
-# y <- x[4:413]
-# sum(y=="}")
-# sum(y=="{")
-#start of {
-inds <- which(x=="{")
-#end of }
-inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
-j <- any((inds[-1]-inds[-length(inds)])==1)&any((inde[-1]-inde[-length(inde)])==-1)
-k <- 1
-while(j&k<length(inds)){
-  #if {{..}} appears
- if((inds[k+1]-inds[k])==1&(inde[k+1]-inde[k])==-1){
-   x <- x[-c(inds[k], inde[k])] 
-   #start of {
-   inds <- which(x=="{")
-   #end of }
-   inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
-   j <- any((inds[-1]-inds[-length(inds)])==1)&any((inde[-1]-inde[-length(inde)])==-1)
- }
-  k <- k + 1
-  #print(k)
-}
-
-# x%>%bracket_match(., 8, 1, 0)
-# x%>%bracket_match(., 9, 1, 0)
-# (res$tex[[4]]%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist)[4]
-
-# if(res$tex[[4]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[4]]%>%grepl("\\}\\}\\$\\$$", .)){
-#     res$tex[[4]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
-# }#
-if(bracket_match(x, 4, 1, 0)==(length(x)-2)){
-  x <- x[-c(4,bracket_match(x, 4, 1, 0))]
-}
-#replace \over with frac
-inds <- which(x=="{")
-#end of }
-inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
-xx <- x%>%paste0(., collapse="")
-st <- gregexpr("\\\\\\over", xx)[[1]]
-x[inds[which(inde%in%(st-1))]] <- "\\frac{"
-
-x%>%paste0(., collapse="")%>%gsub("\\over","", ., fixed=TRUE)%>%cat(.,  "\n")
-#res$tex[[4]]%>%cat(.,  "\n")
+res$tex[[4]]%>%mod_string%>%cat(.,  "\n")
 ```
 
-asdasd
-
-$$\frac{e^{\frac{\sigma_{1}^2\,y_{2}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\sigma_{2}-2\,\sigma_{1}^2\,\mu_{2}\right)\,y_{2}+\left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2\right)\,\sigma_{2}^2+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+\sigma_{1}^2\,\mu_{2}^2}{2\,\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma_{2}^2}}}{2\,\pi\,\sqrt{\sigma_{1}^2-\sigma_{1}^2\,\rho_{1,2}^2}\,\left|\sigma_{2}\right|}$$ 
-
-$$
-\frac{e^{\frac{\sigma_{1}^2\,y_{2}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\sigma_{2}-2\,\sigma_{1}^2\,\mu_{2}\right)\,y_{2}+\left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2\right)\,\sigma_{2}^2+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+\sigma_{1}^2\,\mu_{2}^2}{2\,\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma_{2}^2}}}{2\,\pi\,\sqrt{\sigma_{1}^2-\sigma_{1}^2\,\rho_{1,2}^2}\,\left|\sigma_{2}\right|}
-$$ 
+asdasd3
 
 
 ## Evaluate expression from Maxima in R:
