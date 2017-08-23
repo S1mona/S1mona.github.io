@@ -111,7 +111,8 @@ out &lt;- c(out, paste0(&quot;tex (&#39;&#39;%i&quot;,c(4, 5, 6, 8),&quot;)&quot
 <h2>Some tex output.</h2>
 <p>Determinant of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[1]]`</code>:</p>
 <p><span class="math display">\[\left(\sigma_{1}^2-\sigma_{1}^2\,\rho_{1,2}^2\right)\,\sigma_{2}^2\]</span></p>
-<p>Inverse of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[2]]`</code>:</p>
+<p>Inverse of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[2]]`</code>:asdasf</p>
+<p><span class="math display">\[\begin{bmatrix}-{{1}\over{\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2}}&amp;{{ \rho_{1,2}}\over{\left(\sigma_{1}\,\rho_{1,2}^2-\sigma_{1}\right)\, \sigma_{2}}}\cr {{\rho_{1,2}}\over{\left(\sigma_{1}\,\rho_{1,2}^2- \sigma_{1}\right)\,\sigma_{2}}}&amp;-{{1}\over{\left(\rho_{1,2}^2-1 \right)\,\sigma_{2}^2}}\cr \end{bmatrix}\]</span></p>
 <p>Exponent, <code>`r res$tex[[3]]`</code>:</p>
 <p>Density, <code>`r res$tex[[4]]`</code>:</p>
 </div>
@@ -129,8 +130,8 @@ r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
 <h2>Comparison with results from other functions and packages:</h2>
 <pre class="r"><code>require(emdbook)
 yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 9.176687e-16</code></pre>
+## [1] 8.218795e-16</code></pre>
 <pre class="r"><code>require(mnormt)
 yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 9.603863e-16</code></pre>
+## [1] 7.579115e-16</code></pre>
 </div>

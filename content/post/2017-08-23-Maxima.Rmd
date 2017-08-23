@@ -125,14 +125,15 @@ cat( res$tex[[1]], "\n")
 ```
 
 
-Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:
+Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:asdasf
 
 ```{r, results='asis', echo=FALSE}
-cat( res$tex[[2]]%>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$"), "\n")
+cat(res$tex[[2]]%>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$"), "\n")
 ```
 
 
 Exponent,  `r rinline("res$tex[[3]]")`:
+
 
 ```{r, results='asis', echo=FALSE}
 #cat( res$tex[[3]], "\n")
