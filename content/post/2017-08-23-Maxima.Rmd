@@ -217,7 +217,7 @@ res$tex[[4]]%>%mod_string%>%cat(.,  "\n")
 ```
 
 asdasd3
-eas
+easa
 
 ## Evaluate expression from Maxima in R:
 
