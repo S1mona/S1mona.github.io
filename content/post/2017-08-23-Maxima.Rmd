@@ -113,6 +113,18 @@ res <- runMaxima(obj, out)
 rinline <- function(code) {
   sprintf('``` `r %s` ```', code)
 }
+bracket_match<- function(s, i, indl, indr){
+  while ((i <= length(s))&(indl!=indr)){
+    if (s[i] == '{'){
+      indl <- indl+1
+    }
+    if (s[i] == '}'){
+      indr <- indr +1
+    }
+    i = i+1
+  }
+  return(i-1)
+}
 ```
 
 ## Some tex output.
@@ -122,15 +134,20 @@ Determinant of $\Sigma$,  `r rinline("res$tex[[1]]")`:
 
 ```{r, results='asis', echo=FALSE}
 cat( res$tex[[1]], "\n")
+
 ```
 
 
 Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:asdasf
 
 ```{r, results='asis', echo=FALSE}
-# if(res$tex[[2]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[2]]%>%grepl("\\}\\}\\$\\$$", .)){
-#     res$tex[[2]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
-# }
+#res$tex[[2]]%>%strsplit(., "*")%>%unlist%>%bracket_match(., 12, 1, 0)
+if(res$tex[[2]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[2]]%>%grepl("\\}\\}\\$\\$$", .)){
+     x <- res$tex[[2]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)
+}else{
+  x <- res$tex[[2]]
+}
+x%>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$")%>%cat(.,  "\n")
 ```
 
 
@@ -147,10 +164,13 @@ if(res$tex[[3]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[3]]%>%grepl("\\}\\}\\
 Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r, results='asis', echo=FALSE}
+#cat( res$tex[[4]], "\n")
 #if(res$tex[[4]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[4]]%>%grepl("\\}\\}\\$\\$$", .)){
 #    res$tex[[4]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
 #}
 ```
+
+
 
 ## Evaluate expression from Maxima in R:
 
