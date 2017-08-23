@@ -123,6 +123,7 @@ bracket_match<- function(s, i, indl, indr){
     }
     i = i+1
   }
+  #browser()
   return(i-1)
 }
 ```
@@ -165,10 +166,42 @@ Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r, results='asis', echo=FALSE}
 #cat( res$tex[[4]], "\n")
-#if(res$tex[[4]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[4]]%>%grepl("\\}\\}\\$\\$$", .)){
-#    res$tex[[4]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
-#}
+x <- res$tex[[4]]%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist
+# sum(x=="}")
+# sum(x=="{")
+# y <- x[4:413]
+# sum(y=="}")
+# sum(y=="{")
+#start of {
+inds <- which(x=="{")
+#end of }
+inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
+j <- any((inds[-1]-inds[-length(inds)])==1)&any((inde[-1]-inde[-length(inde)])==-1)
+k <- 1
+while(j&k<length(inds)){
+  #if {{..}} appears
+ if((inds[k+1]-inds[k])==1&(inde[k+1]-inde[k])==-1){
+   x <- x[-c(inds[k], inde[k])] 
+   #start of {
+   inds <- which(x=="{")
+   #end of }
+   inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
+   j <- any((inds[-1]-inds[-length(inds)])==1)&any((inde[-1]-inde[-length(inde)])==-1)
+ }
+  k <- k + 1
+  #print(k)
+}
+
+# x%>%bracket_match(., 8, 1, 0)
+# x%>%bracket_match(., 9, 1, 0)
+# (res$tex[[4]]%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist)[4]
+
+# if(res$tex[[4]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[4]]%>%grepl("\\}\\}\\$\\$$", .)){
+#     res$tex[[4]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
+# }#
+x%>%paste0(., collapse="")%>%cat(.,  "\n")
 ```
+
 
 
 
