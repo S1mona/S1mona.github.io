@@ -62,7 +62,7 @@ runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&
 <p>Suppose for some reason, one needs to get expressions of trivariate normal distribution. First lets form variance-covariance matrix for usage in Maxima. R output:</p>
 <pre class="r"><code>library(magrittr)
 library(knitr)
-neq &lt;- 3
+neq &lt;- 2
 sigma &lt;- paste0(rep(&quot;sigma&quot;, neq^2),&quot;[&quot;,sort(rep(1:neq, neq)) ,&quot;]*&quot;,
                   rep(&quot;sigma&quot;, neq^2),&quot;[&quot;,rep(1:neq, neq) ,&quot;]*&quot;,
                   rep(&quot;rho[&quot;,neq^2),sort(rep(1:neq,neq )),&quot;,&quot;,rep(1:neq, neq),&quot;]&quot; )
@@ -76,32 +76,24 @@ sigma[lower.tri(sigma)] &lt;- sort(sigma[upper.tri(sigma)])</code></pre>
 <tr class="header">
 <th align="left">X1</th>
 <th align="left">X2</th>
-<th align="left">X3</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">sigma[1]**2</td>
 <td align="left">sigma[1]<em>sigma[2]</em>rho[1,2]</td>
-<td align="left">sigma[1]<em>sigma[3]</em>rho[1,3]</td>
 </tr>
 <tr class="even">
 <td align="left">sigma[1]<em>sigma[2]</em>rho[1,2]</td>
 <td align="left">sigma[2]**2</td>
-<td align="left">sigma[2]<em>sigma[3]</em>rho[2,3]</td>
-</tr>
-<tr class="odd">
-<td align="left">sigma[1]<em>sigma[3]</em>rho[1,3]</td>
-<td align="left">sigma[2]<em>sigma[3]</em>rho[2,3]</td>
-<td align="left">sigma[3]**2</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code># Maxima command for variance-covariance matrix
 spy &lt;- paste0(sapply(1:neq, function(i) paste0(&quot;[&quot;, paste0(&quot;&quot;,sigma[i,],&quot;&quot;, collapse = &quot;, &quot;), &quot;]&quot;)), collapse = &quot;,&quot;)
 spy &lt;- paste0(&quot;Sigma : matrix(&quot;, spy, &quot;)&quot;)
-ym &lt;- &quot;y : matrix([y[1]], [y[2]], [y[3]])&quot; # random variables
-mum &lt;- &quot;mu : matrix([mu[1]], [mu[2]], [mu[3]])&quot; # vector of means
+ym &lt;- 1:neq%&gt;%paste0(&quot;[y[&quot;, .,&quot;]]&quot;)%&gt;%paste0(., collapse=&quot;, &quot;)%&gt;%paste0(&quot;y: matrix(&quot;, ., &quot;)&quot;) # random variables
+mum &lt;- 1:neq%&gt;%paste0(&quot;[mu[&quot;, .,&quot;]]&quot;)%&gt;%paste0(., collapse=&quot;, &quot;)%&gt;%paste0(&quot;mu: matrix(&quot;, ., &quot;)&quot;) # vector of means
 detm &lt;- &quot;dets : ratsimp(determinant(Sigma))&quot; # determinant of variance-covariance matrix
 invm &lt;- &quot;invs : ratsimp(invert(Sigma))&quot; #inverse of variance-covariance matrix
 expinside &lt;- &quot;inside: ratsimp(transpose(y-mu).invert(Sigma).(y-mu))&quot; #exponent in multivariate noraml distribution
@@ -117,11 +109,12 @@ out &lt;- c(out, paste0(&quot;tex (&#39;&#39;%i&quot;,c(4, 5, 6, 8),&quot;)&quot
 <div id="some-tex-output." class="section level2">
 <h2>Some tex output.</h2>
 <p>Determinant of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[1]]`</code>:</p>
-<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+<p><span class="math display">\[\left(\sigma_{1}^2-\sigma_{1}^2\,\rho_{1,2}^2\right)\,\sigma_{2}^2\]</span></p>
 <p>Inverse of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[2]]`</code>:</p>
-<p><span class="math display">\[\pmatrix{{{\rho_{2,3}^2-1}\over{\sigma_{1}^2\,\rho_{2,3}^2-2\, \sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+\sigma_{1}^2\,\rho _{1,3}^2+\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2}}&amp;-{{\rho_{1,3}\, \rho_{2,3}-\rho_{1,2}}\over{\sigma_{1}\,\sigma_{2}\,\rho_{2,3}^2-2\, \sigma_{1}\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,\rho_{2,3}+\left( \sigma_{1}\,\rho_{1,3}^2+\sigma_{1}\,\rho_{1,2}^2-\sigma_{1}\right) \,\sigma_{2}}}&amp;-{{\rho_{1,2}\,\rho_{2,3}-\rho_{1,3}}\over{\left( \sigma_{1}\,\rho_{2,3}^2-2\,\sigma_{1}\,\rho_{1,2}\,\rho_{1,3}\,\rho _{2,3}+\sigma_{1}\,\rho_{1,3}^2+\sigma_{1}\,\rho_{1,2}^2-\sigma_{1} \right)\,\sigma_{3}}}\cr -{{\rho_{1,3}\,\rho_{2,3}-\rho_{1,2}}\over{ \sigma_{1}\,\sigma_{2}\,\rho_{2,3}^2-2\,\sigma_{1}\,\rho_{1,2}\,\rho _{1,3}\,\sigma_{2}\,\rho_{2,3}+\left(\sigma_{1}\,\rho_{1,3}^2+\sigma _{1}\,\rho_{1,2}^2-\sigma_{1}\right)\,\sigma_{2}}}&amp;{{\rho_{1,3}^2-1 }\over{\sigma_{2}^2\,\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\sigma _{2}^2\,\rho_{2,3}+\left(\rho_{1,3}^2+\rho_{1,2}^2-1\right)\,\sigma _{2}^2}}&amp;{{\rho_{2,3}-\rho_{1,2}\,\rho_{1,3}}\over{\left(\sigma_{2} \,\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,\rho_{2,3}+ \left(\rho_{1,3}^2+\rho_{1,2}^2-1\right)\,\sigma_{2}\right)\,\sigma _{3}}}\cr -{{\rho_{1,2}\,\rho_{2,3}-\rho_{1,3}}\over{\left(\sigma_{1 }\,\rho_{2,3}^2-2\,\sigma_{1}\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+ \sigma_{1}\,\rho_{1,3}^2+\sigma_{1}\,\rho_{1,2}^2-\sigma_{1}\right) \,\sigma_{3}}}&amp;{{\rho_{2,3}-\rho_{1,2}\,\rho_{1,3}}\over{\left( \sigma_{2}\,\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,\rho _{2,3}+\left(\rho_{1,3}^2+\rho_{1,2}^2-1\right)\,\sigma_{2}\right)\, \sigma_{3}}}&amp;{{\rho_{1,2}^2-1}\over{\left(\rho_{2,3}^2-2\,\rho_{1,2} \,\rho_{1,3}\,\rho_{2,3}+\rho_{1,3}^2+\rho_{1,2}^2-1\right)\,\sigma _{3}^2}}\cr }\]</span></p>
 <p>Exponent, <code>`r res$tex[[3]]`</code>:</p>
+<p><span class="math display">\[-{{\sigma_{1}^2\,y_{2}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\, \sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\sigma_{2}-2\,\sigma_{1}^2\, \mu_{2}\right)\,y_{2}+\left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2 \right)\,\sigma_{2}^2+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma _{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+\sigma_{1}^2\,\mu_{2}^2 }\over{\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma _{2}^2}}\]</span></p>
 <p>Density, <code>`r res$tex[[4]]`</code>:</p>
+<p><span class="math display">\[{{e^{{{\sigma_{1}^2\,y_{2}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\, \sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\sigma_{2}-2\,\sigma_{1}^2\, \mu_{2}\right)\,y_{2}+\left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2 \right)\,\sigma_{2}^2+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma _{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+\sigma_{1}^2\,\mu_{2}^2 }\over{2\,\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\, \sigma_{2}^2}}}}\over{2\,\pi\,\sqrt{\sigma_{1}^2-\sigma_{1}^2\,\rho _{1,2}^2}\,\left| \sigma_{2}\right| }}\]</span></p>
 </div>
 <div id="evaluate-expression-from-maxima-in-r" class="section level2">
 <h2>Evaluate expression from Maxima in R:</h2>
@@ -138,8 +131,8 @@ r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
 <h2>Comparison with results from other functions and packages:</h2>
 <pre class="r"><code>require(emdbook)
 yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 1.792186e-16</code></pre>
+## [1] 9.496527e-16</code></pre>
 <pre class="r"><code>require(mnormt)
 yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 1.407565e-16</code></pre>
+## [1] 9.149582e-16</code></pre>
 </div>

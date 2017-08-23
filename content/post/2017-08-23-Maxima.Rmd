@@ -70,7 +70,7 @@ First lets form variance-covariance matrix for usage in Maxima. R output:
 ```{r echo=TRUE}
 library(magrittr)
 library(knitr)
-neq <- 3
+neq <- 2
 sigma <- paste0(rep("sigma", neq^2),"[",sort(rep(1:neq, neq)) ,"]*",
                   rep("sigma", neq^2),"[",rep(1:neq, neq) ,"]*",
                   rep("rho[",neq^2),sort(rep(1:neq,neq )),",",rep(1:neq, neq),"]" )
@@ -88,8 +88,8 @@ sigma%>%data.frame%>%kable
 # Maxima command for variance-covariance matrix
 spy <- paste0(sapply(1:neq, function(i) paste0("[", paste0("",sigma[i,],"", collapse = ", "), "]")), collapse = ",")
 spy <- paste0("Sigma : matrix(", spy, ")")
-ym <- "y : matrix([y[1]], [y[2]], [y[3]])" # random variables
-mum <- "mu : matrix([mu[1]], [mu[2]], [mu[3]])" # vector of means
+ym <- 1:neq%>%paste0("[y[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("y: matrix(", ., ")") # random variables
+mum <- 1:neq%>%paste0("[mu[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("mu: matrix(", ., ")") # vector of means
 detm <- "dets : ratsimp(determinant(Sigma))" # determinant of variance-covariance matrix
 invm <- "invs : ratsimp(invert(Sigma))" #inverse of variance-covariance matrix
 expinside <- "inside: ratsimp(transpose(y-mu).invert(Sigma).(y-mu))" #exponent in multivariate noraml distribution
