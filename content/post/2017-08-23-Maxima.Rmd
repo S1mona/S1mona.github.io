@@ -126,19 +126,19 @@ cat( res$tex[[1]], "\n")
 Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:
 
 ```{r, results='asis', echo=FALSE}
-cat( res$tex[[1]], "\n")
+cat( res$tex[[2]], "\n")
 ```
 
 Exponent,  `r rinline("res$tex[[3]]")`:
 
 ```{r, results='asis', echo=FALSE}
-cat( res$tex[[1]], "\n")
+cat( res$tex[[3]], "\n")
 ```
 
 Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r, results='asis', echo=FALSE}
-cat( res$tex[[1]], "\n")
+cat( res$tex[[4]], "\n")
 ```
 
 ## Evaluate expression from Maxima in R:
