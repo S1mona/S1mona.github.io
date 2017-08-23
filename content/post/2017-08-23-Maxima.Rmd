@@ -88,6 +88,7 @@ sigma%>%data.frame%>%kable
 # Maxima command for variance-covariance matrix
 spy <- paste0(sapply(1:neq, function(i) paste0("[", paste0("",sigma[i,],"", collapse = ", "), "]")), collapse = ",")
 spy <- paste0("Sigma : matrix(", spy, ")")
+
 ym <- 1:neq%>%paste0("[y[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("y: matrix(", ., ")") # random variables
 mum <- 1:neq%>%paste0("[mu[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("mu: matrix(", ., ")") # vector of means
 detm <- "dets : ratsimp(determinant(Sigma))" # determinant of variance-covariance matrix
@@ -132,7 +133,7 @@ Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:
 Exponent,  `r rinline("res$tex[[3]]")`:
 
 ```{r, results='asis', echo=FALSE}
-cat( res$tex[[3]], "\n")
+#cat( res$tex[[3]], "\n")
 ```
 
 Density,  `r rinline("res$tex[[4]]")`:
