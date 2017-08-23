@@ -207,7 +207,7 @@ Exponent,  `r rinline("res$tex[[3]]")`:
 res$tex[[3]]%>%mod_string%>%cat(.,  "\n")
 ```
 
-A Density,  `r rinline("res$tex[[4]]")`:
+Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r, results='asis', echo=FALSE}
 res$tex[[4]]%>%mod_string%>%cat(.,  "\n")
