@@ -139,7 +139,7 @@ Exponent,  `r rinline("res$tex[[3]]")`:
 Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r, results='asis', echo=FALSE}
-cat( res$tex[[4]], "\n")
+#cat( res$tex[[4]], "\n")
 ```
 
 ## Evaluate expression from Maxima in R:
