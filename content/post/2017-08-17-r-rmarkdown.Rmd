@@ -2,7 +2,7 @@
 title: "R Blogdown Setup in GiHub"
 author: "Aurora Baluja"
 date: 2017-08-17T21:13:14-05:00
-categories: ["R", "test"]
+categories: ["test"]
 tags: ["R Markdown", "plot", "blogdown", "#rstats"]
 thumbnailImagePosition: left
 thumbnailImage: ./images/hexbins.png
