@@ -146,7 +146,6 @@ Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r echo=TRUE}
 expr <- res$expr[4]%>%paste0("1/(sqrt((2*pi)**",neq,"*",res$expr[1],"))*exp(-1/2*", ., ")")%>%gsub("\\[(\\d)\\]", "[[\\1]]",.)
-
 yy <- replicate(neq, {rnorm(100, mean=4, sd=2)})
 sigma <- apply(yy, 2, sd)
 rho <- cor(yy)
