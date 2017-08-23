@@ -213,6 +213,7 @@ Density,  `r rinline("res$tex[[4]]")`:
 res$tex[[4]]%>%mod_string%>%cat(.,  "\n")
 ```
 
+Testing.  
 
 ## Evaluate expression from Maxima in R:
 

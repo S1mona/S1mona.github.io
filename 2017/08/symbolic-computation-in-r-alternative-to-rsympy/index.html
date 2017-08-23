@@ -327,8 +327,10 @@ out &lt;- c(out, paste0(&quot;tex (&#39;&#39;%i&quot;,c(4, 5, 6, 8),&quot;)&quot
 <p><span class="math display">\[\left(\sigma_{1}^2-\sigma_{1}^2\,\rho_{1,2}^2\right)\,\sigma_{2}^2\]</span></p>
 <p>Inverse of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[2]]`</code>:asdasf</p>
 <p>Exponent, <code>`r res$tex[[3]]`</code>:</p>
-<p><span class="math display">\[-{\frac{\sigma_{1}^2\,y_{2}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\sigma_{2}-2\,\sigma_{1}^2\,\mu_{2}\right)\,y_{2}+\left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2\right)\,\sigma_{2}^2+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+\sigma_{1}^2\,\mu_{2}^2}{\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma_{2}^2}}\]</span> Density, <code>`r res$tex[[4]]`</code>:</p>
+<p><span class="math display">\[-{\frac{\sigma_{1}^2\,y_{2}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\sigma_{2}-2\,\sigma_{1}^2\,\mu_{2}\right)\,y_{2}+\left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2\right)\,\sigma_{2}^2+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+\sigma_{1}^2\,\mu_{2}^2}{\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma_{2}^2}}\]</span></p>
+<p>Density, <code>`r res$tex[[4]]`</code>:</p>
 <p><span class="math display">\[\frac{e^{\frac{\sigma_{1}^2\,y_{2}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\sigma_{2}-2\,\sigma_{1}^2\,\mu_{2}\right)\,y_{2}+\left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2\right)\,\sigma_{2}^2+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+\sigma_{1}^2\,\mu_{2}^2}{2\,\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma_{2}^2}}}{2\,\pi\,\sqrt{\sigma_{1}^2-\sigma_{1}^2\,\rho_{1,2}^2}\,\left|\sigma_{2}\right|}\]</span></p>
+<p>Testing.</p>
 </div>
 <div id="evaluate-expression-from-maxima-in-r" class="section level2">
 <h2>Evaluate expression from Maxima in R:</h2>
@@ -344,10 +346,10 @@ r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
 <h2>Comparison with results from other functions and packages:</h2>
 <pre class="r"><code>require(emdbook)
 yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 6.774908e-16</code></pre>
+## [1] 1.08759e-15</code></pre>
 <pre class="r"><code>require(mnormt)
 yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 7.069811e-16</code></pre>
+## [1] 9.852416e-16</code></pre>
 </div>
 
               
