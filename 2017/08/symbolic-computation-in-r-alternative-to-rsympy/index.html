@@ -1,0 +1,743 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.26">
+    <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
+    <title>Symbolic Computation in R, alternative to rSympy</title>
+    <meta name="author" content="aurora-mareviv">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="/./favicon.png">
+    
+
+    
+    <meta name="description" content="\[\alpha\]
+During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.">
+    <meta property="og:description" content="\[\alpha\]
+During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Symbolic Computation in R, alternative to rSympy">
+    <meta property="og:url" content="/2017/08/symbolic-computation-in-r-alternative-to-rsympy/">
+    <meta property="og:site_name" content="Tales of R - Rmarkdown Blog ">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tales of R - Rmarkdown Blog ">
+    <meta name="twitter:description" content="\[\alpha\]
+During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.">
+    
+      <meta name="twitter:creator" content="@maureviv">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="/logo.png">
+    
+
+    
+      <meta property="og:image" content="/images/hexbins.png">
+    
+    
+      <meta property="og:image" content="/logo1.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
+    
+    
+    <link rel="stylesheet" href="/./css/style-u6mk0ojoywresbx8iepslrmmhl4stuhrsxuwhkpwrkrx7mryjcaimasnk4pi.min.css" />
+    
+    
+      <link rel="stylesheet" href="/././css/my-style.css">
+    
+
+    
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-104312945-5', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/./">Tales of R - Rmarkdown Blog </a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/./#about">
+    
+    
+    
+      
+        <img class="header-picture" src="/./logo.png" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/./#about">
+          <img class="sidebar-profile-picture" src="/./logo.png" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">aurora-mareviv</h4>
+        
+          <h5 class="sidebar-profile-bio">Anesthesiologist, MD, PhD. Utter Rstats geek</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/maureviv" target="_blank">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/aurora-mareviv" target="_blank">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/1948108/mareviv" target="_blank">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-center
+              "
+       style="background-image:url('./logo1.png')"
+       data-behavior="4">
+    
+      <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title" itemprop="headline">
+      Symbolic Computation in R, alternative to rSympy
+    </h1>
+  
+  <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2017-08-17T21:13:14-05:00">
+      
+  August 17, 2017
+
+    </time>
+  
+  
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/./categories/maxima">Maxima</a>
+    
+  
+
+
+</div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="4"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
+
+
+<p><span class="math display">\[\alpha\]</span></p>
+<p>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a> an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima. I knew that one can do symbolic calculation in R with  and I even tried it, but it performed slow for my tasks, so I stayed with Maxima.<br />
+In this post I will provide some instructions for Windows users. So the first step is to download and install <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a>. I wrote a function, which feeds commands into Maxima, executes them, returns expressions, that can be evaluated in R, and allows the user to get tex expressions.</p>
+<div id="function" class="section level2">
+<h2>Function</h2>
+<pre class="r"><code>runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&quot;, tex=TRUE){
+  #obj - intermediate Maxima calculations
+  #out - output from Maxima
+  #pathm - path to maxima.bat
+  #tex - include tex expressions
+  #execute lines in wxMaxima
+  com &lt;- c(paste0(obj, &quot; ; &quot;), paste0(out, &quot; ; &quot;))%&gt;%paste0( collapse = &quot;&quot;)
+  a &lt;- shell(paste0(&#39;echo &#39;, com , &#39; | &quot;&#39;, pathm, &#39;&quot;&#39;), intern=TRUE)
+  #form blocks of output
+  start &lt;- c(1, grep(&quot;\\(%o&quot;,a) )%&gt;%unique # output in Maxima begins with lines &quot;(%o\\d)&quot;
+  end &lt;- start-1 # end of output
+  end &lt;- c(end[-1],length(a))
+  aa &lt;- lapply(1:length(start), function(i) a[start[i]:end[i]]) # form output blocks
+  #in Maxima tex output begins with $$ and ends with $$
+  aa2 &lt;- aa[sapply(aa, function(x) any(grepl(&quot;^\\$\\$|\\$\\$$&quot;,x)))]
+  aa2 &lt;- lapply(aa2, function(x)x[!grepl(&quot;false|done|new&quot;, x)])
+  aa2 &lt;- lapply(aa2, function(x)paste0(x, collapse = &quot;&quot;))
+  #search the blocks that belong to output
+  aa &lt;- aa[sapply(aa, function(x) any(grepl(&quot;\\$$&quot;,x)))] #in Maxima the last output of line is given by $
+  aa &lt;- aa[sapply(aa, function(x)!any(grepl(&quot;^\\$\\$|\\$\\$$&quot;,x)))] #remove tex blocks, they begin with $
+  aa &lt;- lapply(aa, function(x)x[!grepl(&quot;done|new|false&quot;, x)]) #remove some unnec. output
+  aa &lt;- lapply(aa, function(x) x%&gt;%paste0(., collapse = &quot;&quot;)%&gt;%gsub(&quot;(  )|\\$$&quot;,&quot;&quot;,.))# remove $ and spaces
+  names(aa) &lt;- 1:length(aa)
+  if (length(aa2)&gt;0) names(aa2) &lt;- 1:length(aa2)
+  list(expr=aa, tex=aa2)
+}</code></pre>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<p>Suppose for some reason, one needs to get expressions of trivariate normal distribution. First lets form variance-covariance matrix for usage in Maxima. R output:</p>
+<pre class="r"><code>library(magrittr)
+library(knitr)
+neq &lt;- 3
+sigma &lt;- paste0(rep(&quot;sigma&quot;, neq^2),&quot;[&quot;,sort(rep(1:neq, neq)) ,&quot;]*&quot;,
+                  rep(&quot;sigma&quot;, neq^2),&quot;[&quot;,rep(1:neq, neq) ,&quot;]*&quot;,
+                  rep(&quot;rho[&quot;,neq^2),sort(rep(1:neq,neq )),&quot;,&quot;,rep(1:neq, neq),&quot;]&quot; )
+sigma &lt;- matrix(sigma, neq, neq, byrow = TRUE) 
+diag(sigma) &lt;- gsub(&quot;rho[[]\\d{1,2},\\d{1,2}[]]&quot;,&quot;&quot;,diag(sigma))
+diag(sigma) &lt;- paste0(gsub(&quot;[*].*&quot;,&quot;&quot;,diag(sigma)),&quot;**2&quot;)
+sigma[lower.tri(sigma)] &lt;- sort(sigma[upper.tri(sigma)])</code></pre>
+<pre class="r"><code>sigma%&gt;%data.frame%&gt;%kable</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">X1</th>
+<th align="left">X2</th>
+<th align="left">X3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sigma[1]**2</td>
+<td align="left">sigma[1]<em>sigma[2]</em>rho[1,2]</td>
+<td align="left">sigma[1]<em>sigma[3]</em>rho[1,3]</td>
+</tr>
+<tr class="even">
+<td align="left">sigma[1]<em>sigma[2]</em>rho[1,2]</td>
+<td align="left">sigma[2]**2</td>
+<td align="left">sigma[2]<em>sigma[3]</em>rho[2,3]</td>
+</tr>
+<tr class="odd">
+<td align="left">sigma[1]<em>sigma[3]</em>rho[1,3]</td>
+<td align="left">sigma[2]<em>sigma[3]</em>rho[2,3]</td>
+<td align="left">sigma[3]**2</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Maxima command for variance-covariance matrix
+spy &lt;- paste0(sapply(1:neq, function(i) paste0(&quot;[&quot;, paste0(&quot;&quot;,sigma[i,],&quot;&quot;, collapse = &quot;, &quot;), &quot;]&quot;)), collapse = &quot;,&quot;)
+spy &lt;- paste0(&quot;Sigma : matrix(&quot;, spy, &quot;)&quot;)
+ym &lt;- &quot;y : matrix([y[1]], [y[2]], [y[3]])&quot; # random variables
+mum &lt;- &quot;mu : matrix([mu[1]], [mu[2]], [mu[3]])&quot; # vector of means
+detm &lt;- &quot;dets : ratsimp(determinant(Sigma))&quot; # determinant of variance-covariance matrix
+invm &lt;- &quot;invs : ratsimp(invert(Sigma))&quot; #inverse of variance-covariance matrix
+expinside &lt;- &quot;inside: ratsimp(transpose(y-mu).invert(Sigma).(y-mu))&quot; #exponent in multivariate noraml distribution
+MNf &lt;- paste0(&quot;phi(x, mu, var):= 1/(sqrt((2*%pi)**&quot;,neq,&quot;*ratsimp(determinant(var))))*%e**(-1/2*ratsimp(transpose(x-mu).invert(var).(x-mu)))&quot;)
+expr &lt;- &quot;expt : phi(y, mu, Sigma)&quot; # define a function in Maxima
+obj &lt;- c(ym, mum, spy, detm, invm, expinside, MNf, expr) # vector with expressions
+# print(new) is simply a place holder, grind function produces output which can be evaluated
+out &lt;- c(&#39;print(new)&#39;, &#39;grind(dets)&#39;,  &#39;print(new)&#39;, &#39;grind(invs)&#39;, &#39;print(new)&#39;, &#39;grind(expt)&#39;, &#39;print(new)&#39;, &#39;grind(inside)&#39;) 
+# &#39;&#39;i(index) takes object from the input supplied to Maxima and tex function produces tex output 
+out &lt;- c(out, paste0(&quot;tex (&#39;&#39;%i&quot;,c(4, 5, 6, 8),&quot;)&quot;)) </code></pre>
+<pre class="r"><code>res &lt;- runMaxima(obj, out)</code></pre>
+</div>
+<div id="some-tex-output." class="section level2">
+<h2>Some tex output.</h2>
+<p>Determinant of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[1]]`</code>:</p>
+<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+<p>Inverse of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[2]]`</code>:</p>
+<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+<p>Exponent, <code>`r res$tex[[3]]`</code>:</p>
+<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+<p>Density, <code>`r res$tex[[4]]`</code>:</p>
+<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+</div>
+<div id="evaluate-expression-from-maxima-in-r" class="section level2">
+<h2>Evaluate expression from Maxima in R:</h2>
+<pre class="r"><code>expr &lt;- res$expr[4]%&gt;%paste0(&quot;1/(sqrt((2*pi)**&quot;,neq,&quot;*&quot;,res$expr[1],&quot;))*exp(-1/2*&quot;, ., &quot;)&quot;)%&gt;%gsub(&quot;\\[(\\d)\\]&quot;, &quot;[[\\1]]&quot;,.)
+
+yy &lt;- replicate(neq, {rnorm(100, mean=4, sd=2)})
+sigma &lt;- apply(yy, 2, sd)
+rho &lt;- cor(yy)
+y &lt;- lapply(1:neq, function(x)yy[,x])
+mu &lt;- apply(yy, 2, mean)
+r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
+</div>
+<div id="comparison-with-results-from-other-functions-and-packages" class="section level2">
+<h2>Comparison with results from other functions and packages:</h2>
+<pre class="r"><code>require(emdbook)
+yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
+## [1] 1.847904e-16</code></pre>
+<pre class="r"><code>require(mnormt)
+yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
+## [1] 1.978821e-16</code></pre>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/././/tags/r-markdown/">R Markdown</a>
+
+  <a class="tag tag--primary tag--small" href="/././/tags/plot/">plot</a>
+
+  <a class="tag tag--primary tag--small" href="/././/tags/blogdown/">blogdown</a>
+
+  <a class="tag tag--primary tag--small" href="/././/tags/#rstats/">#rstats</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/./2017/08/r-blogdown-setup-in-gihub/" data-tooltip="R Blogdown Setup in GiHub">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 aurora-mareviv. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/./2017/08/r-blogdown-setup-in-gihub/" data-tooltip="R Blogdown Setup in GiHub">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+        <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+        <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2f.%2f2017%2f08%2fsymbolic-computation-in-r-alternative-to-rsympy%2f">
+        <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="/./logo.png" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">aurora-mareviv</h4>
+    
+      <div id="about-card-bio">Anesthesiologist, MD, PhD. Utter Rstats geek</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Universidade de Santiago de Compostela
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Spain
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/././2017/08/r-blogdown-setup-in-gihub/">
+                <h3 class="media-heading">R Blogdown Setup in GiHub</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">The blogdown R package Finally, -after 24h of failed attempts-, I could get my favourite Hugo theme up and running with R Studio and Blogdown.
+After exploring some alternatives, like Shirin’s (with Jekyll), and Amber Thomas advice (which involved Git skills beyond my basic abilities), I was able to install Yihui’s hugo-lithium-theme in a new repository.
+However, I wanted to explore other blog templates, hosted in GiHub, like:</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/././2017/08/symbolic-computation-in-r-alternative-to-rsympy/">
+                <h3 class="media-heading">Symbolic Computation in R, alternative to rSympy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">\[\alpha\]
+During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/././post/">
+                <h3 class="media-heading">Posts</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         3 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/Canido-Beach2.jpg');"></div>
+  
+
+
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.js"></script>
+
+
+<script src="/./js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight').each(function(i, block) {
+    var code = "";
+    hljs.highlightAuto(block.innerText).value.split(/\r\n|\r|\n/).forEach(function(line) {
+      code += "<span class=\"line\">" + line + "</span><br>";
+    });
+    if (code.length > 0) {
+      block.innerHTML = code;  
+    }
+  });
+  $('pre > code').each(function(i, block) {
+    $(this).addClass('codeblock');
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+  
+    
+  
+
+
+
+
+   <script src="/././js/myjs.js"></script>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async
+src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+  </body>
+</html>
+

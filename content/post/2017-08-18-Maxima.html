@@ -1,0 +1,141 @@
+---
+title: "Symbolic Computation in R, alternative to rSympy"
+author: "Simona Jokubauskaite"
+date: 2017-08-17T21:13:14-05:00
+categories: ["Maxima"]
+tags: ["R Markdown", "plot", "blogdown", "#rstats"]
+thumbnailImagePosition: left
+thumbnailImage: ./images/hexbins.png
+coverImage: ./logo1.png
+metaAlignment: center
+disable_comments: true
+output:
+  blogdown::html_page:
+    toc: false
+    fig_width: 8
+    css: "/css/my-style.css"
+--- 
+
+  <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
+
+
+<p><span class="math display">\[\alpha\]</span></p>
+<p>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a> an open-source, easy to install and use program. For many years(lets say seven or eight) I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima. I knew that one can do symbolic calculation in R with  and I even tried it, but it performed slow for my tasks, so I stayed with Maxima.<br />
+In this post I will provide some instructions for Windows users. So the first step is to download and install <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a>. I wrote a function, which feeds commands into Maxima, executes them, returns expressions, that can be evaluated in R, and allows the user to get tex expressions.</p>
+<div id="function" class="section level2">
+<h2>Function</h2>
+<pre class="r"><code>runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&quot;, tex=TRUE){
+  #obj - intermediate Maxima calculations
+  #out - output from Maxima
+  #pathm - path to maxima.bat
+  #tex - include tex expressions
+  #execute lines in wxMaxima
+  com &lt;- c(paste0(obj, &quot; ; &quot;), paste0(out, &quot; ; &quot;))%&gt;%paste0( collapse = &quot;&quot;)
+  a &lt;- shell(paste0(&#39;echo &#39;, com , &#39; | &quot;&#39;, pathm, &#39;&quot;&#39;), intern=TRUE)
+  #form blocks of output
+  start &lt;- c(1, grep(&quot;\\(%o&quot;,a) )%&gt;%unique # output in Maxima begins with lines &quot;(%o\\d)&quot;
+  end &lt;- start-1 # end of output
+  end &lt;- c(end[-1],length(a))
+  aa &lt;- lapply(1:length(start), function(i) a[start[i]:end[i]]) # form output blocks
+  #in Maxima tex output begins with $$ and ends with $$
+  aa2 &lt;- aa[sapply(aa, function(x) any(grepl(&quot;^\\$\\$|\\$\\$$&quot;,x)))]
+  aa2 &lt;- lapply(aa2, function(x)x[!grepl(&quot;false|done|new&quot;, x)])
+  aa2 &lt;- lapply(aa2, function(x)paste0(x, collapse = &quot;&quot;))
+  #search the blocks that belong to output
+  aa &lt;- aa[sapply(aa, function(x) any(grepl(&quot;\\$$&quot;,x)))] #in Maxima the last output of line is given by $
+  aa &lt;- aa[sapply(aa, function(x)!any(grepl(&quot;^\\$\\$|\\$\\$$&quot;,x)))] #remove tex blocks, they begin with $
+  aa &lt;- lapply(aa, function(x)x[!grepl(&quot;done|new|false&quot;, x)]) #remove some unnec. output
+  aa &lt;- lapply(aa, function(x) x%&gt;%paste0(., collapse = &quot;&quot;)%&gt;%gsub(&quot;(  )|\\$$&quot;,&quot;&quot;,.))# remove $ and spaces
+  names(aa) &lt;- 1:length(aa)
+  if (length(aa2)&gt;0) names(aa2) &lt;- 1:length(aa2)
+  list(expr=aa, tex=aa2)
+}</code></pre>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<p>Suppose for some reason, one needs to get expressions of trivariate normal distribution. First lets form variance-covariance matrix for usage in Maxima. R output:</p>
+<pre class="r"><code>library(magrittr)
+library(knitr)
+neq &lt;- 3
+sigma &lt;- paste0(rep(&quot;sigma&quot;, neq^2),&quot;[&quot;,sort(rep(1:neq, neq)) ,&quot;]*&quot;,
+                  rep(&quot;sigma&quot;, neq^2),&quot;[&quot;,rep(1:neq, neq) ,&quot;]*&quot;,
+                  rep(&quot;rho[&quot;,neq^2),sort(rep(1:neq,neq )),&quot;,&quot;,rep(1:neq, neq),&quot;]&quot; )
+sigma &lt;- matrix(sigma, neq, neq, byrow = TRUE) 
+diag(sigma) &lt;- gsub(&quot;rho[[]\\d{1,2},\\d{1,2}[]]&quot;,&quot;&quot;,diag(sigma))
+diag(sigma) &lt;- paste0(gsub(&quot;[*].*&quot;,&quot;&quot;,diag(sigma)),&quot;**2&quot;)
+sigma[lower.tri(sigma)] &lt;- sort(sigma[upper.tri(sigma)])</code></pre>
+<pre class="r"><code>sigma%&gt;%data.frame%&gt;%kable</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">X1</th>
+<th align="left">X2</th>
+<th align="left">X3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sigma[1]**2</td>
+<td align="left">sigma[1]<em>sigma[2]</em>rho[1,2]</td>
+<td align="left">sigma[1]<em>sigma[3]</em>rho[1,3]</td>
+</tr>
+<tr class="even">
+<td align="left">sigma[1]<em>sigma[2]</em>rho[1,2]</td>
+<td align="left">sigma[2]**2</td>
+<td align="left">sigma[2]<em>sigma[3]</em>rho[2,3]</td>
+</tr>
+<tr class="odd">
+<td align="left">sigma[1]<em>sigma[3]</em>rho[1,3]</td>
+<td align="left">sigma[2]<em>sigma[3]</em>rho[2,3]</td>
+<td align="left">sigma[3]**2</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Maxima command for variance-covariance matrix
+spy &lt;- paste0(sapply(1:neq, function(i) paste0(&quot;[&quot;, paste0(&quot;&quot;,sigma[i,],&quot;&quot;, collapse = &quot;, &quot;), &quot;]&quot;)), collapse = &quot;,&quot;)
+spy &lt;- paste0(&quot;Sigma : matrix(&quot;, spy, &quot;)&quot;)
+ym &lt;- &quot;y : matrix([y[1]], [y[2]], [y[3]])&quot; # random variables
+mum &lt;- &quot;mu : matrix([mu[1]], [mu[2]], [mu[3]])&quot; # vector of means
+detm &lt;- &quot;dets : ratsimp(determinant(Sigma))&quot; # determinant of variance-covariance matrix
+invm &lt;- &quot;invs : ratsimp(invert(Sigma))&quot; #inverse of variance-covariance matrix
+expinside &lt;- &quot;inside: ratsimp(transpose(y-mu).invert(Sigma).(y-mu))&quot; #exponent in multivariate noraml distribution
+MNf &lt;- paste0(&quot;phi(x, mu, var):= 1/(sqrt((2*%pi)**&quot;,neq,&quot;*ratsimp(determinant(var))))*%e**(-1/2*ratsimp(transpose(x-mu).invert(var).(x-mu)))&quot;)
+expr &lt;- &quot;expt : phi(y, mu, Sigma)&quot; # define a function in Maxima
+obj &lt;- c(ym, mum, spy, detm, invm, expinside, MNf, expr) # vector with expressions
+# print(new) is simply a place holder, grind function produces output which can be evaluated
+out &lt;- c(&#39;print(new)&#39;, &#39;grind(dets)&#39;,  &#39;print(new)&#39;, &#39;grind(invs)&#39;, &#39;print(new)&#39;, &#39;grind(expt)&#39;, &#39;print(new)&#39;, &#39;grind(inside)&#39;) 
+# &#39;&#39;i(index) takes object from the input supplied to Maxima and tex function produces tex output 
+out &lt;- c(out, paste0(&quot;tex (&#39;&#39;%i&quot;,c(4, 5, 6, 8),&quot;)&quot;)) </code></pre>
+<pre class="r"><code>res &lt;- runMaxima(obj, out)</code></pre>
+</div>
+<div id="some-tex-output." class="section level2">
+<h2>Some tex output.</h2>
+<p>Determinant of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[1]]`</code>:</p>
+<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+<p>Inverse of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[2]]`</code>:</p>
+<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+<p>Exponent, <code>`r res$tex[[3]]`</code>:</p>
+<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+<p>Density, <code>`r res$tex[[4]]`</code>:</p>
+<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+</div>
+<div id="evaluate-expression-from-maxima-in-r" class="section level2">
+<h2>Evaluate expression from Maxima in R:</h2>
+<pre class="r"><code>expr &lt;- res$expr[4]%&gt;%paste0(&quot;1/(sqrt((2*pi)**&quot;,neq,&quot;*&quot;,res$expr[1],&quot;))*exp(-1/2*&quot;, ., &quot;)&quot;)%&gt;%gsub(&quot;\\[(\\d)\\]&quot;, &quot;[[\\1]]&quot;,.)
+
+yy &lt;- replicate(neq, {rnorm(100, mean=4, sd=2)})
+sigma &lt;- apply(yy, 2, sd)
+rho &lt;- cor(yy)
+y &lt;- lapply(1:neq, function(x)yy[,x])
+mu &lt;- apply(yy, 2, mean)
+r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
+</div>
+<div id="comparison-with-results-from-other-functions-and-packages" class="section level2">
+<h2>Comparison with results from other functions and packages:</h2>
+<pre class="r"><code>require(emdbook)
+yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
+## [1] 1.847904e-16</code></pre>
+<pre class="r"><code>require(mnormt)
+yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
+## [1] 1.978821e-16</code></pre>
+</div>
