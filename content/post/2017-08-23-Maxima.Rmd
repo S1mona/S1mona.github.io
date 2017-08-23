@@ -128,7 +128,7 @@ cat( res$tex[[1]], "\n")
 Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:asdasf
 
 ```{r, results='asis', echo=FALSE}
-cat(res$tex[[2]]%>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$"), "\n")
+#cat(res$tex[[2]]%>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$"), "\n")
 ```
 
 
@@ -138,6 +138,9 @@ Exponent,  `r rinline("res$tex[[3]]")`:
 ```{r, results='asis', echo=FALSE}
 #cat( res$tex[[3]], "\n")
 ```
+
+$$-\frac{\sigma_{1}^2\,y_{2}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\, \sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\sigma_{2}-2\,\sigma_{1}^2\, \mu_{2}\right)\,y_{2}+\left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2 \right)\,\sigma_{2}^2+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma _{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+\sigma_{1}^2\,\mu_{2}^2 }{\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma _{2}^2}$$ 
+
 
 Density,  `r rinline("res$tex[[4]]")`:
 
