@@ -162,7 +162,7 @@ if(res$tex[[3]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[3]]%>%grepl("\\}\\}\\
 
 ```
 
-Density,  `r rinline("res$tex[[4]]")`:
+A Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r, results='asis', echo=FALSE}
 #problems with {{...}}
