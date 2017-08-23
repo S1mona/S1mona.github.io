@@ -65,4 +65,10 @@
     <priority>0</priority>
   </url>
   
+  <url>
+    <loc>/./categories/test/</loc>
+    <lastmod>2017-08-17T21:13:14-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
 </urlset>

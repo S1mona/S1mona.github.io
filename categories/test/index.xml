@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Plot on Tales of R - Rmarkdown Blog </title>
-    <link>/./tags/plot/</link>
-    <description>Recent content in Plot on Tales of R - Rmarkdown Blog </description>
+    <title>Test on Tales of R - Rmarkdown Blog </title>
+    <link>/./categories/test/</link>
+    <description>Recent content in Test on Tales of R - Rmarkdown Blog </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 17 Aug 2017 21:13:14 -0500</lastBuildDate>
     
-	<atom:link href="/./tags/plot/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/./categories/test/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
