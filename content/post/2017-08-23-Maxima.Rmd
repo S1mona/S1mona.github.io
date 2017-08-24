@@ -1,5 +1,5 @@
 ---
-title: "Symbolic Computation in R, alternative to rSympy"
+title: "Symbolic Computation, R + Maxima"
 author: "Simona Jokubauskaite"
 date: 2017-08-23T21:13:14-05:00
 categories: ["R+Maxima"]
@@ -21,9 +21,11 @@ output:
 knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=FALSE, collapse = TRUE)
 ```
 
-During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found   [wxMaxima](https://sourceforge.net/projects/wxmaxima/) an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima. I knew that one can do symbolic calculation in R with rSymPy and I even tried it, but it performed slow for my tasks, so I stayed with Maxima.  
+Package `rSymPy` offers a nice possibility to do symbolic computation in R. In this post I want to suggest an alternative to it, which helped me out to derive some complex expressions of conditional moments for multivariate normal distribution. 
+`rSymPy` was simply too slow for my tasks, so I remembered computer algebra system - [Maxima](http://maxima.sourceforge.net/).
+What is also nice, that this option also produces `Tex` output.
 In this post I will provide some instructions for Windows users. The first step is to download and install [wxMaxima](https://sourceforge.net/projects/wxmaxima/). 
-I wrote a function, which feeds commands into Maxima, executes them, returns expressions, that can be evaluated in R, and allows the user to get tex expressions.
+I wrote a function, which feeds commands into Maxima, executes them, returns strings, that can be evaluated in R, and allows the user to get `Tex` expressions.
 
 ## Function
 ```{r echo=TRUE}
@@ -95,7 +97,7 @@ sigma[lower.tri(sigma)] <- sort(sigma[upper.tri(sigma)])
 ```{r echo=FALSE}
 library(knitr)
 source("..\\..\\R\\00functions.R")
-sigma%>%data.frame%>%kable
+sigma %>% data.frame %>% kable
 ```
 
 Maxima command for variance-covariance matrix:
@@ -115,10 +117,9 @@ Vector of means:
 
 ```{r echo=TRUE}
 mum <- 1:neq%>%paste0("[mu[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("mu: matrix(", ., ")") 
-#mum <- neq%>%rep("[0]", .)%>%paste0(., collapse=", ")%>%paste0("mu: matrix(", ., ")") 
 ```
 
-Determinant of variance-covariance matrix, function ratsimp simplifies an expression:
+Determinant of variance-covariance matrix, function `ratsimp` simplifies an expression:
 
 ```{r echo=TRUE}
 detm <- "dets : ratsimp(determinant(Sigma))"
@@ -143,6 +144,7 @@ MNf <- paste0("phi(x, mu, var):= 1/(sqrt((2*%pi)**",neq,"*ratsimp(determinant(va
 ```
 
 Get symbolic expression of MN with vector y, mu and matrix Sigma:
+
 ```{r echo=TRUE}
 expr <- "expt : phi(y, mu, Sigma)"
 ```
@@ -159,7 +161,7 @@ Additional commands for Maxima to get evaluable expressions (grind function prod
 out <- c('print(new)', 'grind(dets)',  'print(new)', 'grind(invs)', 'print(new)', 'grind(expt)', 'print(new)', 'grind(inside)') 
 ```
 
-"''i(\\d)" takes object from the input supplied to Maxima and tex function produces tex output: 
+"''i(\\d)" takes object from the input supplied to Maxima and `tex` function produces `Tex` output: 
 
 ```{r echo=TRUE}
 ind <- c(4, 5, 6, 8)
@@ -174,7 +176,7 @@ res <- runMaxima(obj, out)
 ```
 
 
-## Some tex output.
+## Some Tex output.
 
 
 Determinant of $\Sigma$,  `r rinline("res$tex[[1]]")`:
@@ -228,3 +230,5 @@ yy%>%dmvnorm(.,mu=mu,Sigma=cov(.))%>%"-"(r1)%>%abs%>%sum
 require(mnormt)
 yy%>%dmnorm(.,mean=mu,cov(.))%>%"-"(r1)%>%abs%>%sum
 ```
+
+Solution is not perfect, but it made my life so much easier.

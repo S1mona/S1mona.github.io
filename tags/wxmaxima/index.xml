@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Wxmaxima on Untitled</title>
+    <title>Wxmaxima on Who wonders ponders</title>
     <link>/./tags/wxmaxima/</link>
-    <description>Recent content in Wxmaxima on Untitled</description>
+    <description>Recent content in Wxmaxima on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 23 Aug 2017 21:13:14 -0500</lastBuildDate>
@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>Symbolic Computation in R, alternative to rSympy</title>
-      <link>/./2017/08/symbolic-computation-in-r-alternative-to-rsympy/</link>
+      <title>Symbolic Computation, R &#43; Maxima</title>
+      <link>/./2017/08/symbolic-computation-r---maxima/</link>
       <pubDate>Wed, 23 Aug 2017 21:13:14 -0500</pubDate>
       
-      <guid>/./2017/08/symbolic-computation-in-r-alternative-to-rsympy/</guid>
-      <description>During my bachelor studies I had to derive enormous amount of derivatives, integrals and limits. Being a huge fan of open-source programms, I began to look for something similar to Maple. That is how I found wxMaxima an open-source, easy to install and use program. For many years I did not use it, but recently I had to derive some expressions of conditional moments for multivariate normal distribution. Noway I was doing this by hand and I rememmbered the long forgotten Maxima.</description>
+      <guid>/./2017/08/symbolic-computation-r---maxima/</guid>
+      <description>Package rSymPy offers a nice possibility to do symbolic computation in R. In this post I want to suggest an alternative to it, which helped me out to derive some complex expressions of conditional moments for multivariate normal distribution. rSymPy was simply too slow for my tasks, so I remembered computer algebra system - Maxima. What is also nice, that this option also produces Tex output. In this post I will provide some instructions for Windows users.</description>
     </item>
     
   </channel>
