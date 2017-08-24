@@ -97,3 +97,28 @@ mod_string <- function(str, .stro="(", .strc=")", collapseS = NULL){
     replace_over(., .stro, .strc)%>%replace_pmatrix(., .stro, .strc, collapseS = "")
   x
 }
+
+
+# df <- expand.grid(x = 0:2, y = 0:2)
+# df$z <- runif(nrow(df), min=0, max=20)
+# # default is compatible with geom_tile()○
+# p <- ggplot(df, aes(x, y, fill = z)) + geom_raster()+ 
+#   scale_fill_gradient2(low="#ffffb2", mid="#41b6c4", high="#045a8d")+theme(legend.title=element_blank(), legend.position = "none", 
+#                                                         legend.background =element_blank(),
+#                                                         axis.title.x=element_blank(), 
+#                                                         axis.ticks.x=element_blank(),
+#                                                         axis.ticks.y=element_blank(),
+#                                                         axis.title.y=element_blank(),
+#                                                         panel.border = element_blank(),
+#                                                         axis.text.x=element_blank(),
+#                                                         axis.text.y=element_blank(),
+#                                                         panel.grid.major.x =  element_blank(),
+#                                                         panel.grid.minor = element_blank(), 
+#                                                         panel.grid.major = element_blank(),
+#                                                         plot.background = element_rect(fill = "transparent",colour = NA),
+#                                                         panel.background = element_rect(fill = "transparent",colour = NA))
+# #ggsave("logo1.png", width = 30, height=30)
+# #p
+# png('logo1.png',width=300,height=300,units="px",bg = "transparent")
+# print(p)
+# dev.off()
