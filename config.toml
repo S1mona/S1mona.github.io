@@ -95,19 +95,26 @@ enableEmoji = true
 #  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-twitter\"></i>"
 #  url = "https://twitter.com/maureviv"
 [[menu.links]]
-  weight = 2
+  weight = 3
   identifier = "github"
   name = "GitHub"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-github\"></i>"
   url = "https://github.com/S1mona"
 
-#[[menu.misc]]
-#  weight = 0
-#  identifier = "rss"
-#  name = "RSS"
-#  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-rss\"></i>"
-#  url = "/index.xml"
+[[menu.misc]]
+  weight = 1
+  identifier = "rss"
+  name = "RSS"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-rss\"></i>"
+  url = "/index.xml"
 
+[[menu.misc]]
+  weight = 2
+  identifier = "rsswidget"
+  name = "R-bloggers"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-rss\"></i>"
+  url = "https://www.r-bloggers.com/"
+  
 [params]
   # Customize date format use to render blog post date, categories and other
   # You must use date format used by Go Time package https://golang.org/pkg/time/
