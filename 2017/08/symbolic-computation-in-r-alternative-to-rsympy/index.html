@@ -281,13 +281,12 @@ runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&
 <div id="maxima-commands" class="section level2">
 <h2>Maxima commands</h2>
 <p>Form symbolic variance-covariance matrix:</p>
-<pre class="r"><code>t1 &lt;- neq%&gt;%&quot;^&quot;(2)%&gt;%rep(&quot;sigma&quot;, .)
-t2 &lt;- neq%&gt;%rep(1:., .)
+<pre class="r"><code>t2 &lt;- neq%&gt;%rep(1:., .)
 t3 &lt;- t2%&gt;%sort
 t4 &lt;- neq%&gt;%&quot;^&quot;(2)%&gt;%rep(&quot;rho[&quot;, .)
-sigma &lt;- paste0(t1, &quot;[&quot;, t3 , &quot;]*&quot;, t1,&quot;[&quot;,t2 ,&quot;]*&quot;, t4, t3,&quot;,&quot;, t2, &quot;]&quot; )
+sigma &lt;- paste0( t4, t3,&quot;,&quot;, t2, &quot;]&quot; )
 sigma &lt;- matrix(sigma, neq, neq, byrow = TRUE) 
-diag(sigma) %&lt;&gt;% gsub(&quot;\\*sigma\\[\\d{1,2}\\]\\*rho\\[\\d{1,2},\\d{1,2}\\]&quot;,&quot;**2&quot;, .)
+diag(sigma) &lt;- 1
 sigma[lower.tri(sigma)] &lt;- sort(sigma[upper.tri(sigma)])</code></pre>
 <table>
 <thead>
@@ -299,19 +298,19 @@ sigma[lower.tri(sigma)] &lt;- sort(sigma[upper.tri(sigma)])</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">sigma[1]**2</td>
-<td align="left">sigma[1]<em>sigma[2]</em>rho[1,2]</td>
-<td align="left">sigma[1]<em>sigma[3]</em>rho[1,3]</td>
+<td align="left">1</td>
+<td align="left">rho[1,2]</td>
+<td align="left">rho[1,3]</td>
 </tr>
 <tr class="even">
-<td align="left">sigma[1]<em>sigma[2]</em>rho[1,2]</td>
-<td align="left">sigma[2]**2</td>
-<td align="left">sigma[2]<em>sigma[3]</em>rho[2,3]</td>
+<td align="left">rho[1,2]</td>
+<td align="left">1</td>
+<td align="left">rho[2,3]</td>
 </tr>
 <tr class="odd">
-<td align="left">sigma[1]<em>sigma[3]</em>rho[1,3]</td>
-<td align="left">sigma[2]<em>sigma[3]</em>rho[2,3]</td>
-<td align="left">sigma[3]**2</td>
+<td align="left">rho[1,3]</td>
+<td align="left">rho[2,3]</td>
+<td align="left">1</td>
 </tr>
 </tbody>
 </table>
@@ -319,9 +318,10 @@ sigma[lower.tri(sigma)] &lt;- sort(sigma[upper.tri(sigma)])</code></pre>
 <pre class="r"><code>spy &lt;- paste0(sapply(1:neq, function(i) paste0(&quot;[&quot;, paste0(&quot;&quot;,sigma[i,],&quot;&quot;, collapse = &quot;, &quot;), &quot;]&quot;)), collapse = &quot;,&quot;)
 spy &lt;- paste0(&quot;Sigma : matrix(&quot;, spy, &quot;)&quot;)</code></pre>
 <p>Random variable vector:</p>
-<pre class="r"><code>ym &lt;- 1:neq%&gt;%paste0(&quot;[y[&quot;, .,&quot;]]&quot;)%&gt;%paste0(., collapse=&quot;, &quot;)%&gt;%paste0(&quot;y: matrix(&quot;, ., &quot;)&quot;) # random variables</code></pre>
+<pre class="r"><code>ym &lt;- 1:neq%&gt;%paste0(&quot;[y[&quot;, .,&quot;]]&quot;)%&gt;%paste0(., collapse=&quot;, &quot;)%&gt;%paste0(&quot;y: matrix(&quot;, ., &quot;)&quot;) </code></pre>
 <p>Vector of means:</p>
-<pre class="r"><code>mum &lt;- 1:neq%&gt;%paste0(&quot;[mu[&quot;, .,&quot;]]&quot;)%&gt;%paste0(., collapse=&quot;, &quot;)%&gt;%paste0(&quot;mu: matrix(&quot;, ., &quot;)&quot;) # vector of means</code></pre>
+<pre class="r"><code>#mum &lt;- 1:neq%&gt;%paste0(&quot;[mu[&quot;, .,&quot;]]&quot;)%&gt;%paste0(., collapse=&quot;, &quot;)%&gt;%paste0(&quot;mu: matrix(&quot;, ., &quot;)&quot;) 
+mum &lt;- neq%&gt;%rep(&quot;[0]&quot;, .)%&gt;%paste0(., collapse=&quot;, &quot;)%&gt;%paste0(&quot;mu: matrix(&quot;, ., &quot;)&quot;) </code></pre>
 <p>Determinant of variance-covariance matrix, function ratsimp simplifies an expression:</p>
 <pre class="r"><code>detm &lt;- &quot;dets : ratsimp(determinant(Sigma))&quot;</code></pre>
 <p>Inverse of variance-covariance matrix:</p>
@@ -347,13 +347,13 @@ out &lt;- c(out, paste0(&quot;tex (&#39;&#39;%i&quot;, ind,&quot;)&quot;)) </cod
 <div id="some-tex-output." class="section level2">
 <h2>Some tex output.</h2>
 <p>Determinant of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[1]]`</code>:</p>
-<p><span class="math display">\[\left(-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2\, \rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1}^2 \,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2\right)\,\sigma_{3}^2\]</span></p>
+<p><span class="math display">\[-\rho_{2,3}^2+2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}-\rho_{1,3}^2- \rho_{1,2}^2+1\]</span></p>
 <p>Inverse of <span class="math inline">\(\Sigma\)</span>, <code>`r res$tex[[2]]`</code>:</p>
-<p><span class="math display">\[\begin{bmatrix}{\frac{\rho_{2,3}^2-1}{\sigma_{1}^2\,\rho_{2,3}^2-2\, \sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+\sigma_{1}^2\,\rho _{1,3}^2+\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2}}&amp;-{\frac{\rho_{1,3}\, \rho_{2,3}-\rho_{1,2}}{\sigma_{1}\,\sigma_{2}\,\rho_{2,3}^2-2\, \sigma_{1}\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,\rho_{2,3}+\left( \sigma_{1}\,\rho_{1,3}^2+\sigma_{1}\,\rho_{1,2}^2-\sigma_{1}\right) \,\sigma_{2}}}&amp;-{\frac{\rho_{1,2}\,\rho_{2,3}-\rho_{1,3}}{\left( \sigma_{1}\,\rho_{2,3}^2-2\,\sigma_{1}\,\rho_{1,2}\,\rho_{1,3}\,\rho _{2,3}+\sigma_{1}\,\rho_{1,3}^2+\sigma_{1}\,\rho_{1,2}^2-\sigma_{1} \right)\,\sigma_{3}}}\cr -{\frac{\rho_{1,3}\,\rho_{2,3}-\rho_{1,2}}{ \sigma_{1}\,\sigma_{2}\,\rho_{2,3}^2-2\,\sigma_{1}\,\rho_{1,2}\,\rho _{1,3}\,\sigma_{2}\,\rho_{2,3}+\left(\sigma_{1}\,\rho_{1,3}^2+\sigma _{1}\,\rho_{1,2}^2-\sigma_{1}\right)\,\sigma_{2}}}&amp;{\frac{\rho_{1,3}^2-1 }{\sigma_{2}^2\,\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\sigma _{2}^2\,\rho_{2,3}+\left(\rho_{1,3}^2+\rho_{1,2}^2-1\right)\,\sigma _{2}^2}}&amp;{\frac{\rho_{2,3}-\rho_{1,2}\,\rho_{1,3}}{\left(\sigma_{2} \,\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,\rho_{2,3}+ \left(\rho_{1,3}^2+\rho_{1,2}^2-1\right)\,\sigma_{2}\right)\,\sigma _{3}}}\cr -{\frac{\rho_{1,2}\,\rho_{2,3}-\rho_{1,3}}{\left(\sigma_{1 }\,\rho_{2,3}^2-2\,\sigma_{1}\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+ \sigma_{1}\,\rho_{1,3}^2+\sigma_{1}\,\rho_{1,2}^2-\sigma_{1}\right) \,\sigma_{3}}}&amp;{\frac{\rho_{2,3}-\rho_{1,2}\,\rho_{1,3}}{\left( \sigma_{2}\,\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,\rho _{2,3}+\left(\rho_{1,3}^2+\rho_{1,2}^2-1\right)\,\sigma_{2}\right)\, \sigma_{3}}}&amp;{\frac{\rho_{1,2}^2-1}{\left(\rho_{2,3}^2-2\,\rho_{1,2} \,\rho_{1,3}\,\rho_{2,3}+\rho_{1,3}^2+\rho_{1,2}^2-1\right)\,\sigma _{3}^2}}\cr \end{bmatrix}\]</span></p>
+<p><span class="math display">\[\begin{bmatrix}{\frac{\rho_{2,3}^2-1}{\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1 ,3}\,\rho_{2,3}+\rho_{1,3}^2+\rho_{1,2}^2-1}}&amp;-{\frac{\rho_{1,3}\,\rho_{2 ,3}-\rho_{1,2}}{\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2 ,3}+\rho_{1,3}^2+\rho_{1,2}^2-1}}&amp;-{\frac{\rho_{1,2}\,\rho_{2,3}-\rho_{1, 3}}{\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+\rho_{1, 3}^2+\rho_{1,2}^2-1}}\cr -{\frac{\rho_{1,3}\,\rho_{2,3}-\rho_{1,2}}{ \rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+\rho_{1,3}^2+\rho _{1,2}^2-1}}&amp;{\frac{\rho_{1,3}^2-1}{\rho_{2,3}^2-2\,\rho_{1,2}\,\rho _{1,3}\,\rho_{2,3}+\rho_{1,3}^2+\rho_{1,2}^2-1}}&amp;{\frac{\rho_{2,3}-\rho_{ 1,2}\,\rho_{1,3}}{\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\rho _{2,3}+\rho_{1,3}^2+\rho_{1,2}^2-1}}\cr -{\frac{\rho_{1,2}\,\rho_{2,3}- \rho_{1,3}}{\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+ \rho_{1,3}^2+\rho_{1,2}^2-1}}&amp;{\frac{\rho_{2,3}-\rho_{1,2}\,\rho_{1,3} }{\rho_{2,3}^2-2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+\rho_{1,3} ^2+\rho_{1,2}^2-1}}&amp;{\frac{\rho_{1,2}^2-1}{\rho_{2,3}^2-2\,\rho_{1,2 }\,\rho_{1,3}\,\rho_{2,3}+\rho_{1,3}^2+\rho_{1,2}^2-1}}\cr \end{bmatrix}\]</span></p>
 <p>Exponent, <code>`r res$tex[[3]]`</code>:</p>
-<p><span class="math display">\[\frac{\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma_{2}^ 2\,y_{3}^2+\left(\left(\left(2\,\sigma_{1}^2\,\sigma_{2}\,y_{2}+ \left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,2} \,\sigma_{2}^2-2\,\sigma_{1}^2\,\mu_{2}\,\sigma_{2}\right)\,\rho_{2, 3}-2\,\sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,y_{2}+\left( 2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho_{1,3}\, \sigma_{2}^2+2\,\sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\mu_{2}\, \sigma_{2}\right)\,\sigma_{3}+\left(2\,\sigma_{1}^2-2\,\sigma_{1}^2 \,\rho_{1,2}^2\right)\,\sigma_{2}^2\,\mu_{3}\right)\,y_{3}+\left( \left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2\right)\,\sigma_{2}^2\,\rho _{2,3}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1} \right)\,\rho_{1,3}\,\sigma_{2}\,y_{2}+\left(2\,\sigma_{1}\,y_{1}-2 \,\mu_{1}\,\sigma_{1}\right)\,\rho_{1,3}\,\mu_{2}\,\sigma_{2}\right) \,\rho_{2,3}+\left(\sigma_{1}^2\,\rho_{1,3}^2-\sigma_{1}^2\right)\,y _{2}^2+\left(\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1} \right)\,\rho_{1,2}\,\sigma_{2}+\left(2\,\sigma_{1}^2-2\,\sigma_{1}^ 2\,\rho_{1,3}^2\right)\,\mu_{2}\right)\,y_{2}+\left(-y_{1}^2+2\,\mu _{1}\,y_{1}-\mu_{1}^2\right)\,\sigma_{2}^2+\left(2\,\mu_{1}\,\sigma _{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+ \left(\sigma_{1}^2\,\rho_{1,3}^2-\sigma_{1}^2\right)\,\mu_{2}^2 \right)\,\sigma_{3}^2+\left(\left(-2\,\sigma_{1}^2\,\sigma_{2}\,y_{2 }+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho_{1, 2}\,\sigma_{2}^2+2\,\sigma_{1}^2\,\mu_{2}\,\sigma_{2}\right)\,\rho_{ 2,3}+2\,\sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,y_{2}+ \left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,3} \,\sigma_{2}^2-2\,\sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\mu_{2}\, \sigma_{2}\right)\,\mu_{3}\,\sigma_{3}+\left(\sigma_{1}^2\,\rho_{1,2 }^2-\sigma_{1}^2\right)\,\sigma_{2}^2\,\mu_{3}^2}{\left(\sigma _{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2-2\,\sigma_{1}^2\,\rho_{1,2}\,\rho _{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(\sigma_{1}^2\,\rho_{1,3}^2+ \sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma_{2}^2\right) \,\sigma_{3}^2}\]</span></p>
+<p><span class="math display">\[\frac{\left(\rho_{1,2}^2-1\right)\,y_{3}^2+\left(\left(2\,y_{2}-2\,y_{1 }\,\rho_{1,2}\right)\,\rho_{2,3}-2\,\rho_{1,2}\,\rho_{1,3}\,y_{2}+2 \,y_{1}\,\rho_{1,3}\right)\,y_{3}+y_{1}^2\,\rho_{2,3}^2-2\,y_{1}\, \rho_{1,3}\,y_{2}\,\rho_{2,3}+\left(\rho_{1,3}^2-1\right)\,y_{2}^2+2 \,y_{1}\,\rho_{1,2}\,y_{2}-y_{1}^2}{\rho_{2,3}^2-2\,\rho_{1,2} \,\rho_{1,3}\,\rho_{2,3}+\rho_{1,3}^2+\rho_{1,2}^2-1}\]</span></p>
 <p>Density, <code>`r res$tex[[4]]`</code>:</p>
-<p><span class="math display">\[\frac{e^ {- {\frac{\left(\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\, \sigma_{2}^2\,y_{3}^2+\left(\left(\left(2\,\sigma_{1}^2\,\sigma_{2} \,y_{2}+\left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\, \rho_{1,2}\,\sigma_{2}^2-2\,\sigma_{1}^2\,\mu_{2}\,\sigma_{2}\right) \,\rho_{2,3}-2\,\sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,y _{2}+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho _{1,3}\,\sigma_{2}^2+2\,\sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\mu_{2 }\,\sigma_{2}\right)\,\sigma_{3}+\left(2\,\sigma_{1}^2-2\,\sigma_{1} ^2\,\rho_{1,2}^2\right)\,\sigma_{2}^2\,\mu_{3}\right)\,y_{3}+\left( \left(y_{1}^2-2\,\mu_{1}\,y_{1}+\mu_{1}^2\right)\,\sigma_{2}^2\,\rho _{2,3}^2+\left(\left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1} \right)\,\rho_{1,3}\,\sigma_{2}\,y_{2}+\left(2\,\sigma_{1}\,y_{1}-2 \,\mu_{1}\,\sigma_{1}\right)\,\rho_{1,3}\,\mu_{2}\,\sigma_{2}\right) \,\rho_{2,3}+\left(\sigma_{1}^2\,\rho_{1,3}^2-\sigma_{1}^2\right)\,y _{2}^2+\left(\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1} \right)\,\rho_{1,2}\,\sigma_{2}+\left(2\,\sigma_{1}^2-2\,\sigma_{1}^ 2\,\rho_{1,3}^2\right)\,\mu_{2}\right)\,y_{2}+\left(-y_{1}^2+2\,\mu _{1}\,y_{1}-\mu_{1}^2\right)\,\sigma_{2}^2+\left(2\,\mu_{1}\,\sigma _{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,2}\,\mu_{2}\,\sigma_{2}+ \left(\sigma_{1}^2\,\rho_{1,3}^2-\sigma_{1}^2\right)\,\mu_{2}^2 \right)\,\sigma_{3}^2+\left(\left(-2\,\sigma_{1}^2\,\sigma_{2}\,y_{2 }+\left(2\,\sigma_{1}\,y_{1}-2\,\mu_{1}\,\sigma_{1}\right)\,\rho_{1, 2}\,\sigma_{2}^2+2\,\sigma_{1}^2\,\mu_{2}\,\sigma_{2}\right)\,\rho_{ 2,3}+2\,\sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}\,y_{2}+ \left(2\,\mu_{1}\,\sigma_{1}-2\,\sigma_{1}\,y_{1}\right)\,\rho_{1,3} \,\sigma_{2}^2-2\,\sigma_{1}^2\,\rho_{1,2}\,\rho_{1,3}\,\mu_{2}\, \sigma_{2}\right)\,\mu_{3}\,\sigma_{3}+\left(\sigma_{1}^2\,\rho_{1,2 }^2-\sigma_{1}^2\right)\,\sigma_{2}^2\,\mu_{3}^2}{2\,\left( \sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2-2\,\sigma_{1}^2\,\rho_{1,2} \,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(\sigma_{1}^2\,\rho_{1,3 }^2+\sigma_{1}^2\,\rho_{1,2}^2-\sigma_{1}^2\right)\,\sigma_{2}^2 \right)\,\sigma_{3}^2}} }}{2^{\frac{3}{2}}\,\pi^{\frac{3}{2 }}\,\sqrt{-\sigma_{1}^2\,\sigma_{2}^2\,\rho_{2,3}^2+2\,\sigma_{1}^2 \,\rho_{1,2}\,\rho_{1,3}\,\sigma_{2}^2\,\rho_{2,3}+\left(-\sigma_{1} ^2\,\rho_{1,3}^2-\sigma_{1}^2\,\rho_{1,2}^2+\sigma_{1}^2\right)\, \sigma_{2}^2}\,\left| \sigma_{3}\right| }\]</span></p>
+<p><span class="math display">\[\frac{e^ {- {\frac{\left(\rho_{1,2}^2-1\right)\,y_{3}^2+\left(\left(2\,y_{2} -2\,y_{1}\,\rho_{1,2}\right)\,\rho_{2,3}-2\,\rho_{1,2}\,\rho_{1,3}\, y_{2}+2\,y_{1}\,\rho_{1,3}\right)\,y_{3}+y_{1}^2\,\rho_{2,3}^2-2\,y _{1}\,\rho_{1,3}\,y_{2}\,\rho_{2,3}+\left(\rho_{1,3}^2-1\right)\,y_{ 2}^2+2\,y_{1}\,\rho_{1,2}\,y_{2}-y_{1}^2}{2\,\left(\rho_{2,3}^2 -2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}+\rho_{1,3}^2+\rho_{1,2}^2-1 \right)}} }}{2^{\frac{3}{2}}\,\pi^{\frac{3}{2}}\,\sqrt{- \rho_{2,3}^2+2\,\rho_{1,2}\,\rho_{1,3}\,\rho_{2,3}-\rho_{1,3}^2-\rho _{1,2}^2+1}}\]</span></p>
 </div>
 <div id="evaluate-expression-from-maxima-in-r" class="section level2">
 <h2>Evaluate expression from Maxima in R:</h2>
@@ -369,10 +369,10 @@ r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
 <h2>Comparison with results from other functions and packages:</h2>
 <pre class="r"><code>require(emdbook)
 yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 3.752017e-16</code></pre>
+## [1] NaN</code></pre>
 <pre class="r"><code>require(mnormt)
 yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 2.437015e-16</code></pre>
+## [1] NaN</code></pre>
 </div>
 
               
