@@ -272,9 +272,10 @@ res$tex[[1]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n"
 ```
 
 
-Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:asdasf
+Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:asdasfef
 
 ```{r, results='asis', echo=FALSE}
+res$tex[[2]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n")
 #res$tex[[2]]%>%strsplit(., "*")%>%unlist%>%bracket_match(., 12, 1, 0)
 #if(res$tex[[2]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[2]]%>%grepl("\\}\\}\\$\\$$", .)){
 #     x <- res$tex[[2]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)
