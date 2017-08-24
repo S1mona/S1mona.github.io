@@ -82,12 +82,13 @@ neq <- 3
 Form symbolic variance-covariance matrix:
 
 ```{r echo=TRUE}
+t1 <- neq%>%"^"(2)%>%rep("sigma", .)
 t2 <- neq%>%rep(1:., .)
 t3 <- t2%>%sort
 t4 <- neq%>%"^"(2)%>%rep("rho[", .)
-sigma <- paste0( t4, t3,",", t2, "]" )
+sigma <- paste0(t1, "[", t3 , "]*", t1,"[",t2 ,"]*", t4, t3,",", t2, "]" )
 sigma <- matrix(sigma, neq, neq, byrow = TRUE) 
-diag(sigma) <- 1
+diag(sigma) %<>% gsub("\\*sigma\\[\\d{1,2}\\]\\*rho\\[\\d{1,2},\\d{1,2}\\]","**2", .)
 sigma[lower.tri(sigma)] <- sort(sigma[upper.tri(sigma)])
 ```
 
@@ -209,7 +210,7 @@ res$tex[[4]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n"
 ```{r echo=TRUE}
 expr <- res$expr[4]%>%paste0("1/(sqrt((2*pi)**",neq,"*",res$expr[1],"))*exp(-1/2*", ., ")")%>%gsub("\\[(\\d)\\]", "[[\\1]]",.)
 yy <- replicate(neq, {rnorm(100, mean=4, sd=2)})
-#sigma <- apply(yy, 2, sd)
+sigma <- apply(yy, 2, sd)
 rho <- cor(yy)
 y <- lapply(1:neq, function(x)yy[,x])
 mu <- apply(yy, 2, mean)
