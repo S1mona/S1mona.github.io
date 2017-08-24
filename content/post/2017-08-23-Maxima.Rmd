@@ -94,7 +94,7 @@ sigma[lower.tri(sigma)] <- sort(sigma[upper.tri(sigma)])
 
 ```{r echo=FALSE}
 library(knitr)
-source("00functions.R")
+source("..\\..\\R\\00functions.R")
 sigma%>%data.frame%>%kable
 ```
 
