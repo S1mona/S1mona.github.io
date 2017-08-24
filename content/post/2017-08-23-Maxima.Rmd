@@ -184,7 +184,7 @@ res$tex[[1]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n"
 ```
 
 
-Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:asdasfefe
+Inverse of  $\Sigma$,  `r rinline("res$tex[[2]]")`:
 
 ```{r, results='asis', echo=FALSE}
 res$tex[[2]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n")
@@ -203,8 +203,6 @@ Density,  `r rinline("res$tex[[4]]")`:
 ```{r, results='asis', echo=FALSE}
 res$tex[[4]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n")
 ```
-
-Testing simona.  
 
 ## Evaluate expression from Maxima in R:
 

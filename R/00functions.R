@@ -85,7 +85,9 @@ replace_pmatrix <- function(str, .stro="(", .strc=")", collapseS = NULL){
     str %<>%strsplit(., "*")%>%unlist
   }
   x <- str%>%remove_double(., .stro, .strc)%>%remove_outer(., .stro, .strc)%>%replace_over(., .stro, .strc, collapseS = "")
-  x%<>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$")
+  if(grepl("pmatrix",x)){
+    x%<>%gsub("\\$\\$\\\\pmatrix\\{|\\}\\$\\$$","",.)%>%paste0("$$\\begin{bmatrix}", ., "\\end{bmatrix}$$")
+  }
   x%<>%strsplit(., "*")%>%unlist
   x%>%paste0(., collapse = collapseS)
 }
