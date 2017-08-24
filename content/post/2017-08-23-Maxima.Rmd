@@ -69,40 +69,103 @@ First lets form variance-covariance matrix for usage in Maxima. R output:
 
 ```{r echo=TRUE}
 library(magrittr)
-library(knitr)
-neq <- 2
-sigma <- paste0(rep("sigma", neq^2),"[",sort(rep(1:neq, neq)) ,"]*",
-                  rep("sigma", neq^2),"[",rep(1:neq, neq) ,"]*",
-                  rep("rho[",neq^2),sort(rep(1:neq,neq )),",",rep(1:neq, neq),"]" )
+```
+
+Define number of random variables:
+
+```{r echo=TRUE}
+neq <- 3
+```
+
+## Maxima commands
+
+Form symbolic variance-covariance matrix:
+
+```{r echo=TRUE}
+t1 <- neq%>%"^"(2)%>%rep("sigma", .)
+t2 <- neq%>%rep(1:., .)
+t3 <- t2%>%sort
+t4 <- neq%>%"^"(2)%>%rep("rho[", .)
+sigma <- paste0(t1, "[", t3 , "]*", t1,"[",t2 ,"]*", t4, t3,",", t2, "]" )
 sigma <- matrix(sigma, neq, neq, byrow = TRUE) 
-diag(sigma) <- gsub("rho[[]\\d{1,2},\\d{1,2}[]]","",diag(sigma))
-diag(sigma) <- paste0(gsub("[*].*","",diag(sigma)),"**2")
+diag(sigma) %<>% gsub("\\*sigma\\[\\d{1,2}\\]\\*rho\\[\\d{1,2},\\d{1,2}\\]","**2", .)
 sigma[lower.tri(sigma)] <- sort(sigma[upper.tri(sigma)])
 ```
 
-```{r echo=TRUE}
+```{r echo=FALSE}
+library(knitr)
 sigma%>%data.frame%>%kable
 ```
 
+Maxima command for variance-covariance matrix:
+
 ```{r echo=TRUE}
-# Maxima command for variance-covariance matrix
 spy <- paste0(sapply(1:neq, function(i) paste0("[", paste0("",sigma[i,],"", collapse = ", "), "]")), collapse = ",")
 spy <- paste0("Sigma : matrix(", spy, ")")
-
-ym <- 1:neq%>%paste0("[y[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("y: matrix(", ., ")") # random variables
-mum <- 1:neq%>%paste0("[mu[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("mu: matrix(", ., ")") # vector of means
-detm <- "dets : ratsimp(determinant(Sigma))" # determinant of variance-covariance matrix
-invm <- "invs : ratsimp(invert(Sigma))" #inverse of variance-covariance matrix
-expinside <- "inside: ratsimp(transpose(y-mu).invert(Sigma).(y-mu))" #exponent in multivariate noraml distribution
-MNf <- paste0("phi(x, mu, var):= 1/(sqrt((2*%pi)**",neq,"*ratsimp(determinant(var))))*%e**(-1/2*ratsimp(transpose(x-mu).invert(var).(x-mu)))")
-expr <- "expt : phi(y, mu, Sigma)" # define a function in Maxima
-obj <- c(ym, mum, spy, detm, invm, expinside, MNf, expr) # vector with expressions
-# print(new) is simply a place holder, grind function produces output which can be evaluated
-out <- c('print(new)', 'grind(dets)',  'print(new)', 'grind(invs)', 'print(new)', 'grind(expt)', 'print(new)', 'grind(inside)') 
-# ''i(index) takes object from the input supplied to Maxima and tex function produces tex output 
-out <- c(out, paste0("tex (''%i",c(4, 5, 6, 8),")")) 
 ```
 
+Random variable vector:
+
+```{r echo=TRUE}
+ym <- 1:neq%>%paste0("[y[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("y: matrix(", ., ")") # random variables
+```
+
+Vector of means:
+
+```{r echo=TRUE}
+mum <- 1:neq%>%paste0("[mu[", .,"]]")%>%paste0(., collapse=", ")%>%paste0("mu: matrix(", ., ")") # vector of means
+```
+
+Determinant of variance-covariance matrix, function ratsimp simplifies an expression:
+
+```{r echo=TRUE}
+detm <- "dets : ratsimp(determinant(Sigma))"
+```
+
+Inverse of variance-covariance matrix:
+
+```{r echo=TRUE}
+invm <- "invs : ratsimp(invert(Sigma))" 
+```
+
+Exponent in multivariate normal distribution:
+
+```{r echo=TRUE}
+expinside <- "inside: ratsimp(transpose(y-mu).invert(Sigma).(y-mu))"
+```
+
+Function for multivariate normal distribution:
+
+```{r echo=TRUE}
+MNf <- paste0("phi(x, mu, var):= 1/(sqrt((2*%pi)**",neq,"*ratsimp(determinant(var))))*%e**(-1/2*ratsimp(transpose(x-mu).invert(var).(x-mu)))")
+```
+
+Get symbolic expression of MN with vector y, mu and matrix Sigma:
+```{r echo=TRUE}
+expr <- "expt : phi(y, mu, Sigma)"
+```
+
+Vector with of strings that will be evaluated in Maxima:
+
+```{r echo=TRUE}
+obj <- c(ym, mum, spy, detm, invm, expinside, MNf, expr) 
+```
+
+Additional commands for Maxima to get evaluable expressions (grind function produces output which can be evaluated), print(new) is simply a place holder, :
+
+```{r echo=TRUE}
+out <- c('print(new)', 'grind(dets)',  'print(new)', 'grind(invs)', 'print(new)', 'grind(expt)', 'print(new)', 'grind(inside)') 
+```
+
+"''i(\\d)" takes object from the input supplied to Maxima and tex function produces tex output: 
+
+```{r echo=TRUE}
+ind <- c(4, 5, 6, 8)
+out[ind]
+out <- c(out, paste0("tex (''%i", ind,")")) 
+```
+
+Run Maxima:
 
 ```{r echo=TRUE}
 res <- runMaxima(obj, out)
@@ -113,31 +176,37 @@ res <- runMaxima(obj, out)
 rinline <- function(code) {
   sprintf('``` `r %s` ```', code)
 }
-bracket_match<- function(s, i, indl, indr){
+
+bracket_match<- function(s, i, indl, indr, .stro="(", .strc=")"){
+  if(length(s)==1){
+    s%<>%strsplit(., "*")%>%unlist
+  }
   while ((i <= length(s))&(indl!=indr)){
-    if (s[i] == '{'){
+    if (s[i] == .stro){
       indl <- indl+1
     }
-    if (s[i] == '}'){
+    if (s[i] == .strc){
       indr <- indr +1
     }
     i = i+1
   }
-  #browser()
   return(i-1)
 }
 
-mod_string <- function(str){
-  x <- str%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist
-  # sum(x=="}")
-  # sum(x=="{")
-  # y <- x[4:413]
-  # sum(y=="}")
-  # sum(y=="{")
+#' @param str string where to look
+#' @param .stro opening bracet to look for 
+#' @param .strc closing bracet to look for
+remove_double <- function(str, .stro="(", .strc=")"){
+  if(length(str)==1){
+    x <- str%>%strsplit(., "*")%>%unlist
+  }else{
+    x <- str
+  }
+  #x <- str%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist
   #start of {
-  inds <- which(x=="{")
+  inds <- which(x==.stro)
   #end of }
-  inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
+  inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0, .stro, .strc))
   j <- any((inds[-1]-inds[-length(inds)])==1)&any((inde[-1]-inde[-length(inde)])==-1)
   k <- 1
   while(j&k<length(inds)){
@@ -145,34 +214,50 @@ mod_string <- function(str){
     if((inds[k+1]-inds[k])==1&(inde[k+1]-inde[k])==-1){
       x <- x[-c(inds[k], inde[k])] 
       #start of {
-      inds <- which(x=="{")
+      inds <- which(x==.stro)
       #end of }
-      inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
+      inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0,  .stro, .strc))
       j <- any((inds[-1]-inds[-length(inds)])==1)&any((inde[-1]-inde[-length(inde)])==-1)
     }
     k <- k + 1
-    #print(k)
   }
-  
-  # x%>%bracket_match(., 8, 1, 0)
-  # x%>%bracket_match(., 9, 1, 0)
-  # (res$tex[[4]]%>%gsub(" ", "",.)%>%strsplit(., "*")%>%unlist)[4]
-  
-  # if(res$tex[[4]]%>%grepl("^\\$\\$(\\-|)\\{\\{", .)&res$tex[[4]]%>%grepl("\\}\\}\\$\\$$", .)){
-  #     res$tex[[4]]%>%gsub("^\\$\\$(\\-|)\\{\\{","$$\\1{",.)%>%gsub("\\}\\}\\$\\$$","}$$",.)%>%cat(.,  "\n")
-  # }#
-  if(bracket_match(x, 4, 1, 0)==(length(x)-2)){
-    x <- x[-c(4,bracket_match(x, 4, 1, 0))]
+  x
+}
+
+remove_outer <- function(str, .stro="(", .strc=")", collapseS = NULL){
+  if(length(str)==1){
+    str %<>%strsplit(., "*")%>%unlist
   }
+  #find first stro
+  inds <- which(str==.stro)[1]
+  inde <- bracket_match(str, inds+1, 1, 0, .stro, .strc)
+  #distance from 1 to nchar is equal, thus outer bracets
+  if(((inds-1)==(length(str)-inde))&(all((str[c(1:(inds-1), (inde+1):length(str))]%>%unique)%in%"$"))){
+    str <- str[-c(inds+1, inde)]
+  }
+  str%>%paste0(., collapse=collapseS)
+}
+
+replace_over <- function(str, .stro="(", .strc=")", collapseS = NULL){
+  if(length(str)==1){
+    str %<>%strsplit(., "*")%>%unlist
+  }
+  x <- str%>%remove_double(., .stro, .strc)%>%remove_outer(., .stro, .strc) 
   #replace \over with frac
-  inds <- which(x=="{")
+  inds <- which(x==.stro)
   #end of }
-  inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0))
+  inde <- sapply(inds, function(i)x%>%bracket_match(., i+1, 1, 0, .stro, .strc))
   xx <- x%>%paste0(., collapse="")
   st <- gregexpr("\\\\\\over", xx)[[1]]
   x[inds[which(inde%in%(st-1))]] <- "\\frac{"
-  
-  x%>%paste0(., collapse="")%>%gsub("\\over","", ., fixed=TRUE)  
+  x%<>%paste0(., collapse="")%>%gsub("\\over","", ., fixed=TRUE)  
+  x%<>%strsplit(., "*")%>%unlist
+  x%>%paste0(., collapse = collapseS)
+}
+
+mod_string <- function(str, .stro="(", .strc=")", collapseS = NULL){
+  x <- str%>%remove_double(., .stro, .strc)%>%remove_outer(., .stro, .strc)%>%replace_over(., .stro, .strc, collapseS = "")
+  x
 }
 ```
 
@@ -182,7 +267,7 @@ mod_string <- function(str){
 Determinant of $\Sigma$,  `r rinline("res$tex[[1]]")`:
 
 ```{r, results='asis', echo=FALSE}
-cat( res$tex[[1]], "\n")
+res$tex[[1]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n")
 
 ```
 
@@ -204,16 +289,16 @@ Exponent,  `r rinline("res$tex[[3]]")`:
 
 
 ```{r, results='asis', echo=FALSE}
-res$tex[[3]]%>%mod_string%>%cat(.,  "\n")
+res$tex[[3]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n")
 ```
 
 Density,  `r rinline("res$tex[[4]]")`:
 
 ```{r, results='asis', echo=FALSE}
-res$tex[[4]]%>%mod_string%>%cat(.,  "\n")
+res$tex[[4]]%>%mod_string(., .stro="{", .strc="}", collapseS = "")%>%cat(., "\n")
 ```
 
-Testing.  
+Testing simona.  
 
 ## Evaluate expression from Maxima in R:
 
