@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Aug 2017 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 01 Sep 2017 21:07:14 -0500</lastBuildDate>
     
 	<atom:link href="/./post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Timeline of Schools in Lithuania</title>
+      <link>/./2017/09/leaflet/</link>
+      <pubDate>Fri, 01 Sep 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./2017/09/leaflet/</guid>
+      <description>Happy school year! With a lot of of help from Rselenium, I did some Wikipedia scrapping and gathered a data set on Lithuanian schools. The data does not cover the whole population, but it gives a rough overview of the situation. According to the ministry of education where were 1151 schools in 2016-2017. The data set covers about 80\(\%\) of the total population.
+Figure 1: Shiny app created via shinydashboard package.</description>
+    </item>
     
     <item>
       <title>Symbolic Computation, R &#43; Maxima</title>
