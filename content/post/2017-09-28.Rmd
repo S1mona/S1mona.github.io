@@ -67,9 +67,9 @@ setnames(esa95, "values", "esa95")
 dat <- merge(esa95, esa10, all=TRUE, by=intersect(names(esa95),names(esa10)))
 dat <- dat[unit%in%"MIO_EUR",]
 dat[, year:=time%>%gsub("-.*", "", .)%>%as.numeric]
-dat <- dat[year>1994,]
+dat <- dat[year>1994&year<2016,]
 dat <- dat[!grepl("^EA|EU1|EU27", geo), ]
-
+dat <- dat[!geo%in%c("JP", "US"),]
 #remove if no all values are NA
 dat <- dat[!apply(dat[,grep("esa",names(dat)),with=FALSE],1, function(x)all(is.na(x))),]
 ```
@@ -172,6 +172,7 @@ if(all==TRUE){
 }
 
 dat<-dat[geo%in%eul]
+dat[, index:=""]
 dat[,minspend:=min(prc),by=.(year,coicop)]
 dat[,maxspend:=max(prc),by=.(year,coicop)]
 dat[prc==minspend,index:="minspend"]
@@ -199,98 +200,32 @@ coicop1<-merge(coicop1,dic1, all=TRUE, by="coicop" )
 dat[, size1:=radius*6,by=year]
 dat[, size2:=radius*5,by=year]
 
+c1 <-c("orangered","orangered4","royalblue1","royalblue4")
+c0 <-c("orangered","royalblue1")
+c2 <-c("orangered","orangered","royalblue1","royalblue1")
+lab <- c("above EU28","highest spend","below EU28", "lowest spend")
+
 
 q <- ggplot(dat,aes(x=geo1, y=coicop1, frame=year))+geom_vline(xintercept = nmsx, colour="red")+geom_vline(xintercept = wbx, colour="red")
+q <- q+geom_rect(aes(ymin = rect_st, ymax = rect_en, xmin = -Inf, xmax = Inf, frame=year), alpha = .1, fill="#b8d2fc", color=NA)
 q<-q+geom_point(aes(size=size1,colour=factor(col1),fill=factor(col), frame=year),shape=21,stroke =2)
-
-q <- q+annotate("rect", xmin = -Inf, xmax = Inf, ymin =dat[,rect_st], ymax =dat[,rect_en], fill = "blue", alpha = .1, color = NA)
-  
-  
-  q<-q+geom_text(aes(label=labels),size=3,color=grid[,col5])
-  q<-q+ scale_x_continuous(breaks =geo1[,geo1] , labels = geo1[,geo])+
-    scale_y_continuous(breaks =coicop1[,coicop1] , labels = coicop1[,name])
-  q<-q+scale_size_identity()
-  q<-q+xlab("")+ylab("")+ggtitle(paste("Year: ",yy,sep=""))
-  
-  c1<-c("orangered","orangered4","royalblue1","royalblue4")
-  c0<-c("orangered","royalblue1")
-  c2<-c("orangered","orangered","royalblue1","royalblue1")
-  col<-unique(grid[,col])[match(c0,unique(grid[,col]))]
-  
-  
-  col1<-na.omit(unique(grid[,col1])[match(c1,unique(grid[,col1]))])
-  lab<-na.omit(c("above EU28","highest spend","below EU28", "lowest spend")[match(c1,col1)])
-  fill<-na.omit(c2[match(c1,col1)])
-  
-  q<-q+ scale_color_manual(name="",values = col1,labels =lab )+
-    scale_fill_manual(guide="none",values=col)+guides(color=guide_legend(override.aes=list(fill=fill)))
-  q1 <-q+theme_bw()+theme(legend.position = "top",plot.title = element_text(hjust = 0.5),
-                                                      legend.key = element_rect(colour = "white"),
-                                                      panel.grid.major.y=element_blank(),
-                                                      panel.grid.minor.y=element_blank(), 
-                                                      panel.grid.minor.x=element_blank(),
-                                                      panel.grid.major.x = element_line( size=.1, color="grey" ),
-                                                      axis.line.x = element_line(color = "white",linetype = "solid"),
-                                                      axis.line.y = element_line(color = "white",linetype = "solid"),
-                                                      axis.ticks.x =element_line(color = "white",linetype = "solid"),
-                                                      axis.ticks.y =element_line(color = "white",linetype = "solid")
-  )
-
-yyearl<-sort(unique(dat[,year]))
-
-pdf(paste("HH_consumption_",alln,".pdf",sep=""),width = ww, height=hh)
-
-
-
-for(yy in yyearl){
-  grid<-dat[year%in%yy]
-  rect<-unique(grid[,.(rect_st,rect_en)])
- 
-  if(all==TRUE){
-    q<-ggplot(grid,aes(geo1,coicop1))+geom_vline(xintercept = nmsx,colour="red")+geom_vline(xintercept = wbx,colour="red")
-  }else{
-    q<-ggplot(grid,aes(geo1,coicop1))+geom_vline(xintercept = nmsx,colour="red")
-  }
-  if(all(is.na(rect))==TRUE){
-    q<-q
-  }else{
-    q<-q+annotate("rect", xmin = -Inf, xmax = Inf, ymin =rect[,rect_st], ymax =rect[,rect_en], fill = "blue", alpha = .1, color = NA)
-  }
-  
-  q<-q+geom_point(aes(size=size1,colour=factor(col1),fill=factor(col)),shape=21,stroke =2)
-  q<-q+geom_text(aes(label=labels),size=3,color=grid[,col5])
-  q<-q+ scale_x_continuous(breaks =geo1[,geo1] , labels = geo1[,geo])+
-    scale_y_continuous(breaks =coicop1[,coicop1] , labels = coicop1[,name])
-  q<-q+scale_size_identity()
-  q<-q+xlab("")+ylab("")+ggtitle(paste("Year: ",yy,sep=""))
-  
-  c1<-c("orangered","orangered4","royalblue1","royalblue4")
-  c0<-c("orangered","royalblue1")
-  c2<-c("orangered","orangered","royalblue1","royalblue1")
-  col<-unique(grid[,col])[match(c0,unique(grid[,col]))]
-  
-  
-  col1<-na.omit(unique(grid[,col1])[match(c1,unique(grid[,col1]))])
-  lab<-na.omit(c("above EU28","highest spend","below EU28", "lowest spend")[match(c1,col1)])
-  fill<-na.omit(c2[match(c1,col1)])
-  
-  q<-q+ scale_color_manual(name="",values = col1,labels =lab )+
-    scale_fill_manual(guide="none",values=col)+guides(color=guide_legend(override.aes=list(fill=fill)))
-  q1 <-q+theme_bw()+theme(legend.position = "top",plot.title = element_text(hjust = 0.5),
-                                                      legend.key = element_rect(colour = "white"),
-                                                      panel.grid.major.y=element_blank(),
-                                                      panel.grid.minor.y=element_blank(), 
-                                                      panel.grid.minor.x=element_blank(),
-                                                      panel.grid.major.x = element_line( size=.1, color="grey" ),
-                                                      axis.line.x = element_line(color = "white",linetype = "solid"),
-                                                      axis.line.y = element_line(color = "white",linetype = "solid"),
-                                                      axis.ticks.x =element_line(color = "white",linetype = "solid"),
-                                                      axis.ticks.y =element_line(color = "white",linetype = "solid")
-  )
-  print(q1)
-}
-dev.off()
-#http://www.highcharts.com/demo/bubble-3d
+q<-q+geom_text(aes(label=labels, frame=year),size=4, color="white")
+q<-q+ scale_x_continuous( expand = c(0.05,0.05), breaks =geo1[,geo1] , labels = geo1[,geo])+
+  scale_y_continuous(breaks =coicop1[,coicop1] , labels = coicop1[,name])
+q<-q+scale_size_identity()+xlab("")+ylab("")
+q<-q+ scale_color_manual(name="", values = c1 ,labels =lab )+
+    scale_fill_manual(guide="none",values=c0)+guides(color=guide_legend(override.aes=list(fill=c2)))
+q1 <-q+theme_bw()+theme(legend.position = "top",plot.title = element_text(hjust = 0.5),
+                        legend.key = element_rect(colour = "white"),
+                        panel.grid.major.y=element_blank(),
+                        panel.grid.minor.y=element_blank(), 
+                        panel.grid.minor.x=element_blank(),
+                        panel.grid.major.x = element_line( size=.1, color="grey" ),
+                        axis.line.x = element_line(color = "white",linetype = "solid"),
+                        axis.line.y = element_line(color = "white",linetype = "solid"),
+                        axis.ticks.x =element_line(color = "white",linetype = "solid"),
+                        axis.ticks.y =element_line(color = "white",linetype = "solid"))
+gganimate(q1, file="expenditure.gif",ani.width=1800, ani.height=720)
 
 ```
 
