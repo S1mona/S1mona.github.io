@@ -1,9 +1,9 @@
 ---
-title: "Household Consumer expenditure"
+title: "Final consumption expenditure of households"
 author: "Simona Jokubauskaite"
 date: 2017-09-01T21:07:14-05:00
-categories: ["leaflet"]
-tags: ["R", "leaflet", "highcharter", "shiny"]
+categories: ["eurostat"]
+tags: ["R", "eurostat", "gganimate", "cowplot"]
 thumbnailImagePosition: left
 thumbnailImage: ./images/flag_small_mod.jpeg
 coverImage: ./FOTO.jpg
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=FALSE, collapse = TRUE,
 Download Eurostat data:
 
 * nama_co3_c - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - aggregates at current prices
-* nama_co3_p - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - price indices
+<!-- * nama_co3_p - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - price indices -->
 * nama_co3_k - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - volumes 
 * nama_10_co3_p3 - Final consumption expenditure of households by consumption purpose (COICOP 3 digit)
 * ert_bil_eur_a - Euro/ECU exchange rates - annual data
