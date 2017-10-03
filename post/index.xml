@@ -6,10 +6,22 @@
     <description>Recent content in Posts on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Sep 2017 21:07:14 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 03 Oct 2017 21:07:14 -0500</lastBuildDate>
     
 	<atom:link href="/./post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Final consumption expenditure of households</title>
+      <link>/./2017/10/final-consumption-expenditure-of-households/</link>
+      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./2017/10/final-consumption-expenditure-of-households/</guid>
+      <description>The Economist and The Economist stackoverflow
+At first we will download two Eurostat data sets:
+ nama_co3_c - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - aggregates at current prices, ESA 1995. nama_10_co3_p3 - Final consumption expenditure of households by consumption purpose (COICOP 3 digit) ESA 2010.  library(eurostat) library(data.table) library(tidyr) library(magrittr) library(ggplot2) library(cowplot) library(plyr) library(dplyr) library(gganimate) Download data:
+data &amp;lt;- lapply(c(&amp;quot;nama_co3_c&amp;quot;, &amp;quot;nama_10_co3_p3&amp;quot;), get_eurostat) The new European System of National and Regional Accounts (ESA10) was introduced in 2014.</description>
+    </item>
     
     <item>
       <title>Timeline of Schools in Lithuania</title>

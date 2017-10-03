@@ -1,0 +1,778 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.26">
+    <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
+    <title>Final consumption expenditure of households</title>
+    <meta name="author" content="Simona Jokubauskaite">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="/./favicon.png">
+    
+
+    
+    <meta name="description" content="The Economist and The Economist stackoverflow
+At first we will download two Eurostat data sets:
+ nama_co3_c - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - aggregates at current prices, ESA 1995. nama_10_co3_p3 - Final consumption expenditure of households by consumption purpose (COICOP 3 digit) ESA 2010.  library(eurostat) library(data.table) library(tidyr) library(magrittr) library(ggplot2) library(cowplot) library(plyr) library(dplyr) library(gganimate) Download data:
+data &lt;- lapply(c(&quot;nama_co3_c&quot;, &quot;nama_10_co3_p3&quot;), get_eurostat) The new European System of National and Regional Accounts (ESA10) was introduced in 2014.">
+    <meta property="og:description" content="The Economist and The Economist stackoverflow
+At first we will download two Eurostat data sets:
+ nama_co3_c - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - aggregates at current prices, ESA 1995. nama_10_co3_p3 - Final consumption expenditure of households by consumption purpose (COICOP 3 digit) ESA 2010.  library(eurostat) library(data.table) library(tidyr) library(magrittr) library(ggplot2) library(cowplot) library(plyr) library(dplyr) library(gganimate) Download data:
+data &lt;- lapply(c(&quot;nama_co3_c&quot;, &quot;nama_10_co3_p3&quot;), get_eurostat) The new European System of National and Regional Accounts (ESA10) was introduced in 2014.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Final consumption expenditure of households">
+    <meta property="og:url" content="/2017/10/final-consumption-expenditure-of-households/">
+    <meta property="og:site_name" content="Who wonders ponders">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Who wonders ponders">
+    <meta name="twitter:description" content="The Economist and The Economist stackoverflow
+At first we will download two Eurostat data sets:
+ nama_co3_c - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - aggregates at current prices, ESA 1995. nama_10_co3_p3 - Final consumption expenditure of households by consumption purpose (COICOP 3 digit) ESA 2010.  library(eurostat) library(data.table) library(tidyr) library(magrittr) library(ggplot2) library(cowplot) library(plyr) library(dplyr) library(gganimate) Download data:
+data &lt;- lapply(c(&quot;nama_co3_c&quot;, &quot;nama_10_co3_p3&quot;), get_eurostat) The new European System of National and Regional Accounts (ESA10) was introduced in 2014.">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="/FOTO.jpg">
+    
+
+    
+      <meta property="og:image" content="http://ec.europa.eu/eurostat/cache/infographs/citizenship2015/img/logoEstat.png">
+    
+    
+      <meta property="og:image" content="/FOTO.jpg">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
+    
+    
+    <link rel="stylesheet" href="/./css/style-u6mk0ojoywresbx8iepslrmmhl4stuhrsxuwhkpwrkrx7mryjcaimasnk4pi.min.css" />
+    
+    
+      <link rel="stylesheet" href="/././css/my-style.css">
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/./">Who wonders ponders</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/./#about">
+    
+    
+    
+      
+        <img class="header-picture" src="/./FOTO.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/./#about">
+          <img class="sidebar-profile-picture" src="/./FOTO.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Simona Jokubauskaite</h4>
+        
+          <h5 class="sidebar-profile-bio">Statistician, MSc</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/S1mona" target="_blank">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/./index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.r-bloggers.com/" target="_blank">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">R-bloggers</span>
+    </a>
+  </li>
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-center
+              "
+       style="background-image:url('./FOTO.jpg')"
+       data-behavior="4">
+    
+      <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title" itemprop="headline">
+      Final consumption expenditure of households
+    </h1>
+  
+  <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2017-10-03T21:07:14-05:00">
+      
+  October 3, 2017
+
+    </time>
+  
+  
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/./categories/eurostat">eurostat</a>
+    
+  
+
+
+</div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="4"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <link rel="stylesheet" href="/./css/my-style.css" type="text/css" />
+
+
+<p><a href="http://www.economist.com/blogs/graphicdetail/2015/09/daily-chart-9?fsrc=scn/fb/te/bl/ed/howcountriesspendtheirmoney">The Economist</a> and <a href="http://www.economist.com/blogs/graphicdetail/2015/09/daily-chart-12">The Economist</a> <a href="http://stackoverflow.com/questions/15840926/categorical-bubble-plot-for-mapping-studies">stackoverflow</a></p>
+<p>At first we will download two Eurostat data sets:</p>
+<ul>
+<li>nama_co3_c - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - aggregates at current prices, ESA 1995.</li>
+<li>nama_10_co3_p3 - Final consumption expenditure of households by consumption purpose (COICOP 3 digit) ESA 2010.</li>
+</ul>
+<pre class="r"><code>library(eurostat)
+library(data.table)
+library(tidyr)
+library(magrittr)
+library(ggplot2)
+library(cowplot)
+library(plyr)
+library(dplyr)
+library(gganimate)</code></pre>
+<p>Download data:</p>
+<pre class="r"><code>data &lt;- lapply(c(&quot;nama_co3_c&quot;, &quot;nama_10_co3_p3&quot;), get_eurostat)</code></pre>
+<p>The new European System of National and Regional Accounts (ESA10) was introduced in 2014. As not all the data has been converted to ESA10 and I wanted to get the maximal ammount of information, I combined both data sets:</p>
+<pre class="r"><code>#ESA95
+esa95 &lt;- data.table(data[[1]])
+esa95%&lt;&gt;%filter(unit%in%c(&quot;MIO_EUR&quot;)&amp;(nchar(as.character(coicop))==4|coicop%in%&quot;TOTAL&quot;))%&gt;%data.table
+#ESA10
+esa10 &lt;- data.table(data[[2]])
+esa10%&lt;&gt;%filter(unit%in%c(&quot;CP_MEUR&quot;)&amp;(nchar(as.character(coicop))==4|coicop%in%&quot;TOTAL&quot;))%&gt;%data.table
+esa10[, unit:=&quot;MIO_EUR&quot;]
+setnames(esa10, &quot;values&quot;, &quot;esa10&quot;)
+setnames(esa95, &quot;values&quot;, &quot;esa95&quot;)
+
+dat &lt;- merge(esa95, esa10, all=TRUE, by=intersect(names(esa95),names(esa10)))
+dat[, year:=time%&gt;%gsub(&quot;-.*&quot;, &quot;&quot;, .)%&gt;%as.numeric]
+dat%&lt;&gt;%filter(year&gt;1994&amp;year&lt;2016)%&gt;%filter(!grepl(&quot;^EA|EU1|EU27&quot;, geo))%&gt;%filter(!geo%in%c(&quot;JP&quot;, &quot;US&quot;))%&gt;%data.table</code></pre>
+<p>For come countries only ESA95 was available, so it was used to calculate the final comsumption shares.</p>
+<pre class="r"><code>#only one classification is available
+only1 &lt;- dat[,lapply(.SD, function(x)any(!is.na(x))), by=geo, .SDcols=c(&quot;esa95&quot;, &quot;esa10&quot;)]
+tmp &lt;- only1[esa95==TRUE&amp;esa10==FALSE, geo]
+dat[geo%in%tmp, esa10:=esa95]
+
+dt &lt;- dat[coicop!=&quot;TOTAL&quot;, lapply(.SD, function(x)sum(x, na.rm=TRUE)), by=.(geo, year), .SDcols=c(&quot;esa95&quot;, &quot;esa10&quot;)]
+setnames(dt, c(&quot;esa95&quot;, &quot;esa10&quot;), c(&quot;s95&quot;, &quot;s10&quot;))
+dat &lt;- merge(dat[coicop!=&quot;TOTAL&quot;], dt, intersect(names(dat), names(dt)),all=TRUE)
+dat &lt;- dat[!is.na(time)]
+setnames(dat, c(&quot;esa95&quot;, &quot;esa10&quot;), c(&quot;v95&quot;, &quot;v10&quot;))
+dat[, esa95:=v95/s95]
+dat[, esa10:=v10/s10]
+dat &lt;- dat[order(geo, coicop, year)]</code></pre>
+<p>Extrapolating shares for missing ESA10 entries:</p>
+<pre class="r"><code>fill_miss_dat &lt;- function(datnd){
+  datno &lt;- datnd
+  datnd &lt;- data.table(datnd)
+  datnd[,new:=esa10]
+  datnd &lt;- datnd[order(geo,coicop,year)]
+  #print(paste(unique(datnd[,geo]),unique(datnd[,coicop])))
+  datnd[, index:=sum(all(is.na(esa10)))]
+  datnd &lt;- datnd[index!=1, ]
+  if(dim(datnd)[1]!=0){
+    datnd[,index:=NULL]
+    while(sum(is.na(datnd[,new]))&gt;0){
+      datnd[, lag := shift(esa95, type=&#39;lag&#39;,n = 1)]
+      datnd[, lead := shift(esa95, type=&#39;lead&#39;,n = 1)]
+      datnd[, lagn := shift(new, type=&#39;lag&#39;,n = 1)]
+      datnd[, leadn := shift(new, type=&#39;lead&#39;,n = 1)]
+      datnd[,n1:=(esa95/lead)*leadn]
+      datnd[,n2:=(esa95/lag)*lagn]
+      datnd[is.na(new),new:=mean(c(n1,n2),na.rm=TRUE),by=year]
+    }
+      datnd[,c(&quot;lag&quot;, &quot;lead&quot;,&quot;lagn&quot;, &quot;leadn&quot;, &quot;n1&quot;,&quot;n2&quot;):=NULL]
+  }else{
+    datnd&lt;-datno
+  }
+  datnd
+}
+
+res &lt;- ddply(dat, .(geo, coicop), fill_miss_dat)
+res &lt;- data.table(res)
+res &lt;- res[, .(geo, coicop, year, new)]
+#renorm
+res[, new:=new/sum(new)*100, by=.(geo,year)]
+setnames(res, &quot;new&quot;, &quot;prc&quot;)</code></pre>
+<p>Drawing:</p>
+<pre class="r"><code>eu28 &lt;- res[geo%in%&quot;EU28&quot;]
+eu28 &lt;- eu28[,.(year, coicop, prc)]
+setnames(eu28,&quot;prc&quot;,&quot;eu28&quot;)
+dat &lt;- merge(res, eu28, all=TRUE, by=intersect(names(res),names(eu28)))
+eul &lt;-unique(dat[,geo])
+
+nms11 &lt;- c(&quot;BG&quot;,&quot;HR&quot;,&quot;CZ&quot;,&quot;EE&quot;,&quot;HU&quot;,&quot;LV&quot;,&quot;LT&quot;,&quot;PL&quot;,&quot;RO&quot;,&quot;SI&quot;,&quot;SK&quot;)
+wb &lt;- c(&quot;AL&quot;,&quot;BA&quot;,&quot;XK&quot;,&quot;ME&quot;,&quot;MK&quot;, &quot;RS&quot;)
+nms11 &lt;- nms11[nms11%in%eul]
+wb &lt;- wb[wb%in%eul]
+other &lt;- eul[!eul%in%c(nms11,wb,&quot;EU28&quot;)]%&gt;%as.character
+
+geo1 &lt;- data.table(geo=c(nms11, wb, other, &quot;EU28&quot;),geo1=1:length(eul))
+nmsx &lt;- mean(c(max(geo1[geo%in%nms11,geo1]), min(geo1[geo%in%wb,geo1])))
+wbx &lt;- mean(c(max(geo1[geo%in%wb,geo1]), min(geo1[geo%in%other,geo1])))
+
+dat%&lt;&gt;%filter(geo%in%eul)%&gt;%data.table
+dat[, index:=&quot;&quot;]
+dat[, minspend:=min(prc),by=.(year,coicop)]
+dat[, maxspend:=max(prc),by=.(year,coicop)]
+dat[prc==minspend, index:=&quot;minspend&quot;]
+dat[prc==maxspend, index:=&quot;maxspend&quot;]
+dat[prc&gt;=eu28&amp;index==&quot;&quot;, index:=&quot;above&quot;]
+dat[prc&lt;eu28&amp;index==&quot;&quot;, index:=&quot;below&quot;]
+dat[index%in%c(&quot;minspend&quot;,&quot;maxspend&quot;),labels:=round(prc,1)]
+dat[,radius:=sqrt(prc/pi)]
+
+dat &lt;- merge(dat,geo1, all=TRUE, by=&quot;geo&quot;)
+coicop1 &lt;- data.table(coicop=unique(dat[,coicop]),coicop1=1:length(unique(dat[,coicop])))
+dat &lt;- merge(dat,coicop1, all=TRUE, by=&quot;coicop&quot;)
+
+dat[,col:=ifelse(index%in%c(&quot;maxspend&quot;,&quot;above&quot;),&quot;orangered&quot;,&quot;royalblue1&quot;)]
+dat[,col1:=ifelse(index%in%c(&quot;maxspend&quot;),&quot;orangered4&quot;,ifelse(index%in%c(&quot;minspend&quot;),&quot;royalblue4&quot;,col))]
+dat[!is.na(labels),col5:=factor(ifelse(col1%in%&quot;royalblue4&quot;,&quot;black&quot;,&quot;white&quot;))]
+dat[,rect_st:=coicop1-sqrt(eu28/pi)/5.5]
+dat[,rect_en:=coicop1+sqrt(eu28/pi)/5.5]
+
+
+dic1 &lt;- data.table(coicop=dat[, coicop]%&gt;%sort%&gt;%unique, name=c(&#39;Food&#39;, &#39;Alcohol &amp; tabacco&#39;, &#39;Clothing &amp; footware&#39;, &#39;Housing, fuel &amp; utilities&#39;, &#39;Furnishings&#39;, &#39;Health&#39;, &#39;Transport&#39;, &#39;Communications&#39;, &#39;Recreation&#39;, &#39;Education&#39;, &#39;Restaurants &amp; hotels&#39;, &#39;Other&#39;))
+dat &lt;- merge(dat, dic1,all.x=TRUE, by=&quot;coicop&quot;)
+coicop1 &lt;- merge(coicop1,dic1, all=TRUE, by=&quot;coicop&quot; )
+
+dat[, size1:=radius*6,by=year]
+dat[, size2:=radius*5,by=year]
+
+c1 &lt;-c(&quot;orangered&quot;,&quot;orangered4&quot;,&quot;royalblue1&quot;,&quot;royalblue4&quot;)
+c0 &lt;-c(&quot;orangered&quot;,&quot;royalblue1&quot;)
+c2 &lt;-c(&quot;orangered&quot;,&quot;orangered&quot;,&quot;royalblue1&quot;,&quot;royalblue1&quot;)
+lab &lt;- c(&quot;above EU28&quot;,&quot;highest spend&quot;,&quot;below EU28&quot;, &quot;lowest spend&quot;)</code></pre>
+<pre class="r"><code>q &lt;- ggplot(dat,aes(x=geo1, y=coicop1, frame=year))+geom_vline(xintercept = nmsx, colour=&quot;red&quot;)+geom_vline(xintercept = wbx, colour=&quot;red&quot;)
+q &lt;- q+geom_rect(aes(ymin = rect_st, ymax = rect_en, xmin = -Inf, xmax = Inf, frame=year), alpha = .1, fill=&quot;#b8d2fc&quot;, color=NA)
+q&lt;-q+geom_point(aes(size=size1,colour=factor(col1),fill=factor(col), frame=year),shape=21,stroke =2)
+q&lt;-q+geom_text(aes(label=labels, frame=year),size=4, color=&quot;white&quot;)
+q&lt;-q+ scale_x_continuous( expand = c(0.05,0.05), breaks =geo1[,geo1] , labels = geo1[,geo])+
+  scale_y_continuous(breaks =coicop1[,coicop1] , labels = coicop1[,name])
+q&lt;-q+scale_size_identity()+xlab(&quot;&quot;)+ylab(&quot;&quot;)
+q&lt;-q+ scale_color_manual(name=&quot;&quot;, values = c1 ,labels =lab )+
+    scale_fill_manual(guide=&quot;none&quot;,values=c0)+guides(color=guide_legend(override.aes=list(fill=c2)))
+q1 &lt;-q+theme_bw()+theme(legend.position = &quot;top&quot;,plot.title = element_text(hjust = 0.5),
+                        legend.key = element_rect(colour = &quot;white&quot;),
+                        panel.grid.major.y=element_blank(),
+                        panel.grid.minor.y=element_blank(), 
+                        panel.grid.minor.x=element_blank(),
+                        panel.grid.major.x = element_line( size=.1, color=&quot;grey&quot; ),
+                        axis.line.x = element_line(color = &quot;white&quot;,linetype = &quot;solid&quot;),
+                        axis.line.y = element_line(color = &quot;white&quot;,linetype = &quot;solid&quot;),
+                        axis.ticks.x =element_line(color = &quot;white&quot;,linetype = &quot;solid&quot;),
+                        axis.ticks.y =element_line(color = &quot;white&quot;,linetype = &quot;solid&quot;))
+gganimate(q1, file=&quot;HH_gif.gif&quot;, ani.width=1800, ani.height=720)</code></pre>
+<div class="figure">
+<img src="./images/HH_gif.gif" alt="Bubble chart" />
+<p class="caption">Bubble chart</p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/././/tags/r/">R</a>
+
+  <a class="tag tag--primary tag--small" href="/././/tags/eurostat/">eurostat</a>
+
+  <a class="tag tag--primary tag--small" href="/././/tags/gganimate/">gganimate</a>
+
+  <a class="tag tag--primary tag--small" href="/././/tags/cowplot/">cowplot</a>
+
+  <a class="tag tag--primary tag--small" href="/././/tags/theeconomist/">TheEconomist</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/./2017/09/leaflet/" data-tooltip="Timeline of Schools in Lithuania">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 Simona Jokubauskaite. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/./2017/09/leaflet/" data-tooltip="Timeline of Schools in Lithuania">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+        <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+        <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2f.%2f2017%2f10%2ffinal-consumption-expenditure-of-households%2f">
+        <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="/./FOTO.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Simona Jokubauskaite</h4>
+    
+      <div id="about-card-bio">Statistician, MSc</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        University of Natural Resources and Life Sciences, Vienna
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Austria
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/././2017/10/final-consumption-expenditure-of-households/">
+                <h3 class="media-heading">Final consumption expenditure of households</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">The Economist and The Economist stackoverflow
+At first we will download two Eurostat data sets:
+ nama_co3_c - Final consumption expenditure of households by consumption purpose - COICOP 3 digit - aggregates at current prices, ESA 1995. nama_10_co3_p3 - Final consumption expenditure of households by consumption purpose (COICOP 3 digit) ESA 2010.  library(eurostat) library(data.table) library(tidyr) library(magrittr) library(ggplot2) library(cowplot) library(plyr) library(dplyr) library(gganimate) Download data:
+data &lt;- lapply(c(&quot;nama_co3_c&quot;, &quot;nama_10_co3_p3&quot;), get_eurostat) The new European System of National and Regional Accounts (ESA10) was introduced in 2014.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/././2017/09/leaflet/">
+                <h3 class="media-heading">Timeline of Schools in Lithuania</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Happy school year! With a lot of of help from RSelenium I did some Wikipedia scrapping and gathered a data set on schools in Lithuania. According to the ministry of education where were 1151 schools in 2016-2017. Data set covers about 80\(\%\) of the total population. In this post only information that can be found in the Wikipedia and schools websites which are listed in it is presented. One can see three major peak periods: education reform (1777-1781), first independence (1918-1919), second independence(1991-1993).</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/././2017/08/symbolic-computation-r---maxima/">
+                <h3 class="media-heading">Symbolic Computation, R &#43; Maxima</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Package rSymPy offers a nice possibility to do symbolic computation in R. In this post I want to suggest an alternative to it, which helped me out to derive some complex expressions of conditional moments for multivariate normal distribution. rSymPy was simply too slow for my tasks, so I remembered computer algebra system - Maxima. What is also nice, that this option also produces Tex output. In this post I will provide some instructions for Windows users.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/././post/">
+                <h3 class="media-heading">Posts</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         4 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/my_cover.jpg');"></div>
+  
+
+
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.js"></script>
+
+
+<script src="/./js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight').each(function(i, block) {
+    var code = "";
+    hljs.highlightAuto(block.innerText).value.split(/\r\n|\r|\n/).forEach(function(line) {
+      code += "<span class=\"line\">" + line + "</span><br>";
+    });
+    if (code.length > 0) {
+      block.innerHTML = code;  
+    }
+  });
+  $('pre > code').each(function(i, block) {
+    $(this).addClass('codeblock');
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+  
+    
+  
+
+
+
+
+   <script src="/././js/myjs.js"></script>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async
+src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+  </body>
+</html>
+

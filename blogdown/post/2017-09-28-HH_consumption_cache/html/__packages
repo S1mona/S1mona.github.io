@@ -1,0 +1,13 @@
+base
+knitr
+animation
+eurostat
+data.table
+tidyr
+magrittr
+ggplot2
+cowplot
+plyr
+dplyr
+gganimate
+bindrcpp

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/./2017/10/final-consumption-expenditure-of-households/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/./2017/09/leaflet/</loc>
     <lastmod>2017-09-01T21:07:14-05:00</lastmod>
   </url>
@@ -19,6 +24,30 @@
   
   <url>
     <loc>/./categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./tags/cowplot/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./tags/eurostat/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./categories/eurostat/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./tags/gganimate/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -48,13 +77,13 @@
   
   <url>
     <loc>/./post/</loc>
-    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/./tags/r/</loc>
-    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -78,13 +107,19 @@
   
   <url>
     <loc>/./tags/</loc>
-    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./tags/theeconomist/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/./</loc>
-    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
