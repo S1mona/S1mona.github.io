@@ -199,4 +199,5 @@ gganimate(q1, file="HH_gif.gif", ani.width=1800, ani.height=720)
 ```
 
 
-![Bubble chart](./images/HH_gif.gif)
+
+![Bubble chart](HH_gif.gif)
