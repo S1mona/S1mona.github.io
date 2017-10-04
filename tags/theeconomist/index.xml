@@ -6,10 +6,20 @@
     <description>Recent content in Theeconomist on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Oct 2017 21:07:14 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 04 Oct 2017 21:07:14 -0500</lastBuildDate>
     
 	<atom:link href="/./tags/theeconomist/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Testing</title>
+      <link>/./2017/10/testing/</link>
+      <pubDate>Wed, 04 Oct 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./2017/10/testing/</guid>
+      <description>gganimate: Create easy animations with ggplot2 gganimate wraps the animation package to create animated ggplot2 plots. It can be installed using devtools:
+devtools::install_github(&amp;quot;dgrtwo/gganimate&amp;quot;) The core of the approach is to treat “frame” (as in, the time point within an animation) as another aesthetic, just like x, y, size, color, or so on. Thus, a variable in your data can be mapped to frame just as others are mapped to x or y.</description>
+    </item>
     
     <item>
       <title>Final consumption expenditure of households</title>

@@ -16,9 +16,39 @@ output:
     css: "/css/my-style.css"
 --- 
 
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = ".",
+  cache.path = "."
+)
+```
+
 ```{r include=FALSE, cache=FALSE}
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE, fig.show = "animate",
-                 collapse = TRUE,   collapse = TRUE, eval.after = 'fig.cap')
+library(knitr)
+library(animation)
+ani.options(autobrowse = FALSE, interval = 1)
+
+opts_knit$set(animation.fun = function(x, options, format = "gif") {
+  x = c(knitr:::sans_ext(x), knitr:::file_ext(x))
+  fig.num = options$fig.num
+  format = sub("^[.]", "", format)
+  fig.fname = paste0(sub(paste0(fig.num, "$"), "*", x[1]), 
+                     ".", x[2])
+  mov.fname = paste0(sub(paste0(fig.num, "$"), "", x[1]), ".", 
+                     format)
+
+  # order correctly
+  figs <- Sys.glob(fig.fname)
+  figs <- figs[order(as.numeric(stringr::str_match(figs, paste0("(\\d+)\\.", x[2]))[, 2]))]
+
+  animation::im.convert(figs, output = mov.fname)
+  
+  sprintf("![%s](%s)", options$label, paste0(opts_knit$get("base.url"), mov.fname))
+})
+
+opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE, fig.show = "animate")
 ```
 
 [The Economist](http://www.economist.com/blogs/graphicdetail/2015/09/daily-chart-9?fsrc=scn/fb/te/bl/ed/howcountriesspendtheirmoney) and [The Economist](http://www.economist.com/blogs/graphicdetail/2015/09/daily-chart-12) [stackoverflow](http://stackoverflow.com/questions/15840926/categorical-bubble-plot-for-mapping-studies)
@@ -175,7 +205,7 @@ c2 <-c("orangered","orangered","royalblue1","royalblue1")
 lab <- c("above EU28","highest spend","below EU28", "lowest spend")
 ```
 
-```{r gifpict}
+```{r}
 q <- ggplot(dat,aes(x=geo1, y=coicop1, frame=year))+geom_vline(xintercept = nmsx, colour="red")+geom_vline(xintercept = wbx, colour="red")
 q <- q+geom_rect(aes(ymin = rect_st, ymax = rect_en, xmin = -Inf, xmax = Inf, frame=year), alpha = .1, fill="#b8d2fc", color=NA)
 q<-q+geom_point(aes(size=size1,colour=factor(col1),fill=factor(col), frame=year),shape=21,stroke =2)
@@ -195,7 +225,7 @@ q1 <-q+theme_bw()+theme(legend.position = "top",plot.title = element_text(hjust 
                         axis.line.y = element_line(color = "white",linetype = "solid"),
                         axis.ticks.x =element_line(color = "white",linetype = "solid"),
                         axis.ticks.y =element_line(color = "white",linetype = "solid"))
-gganimate(q1, file="HH_gif.gif", ani.width=1800, ani.height=720)
+gganimate(q1, ani.width=1800, ani.height=720)
 ```
 
 Testing

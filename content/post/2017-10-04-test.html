@@ -1,0 +1,105 @@
+---
+title: "Testing"
+author: "Simona Jokubauskaite"
+date: 2017-10-04T21:07:14-05:00
+categories: ["eurostat"]
+tags: ["R", "eurostat", "gganimate", "cowplot", "TheEconomist"]
+thumbnailImagePosition: left
+thumbnailImage: http://ec.europa.eu/eurostat/cache/infographs/citizenship2015/img/logoEstat.png
+coverImage: ./FOTO.jpg
+metaAlignment: center
+disable_comments: true
+output:
+  blogdown::html_page:
+    toc: false
+    fig_width: 8
+    css: "/css/my-style.css"
+--- 
+
+  <link rel="stylesheet" href="/css/my-style.css" type="text/css" />
+
+
+<div id="gganimate-create-easy-animations-with-ggplot2" class="section level2">
+<h2>gganimate: Create easy animations with ggplot2</h2>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<p><strong>gganimate</strong> wraps the <a href="http://www.inside-r.org/packages/cran/animation/docs/animation">animation package</a> to create animated ggplot2 plots. It can be installed using <a href="https://github.com/hadley/devtools">devtools</a>:</p>
+<pre><code>devtools::install_github(&quot;dgrtwo/gganimate&quot;)</code></pre>
+<p>The core of the approach is to treat “frame” (as in, the time point within an animation) as another aesthetic, just like <strong>x</strong>, <strong>y</strong>, <strong>size</strong>, <strong>color</strong>, or so on. Thus, a variable in your data can be mapped to frame just as others are mapped to x or y.</p>
+<p>For example, suppose we wanted to create an animation similar to the <a href="http://www.gapminder.org/world">Gapminder world</a> animation, using Jenny Bryan’s <a href="https://github.com/jennybc/gapminder">gapminder</a> package for the data.</p>
+<pre class="r"><code>library(gapminder)
+library(ggplot2)
+theme_set(theme_bw())</code></pre>
+<pre class="r"><code>p &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, color = continent, frame = year)) +
+  geom_point() +
+  scale_x_log10()</code></pre>
+<p>Notice we added <code>frame = year</code> and saved the plot as <code>p</code>. We then display it as an animation with the <code>gganimate</code> function:</p>
+<pre class="r"><code>library(gganimate)
+
+gganimate(p)</code></pre>
+<div class="figure">
+<img src="README/README-fig-unnamed-chunk-3-.gif" alt="unnamed-chunk-3" />
+<p class="caption">unnamed-chunk-3</p>
+</div>
+<p>This creates a animation you can view within RStudio. When run within knitr (and combined with knitr’s <code>fig.show = &quot;animate&quot;</code> chunk option), it instead displays each of the figures in sequence to let knitr create an animation as seen above.</p>
+<p>You can also save the animation to a file, such as an GIF, video, or an animated webpage:</p>
+<pre class="r"><code>gganimate(p, &quot;output.gif&quot;)
+gganimate(p, &quot;output.mp4&quot;)
+gganimate(p, &quot;output.swf&quot;)
+gganimate(p, &quot;output.html&quot;)</code></pre>
+<p>(Each of these requires ffmpeg, ImageMagick, or other such drivers to be installed on your computer: see the <a href="http://www.inside-r.org/packages/cran/animation/docs/animation">animation package</a> documentation for more).</p>
+<p>Notice that the axis limits and legend stay fixed between animation frames, even though the points move. This is one of the advantages of the <strong>gganimate</strong> package as opposed to creating each ggplot separately and combining them with the <strong>animation</strong> package: the plot (with its axes and legend) is built only once but rendered for each frame.</p>
+<div id="customization" class="section level3">
+<h3>Customization</h3>
+<p>You can have some layers of your plot animated and others not, simply by adding the <code>frame</code> aesthetic to those layers and not others. This is useful, for example, if you want to <em>highlight</em> particular points in an animation rather than move them.</p>
+<pre class="r"><code>p2 &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop)) +
+  geom_point() +
+  geom_point(aes(frame = year), color = &quot;red&quot;) +
+  scale_x_log10()
+
+gganimate(p2)</code></pre>
+<div class="figure">
+<img src="README/README-fig-unnamed-chunk-5-.gif" alt="unnamed-chunk-5" />
+<p class="caption">unnamed-chunk-5</p>
+</div>
+<p>You could also make a layer cumulative by adding an aesthetic <code>cumulative = TRUE</code>, which is useful for building up an object or path over time.</p>
+<pre class="r"><code>p3 &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp, frame = year)) +
+  geom_path(aes(cumulative = TRUE, group = country)) +
+  scale_x_log10() +
+  facet_wrap(~continent)
+
+gganimate(p3)</code></pre>
+<div class="figure">
+<img src="README/README-fig-unnamed-chunk-6-.gif" alt="unnamed-chunk-6" />
+<p class="caption">unnamed-chunk-6</p>
+</div>
+<p>Note that while it’s intuitive to match <code>frame</code> to a “time” dimension, you could match any variable in your data to the <code>frame</code> aesthetic. We could animate across continents instead:</p>
+<pre class="r"><code>p4 &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, frame = continent)) +
+  geom_point() +
+  scale_x_log10()
+
+gganimate(p4)</code></pre>
+<div class="figure">
+<img src="README/README-fig-unnamed-chunk-7-.gif" alt="unnamed-chunk-7" />
+<p class="caption">unnamed-chunk-7</p>
+</div>
+<p>Note that if there is a stat summarization (such as a <code>geom_smooth</code>) that you want to animate, you should also add a <code>group</code> aesthetic to that layer. Otherwise, the layer will be calculated once across all frames (and therefore be constant in the animation):</p>
+<pre class="r"><code>p5 &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, frame = year)) +
+  geom_point() +
+  geom_smooth(aes(group = year), method = &quot;lm&quot;, show.legend = FALSE) +
+  facet_wrap(~continent, scales = &quot;free&quot;) +
+  scale_x_log10()
+
+gganimate(p5)</code></pre>
+<div class="figure">
+<img src="README/README-fig-unnamed-chunk-8-.gif" alt="unnamed-chunk-8" />
+<p class="caption">unnamed-chunk-8</p>
+</div>
+<p>Finally, note that you can control your animation with the same options described in <a href="http://www.inside-r.org/packages/cran/animation/docs/ani.options">ani.options</a>, passed directly to <code>gganimate</code> or to <code>ani.options</code> beforehand. For example, you could make the plot faster or slower with the <code>interval</code> argument:</p>
+<pre class="r"><code>gganimate(p, interval = .2)</code></pre>
+<div class="figure">
+<img src="README/README-fig-unnamed-chunk-9-.gif" alt="unnamed-chunk-9" />
+<p class="caption">unnamed-chunk-9</p>
+</div>
+<p>However, note that while this works for displaying a plot in RStudio or saving it, within a knitr document you’ll need to add <code>interval = .2</code> to the chunk options. Other options can be added with <code>ani.options</code> run before the chunk in question.</p>
+</div>
+</div>
