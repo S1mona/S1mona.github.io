@@ -34,13 +34,13 @@
   </url>
   
   <url>
-    <loc>/./tags/eurostat/</loc>
+    <loc>/./categories/eurostat/</loc>
     <lastmod>2017-10-03T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/./categories/eurostat/</loc>
+    <loc>/./tags/eurostat/</loc>
     <lastmod>2017-10-03T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
@@ -58,13 +58,13 @@
   </url>
   
   <url>
-    <loc>/./tags/leaflet/</loc>
+    <loc>/./categories/leaflet/</loc>
     <lastmod>2017-09-01T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/./categories/leaflet/</loc>
+    <loc>/./tags/leaflet/</loc>
     <lastmod>2017-09-01T21:07:14-05:00</lastmod>
     <priority>0</priority>
   </url>
