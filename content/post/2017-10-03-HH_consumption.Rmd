@@ -210,3 +210,4 @@ cat('<img src="/content/post/HH_gif.gif" alt="Bubble Chart" style="width:1800px;
 ```
 
 One can clearly see that expenditure on food makes out the biggest share in NMS and WB, whereas old member states spend more on housing. From this perspective WB is similar to NMS. Luxembourg(LU) has extremely high share of alcohol and tobacco consumption. "This does not imply that the households are heavy drinkers, it is more a sign of a huge gap between purchases done by residents and tourists, for more information on this problem see [OECD](http://dx.doi.org/10.1787/factbook-2013-99-en)"[[1]](https://www.researchgate.net/publication/309557441_The_integration_of_QUAIDS_and_input-output_analysis_in_a_panel_data_setting). 
+For the next task I will try to do something similar with [highcharter](http://jkunst.com/highcharter/).
