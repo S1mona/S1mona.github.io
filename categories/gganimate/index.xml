@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gganimate on Who wonders ponders</title>
+    <link>/./categories/gganimate/</link>
+    <description>Recent content in Gganimate on Who wonders ponders</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Oct 2017 21:07:14 -0500</lastBuildDate>
+    
+	<atom:link href="/./categories/gganimate/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Final consumption expenditure of households</title>
+      <link>/./2017/10/final-consumption-expenditure-of-households/</link>
+      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./2017/10/final-consumption-expenditure-of-households/</guid>
+      <description>In 2015 I was working on my master thesis “The integration of (QU)AIDS and input-output analysis in a panel data setting” and had to analyse the structure of household expenditure. I stumbled open several visualizations in The Economist (World and EU) while searching for information on this topic. Thinking that they looked great I wanted to replicate these with R. The way I chose to do it is based on the question in stackoverflow.</description>
+    </item>
+    
+  </channel>
+</rss>
