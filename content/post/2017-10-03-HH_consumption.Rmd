@@ -177,7 +177,7 @@ c2 <-c("orangered","orangered","royalblue1","royalblue1")
 lab <- c("above EU28","highest spend","below EU28", "lowest spend")
 ```
 
-```{r gifpict}
+```{r gifpict, eval=FALSE}
 q <- ggplot(dat,aes(x=geo1, y=coicop1, frame=year))+geom_vline(xintercept = nmsx, colour="red")+geom_vline(xintercept = wbx, colour="red")
 q <- q+geom_rect(aes(ymin = rect_st, ymax = rect_en, xmin = -Inf, xmax = Inf, frame=year), alpha = .1, fill="#b8d2fc", color=NA)
 q<-q+geom_point(aes(size=size1,colour=factor(col1),fill=factor(col), frame=year),shape=21,stroke =2)
@@ -200,7 +200,6 @@ q1 <-q+theme_bw()+theme(legend.position = "top",plot.title = element_text(hjust 
 gganimate(q1, file="HH_gif.gif", ani.width=1800, ani.height=720)
 ```
 
-Testingaa
 
-![Bubble chart](./images/HH_gif.gif)
+![Bubble chart](https://media.giphy.com/media/l378mFUDCWJa3Zb2g/giphy.gif)
 
