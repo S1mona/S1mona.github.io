@@ -200,7 +200,7 @@ q1 <-q+theme_bw()+theme(legend.position = "top",plot.title = element_text(hjust 
 gganimate(q1, file="HH_gif.gif", ani.width=1800, ani.height=720)
 ```
 
-Testing
+Testingaa
 
 ![Bubble chart](./images/HH_gif.gif)
 
