@@ -1,0 +1,175 @@
+.CustomInput,#age,#income, #ctry, .selectize-input, #calcVoL, .btn{
+  border:2px solid black;
+  border-radius:7px;
+  display:inline-block;
+  margin:0 22px;
+}
+#age, #income, #ctry, .MidNumeric .shiny-input-container, .selectize-input, #calcVoL, .btn{
+  width:170px;
+  max-width:calc(50vw - 10px);
+  margin:auto ;
+}
+
+#income, .selectize-control{
+  margin-left:25px;
+}
+.ui-resizable-e{
+  width:30px !important;
+}
+
+
+.MidNumeric{ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.MidNumeric input{
+  padding:0;
+  display:block;
+}
+
+#calcVoL{
+  margin:auto;
+  display:block;
+}
+.CustomInput div{
+  border:1px solid black;
+  display:inline-block;
+  font-size:1.25em;
+  padding:3px;
+  white-space: pre;
+  cursor: pointer;
+}
+.CustomInputWrap label{
+  display:block;
+  text-align: center;
+}
+.CustomInputWrap{
+  display:inline-block;
+  padding:7px;
+}
+
+.leftIn,.rightIn{
+  width:250px;
+  text-align: center;
+}
+.rightIn{
+  border-left:0px #D3D3D3 solid;
+}
+.CustomInputSelected{
+  background:rgba(0,134,154,0.7);  
+}
+
+
+
+.ColorSliderLabel{
+  background: #f4f2f2;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 1.5em;
+  width: 99%;
+  min-height:1.75em;
+  margin:0 auto;
+  padding: 3px; 
+}
+
+.bar_slider{
+  height: 105px;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
+.infoGroup{
+  visibility:hidden;
+}
+.clear{ clear:both; }
+.left_panel4{
+          width: calc(25% - 3.75px);
+          margin:0;
+          height: 100px;    
+          float: left; 
+          padding: 0; 
+          line-height:100px;
+          text-align:center;
+          vertical-align:middle;
+          font-size:3.5vw;
+          overflow:hidden;
+          font-family: Trebuchet MS, Arial, Helvetica, sans-serif;font-style: normal;
+        }
+        
+        
+.mysep-wrap{
+  width:5px;
+  height:100px;
+  background:black;
+  z-index:101;
+  float: left;
+  cursor: ew-resize;
+  
+}
+.mysep{
+  position:absolute;
+  width:20px;
+  height:100px;
+  background:rgba(192,192,192,0.3);
+  border-radius:20px;
+  margin-left:-7.5px;
+}
+
+#container{
+        padding: 3px; 
+        width: 100%;
+        height: 100px;
+        float: left;
+        background-color: #a5c6cf;
+        overflow:hidden;
+        border-radius:9px;
+        }
+.left_panel:first-child{
+  border-radius: 9px 0 0 9px;
+}
+.left_panel:last-child{
+  border-radius: 0 9px 9px 0;
+}
+.valueHolder{
+  height:100%;
+  width:100%;
+  background:inherit;
+  color: white;
+}
+
+.Tlab{ opacity: 0;}
+
+
+#intorBtn{
+  position:absolute;
+  right:12px;
+  top:3px;
+  border-radius:100%;
+  width:35px;
+}
+
+.introjs-tooltipbuttons{
+  height:0;
+  visibility:hidden;
+}
+
+
+#country_list {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+
+
+@media all and (min-width: 1px) and (max-width: 525px) {
+ .CustomInput div{
+   width:100%;
+ } 
+}
+
+
+
+ 

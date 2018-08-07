@@ -6,10 +6,20 @@
     <description>Recent content in Eurostat on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Oct 2017 21:07:14 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 07 Aug 2018 00:07:14 -0500</lastBuildDate>
     
 	<atom:link href="/./tags/eurostat/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Asylum seekers</title>
+      <link>/./2018/08/asylum-seekers/</link>
+      <pubDate>Tue, 07 Aug 2018 00:07:14 -0500</pubDate>
+      
+      <guid>/./2018/08/asylum-seekers/</guid>
+      <description>Goal: visualize first instance decisions on applications by citizenship, age and sex annual aggregated data from Eurostat.
+Load libraries:library(eurostat)library(data.table)library(tidyr)library(magrittr)library(ggplot2)library(plyr)library(dplyr)library(rjson)library(viridisLite)library(highcharter)Download the data:if(!file.exists(&amp;quot;data_asylum.Rdata&amp;quot;)){data &amp;lt;- &amp;quot;migr_asydcfsta&amp;quot; %&amp;gt;% get_eurostat %&amp;gt;% data.tablesave(data, file=&amp;quot;data_asylum.Rdata&amp;quot;)}load(&amp;quot;data_asylum.Rdata&amp;quot;)dic &amp;lt;- lapply(names(data), get_eurostat_dic)eumap &amp;lt;- rjson::fromJSON(file = &amp;quot;http://code.highcharts.com/mapdata/custom/europe.geo.json&amp;quot;, method = &amp;#39;C&amp;#39;)for (i in 1:length(eumap$features)){names(eumap$features[[i]][[3]])[names(eumap$features[[i]][[3]]) %in% &amp;quot;iso-a2&amp;quot;] &amp;lt;- &amp;quot;code&amp;quot;}data[, period := year(time)]data[, time := NULL]data &amp;lt;- data[age %in% &amp;quot;TOTAL&amp;quot; &amp;amp; decision %in% c(&amp;quot;TOTAL&amp;quot;, &amp;quot;REJECTED&amp;quot;) &amp;amp; citizen %in% &amp;quot;TOTAL&amp;quot; &amp;amp; sex %in% &amp;quot;T&amp;quot;, ]data[, geo1 := as.</description>
+    </item>
     
     <item>
       <title>Final consumption expenditure of households</title>

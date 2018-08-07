@@ -222,6 +222,92 @@
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="/././2018/08/asylum-seekers/">
+          Asylum seekers
+        </a>
+      </h1>
+      <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2018-08-07T00:07:14-05:00">
+      
+  August 7, 2018
+
+    </time>
+  
+  
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/./categories/highcharter">highcharter</a>
+    
+  
+
+
+</div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p>
+        Goal: visualize first instance decisions on applications by citizenship, age and sex annual aggregated data from Eurostat.
+Load libraries:</p>
+
+<p>library(eurostat)
+library(data.table)
+library(tidyr)
+library(magrittr)
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(rjson)
+library(viridisLite)
+library(highcharter)
+Download the data:</p>
+
+<p>if(!file.exists(&quot;data_asylum.Rdata&quot;)){
+data &lt;- &quot;migr_asydcfsta&quot; %&gt;% get_eurostat %&gt;% data.table
+save(data, file=&quot;data_asylum.Rdata&quot;)
+}
+load(&quot;data_asylum.Rdata&quot;)
+dic &lt;- lapply(names(data), get_eurostat_dic)
+eumap &lt;- rjson::fromJSON(file = &quot;<a href="http://code.highcharts.com/mapdata/custom/europe.geo.json&quot;">http://code.highcharts.com/mapdata/custom/europe.geo.json&quot;</a>, method = &#39;C&#39;)
+for (i in 1:length(eumap$features))
+{
+names(eumap$features[[i]][[3]])[names(eumap$features[[i]][[3]]) %in% &quot;iso-a2&quot;] &lt;- &quot;code&quot;
+}
+data[, period := year(time)]
+data[, time := NULL]
+data &lt;- data[age %in% &quot;TOTAL&quot; &amp; decision %in% c(&quot;TOTAL&quot;, &quot;REJECTED&quot;) &amp; citizen %in% &quot;TOTAL&quot; &amp; sex %in% &quot;T&quot;, ]
+data[, geo1 := as.
+        <br>
+        <a href="/././2018/08/asylum-seekers/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+    <a href="/././2018/08/asylum-seekers/">
+      <div class="postShorten-thumbnailimg">
+        <img alt="" itemprop="image" src="https://www.sbs.com.au/programs/sites/sbs.com.au.programs/files/styles/full/public/quiz1.jpg?itok=1rF3vmuw.jpg"/>
+      </div>
+    </a>
+  
+</article>
+
+            
+              
+  
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="/././2017/10/final-consumption-expenditure-of-households/">
           Final consumption expenditure of households
         </a>
@@ -386,7 +472,7 @@
         
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2017 Simona Jokubauskaite. All Rights Reserved
+    &copy; 2018 Simona Jokubauskaite. All Rights Reserved
   </span>
 </footer>
 
@@ -444,6 +530,24 @@
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="/././2018/08/asylum-seekers/">
+                <h3 class="media-heading">Asylum seekers</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Goal: visualize first instance decisions on applications by citizenship, age and sex annual aggregated data from Eurostat.
+Load libraries:library(eurostat)library(data.table)library(tidyr)library(magrittr)library(ggplot2)library(plyr)library(dplyr)library(rjson)library(viridisLite)library(highcharter)Download the data:if(!file.exists(&quot;data_asylum.Rdata&quot;)){data &lt;- &quot;migr_asydcfsta&quot; %&gt;% get_eurostat %&gt;% data.tablesave(data, file=&quot;data_asylum.Rdata&quot;)}load(&quot;data_asylum.Rdata&quot;)dic &lt;- lapply(names(data), get_eurostat_dic)eumap &lt;- rjson::fromJSON(file = &quot;http://code.highcharts.com/mapdata/custom/europe.geo.json&quot;, method = &#39;C&#39;)for (i in 1:length(eumap$features)){names(eumap$features[[i]][[3]])[names(eumap$features[[i]][[3]]) %in% &quot;iso-a2&quot;] &lt;- &quot;code&quot;}data[, period := year(time)]data[, time := NULL]data &lt;- data[age %in% &quot;TOTAL&quot; &amp; decision %in% c(&quot;TOTAL&quot;, &quot;REJECTED&quot;) &amp; citizen %in% &quot;TOTAL&quot; &amp; sex %in% &quot;T&quot;, ]data[, geo1 := as.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="/././2017/10/final-consumption-expenditure-of-households/">
                 <h3 class="media-heading">Final consumption expenditure of households</h3>
               </a>
@@ -495,12 +599,46 @@
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="/././1/01/">
+                <h3 class="media-heading"></h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 0001
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">highchart(function() {// If window.HTMLWidgets is already defined, then use it; otherwise create a// new object. This allows preceding code to set options that affect the// initialization process (though none currently exist).window.HTMLWidgets = window.HTMLWidgets || {};// See if we're running in a viewer pane. If not, we're in a web browser.var viewerMode = window.HTMLWidgets.viewerMode =/\bviewer_pane=1\b/.test(window.location);// See if we're running in Shiny mode.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/././1/01/">
+                <h3 class="media-heading"></h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 0001
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">highchart(function() {// If window.HTMLWidgets is already defined, then use it; otherwise create a// new object. This allows preceding code to set options that affect the// initialization process (though none currently exist).window.HTMLWidgets = window.HTMLWidgets || {};// See if we're running in a viewer pane. If not, we're in a web browser.var viewerMode = window.HTMLWidgets.viewerMode =/\bviewer_pane=1\b/.test(window.location);// See if we're running in Shiny mode.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="/././post/">
                 <h3 class="media-heading">Posts</h3>
               </a>
               <span class="media-meta">
                 <span class="media-date text-small">
-                  Oct 10, 2017
+                  Aug 8, 2018
                 </span>
               </span>
               <div class="media-content hide-xs font-merryweather"></div>
@@ -516,7 +654,7 @@
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         4 posts found
+         7 posts found
       </p>
     </div>
   </div>

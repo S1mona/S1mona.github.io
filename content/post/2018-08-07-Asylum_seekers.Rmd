@@ -1,0 +1,181 @@
+---
+title: "Asylum seekers"
+author: "Simona Jokubauskaite"
+date: 2018-08-07T00:07:14-05:00
+categories: ["highcharter"]
+tags: ["R", "eurostat", "highcharter"]
+thumbnailImagePosition: left
+thumbnailImage: https://www.sbs.com.au/programs/sites/sbs.com.au.programs/files/styles/full/public/quiz1.jpg?itok=1rF3vmuw.jpg
+coverImage: ./FOTO.jpg
+metaAlignment: center
+disable_comments: true
+output:
+  blogdown::html_page:
+    toc: false
+    css: "/css/my-style.css"
+--- 
+
+Goal: visualize first instance decisions on applications by citizenship, age and sex annual aggregated data from Eurostat.
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE, fig.show = "animate",
+                 collapse = TRUE,   collapse = TRUE, eval.after = 'fig.cap')
+```
+
+1. Load libraries:
+
+```{r }
+library(eurostat)
+library(data.table)
+library(tidyr)
+library(magrittr)
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(rjson)
+library(viridisLite)
+library(highcharter)
+```
+
+2. Download the data:
+
+```{r }
+if(!file.exists("data_asylum.Rdata")){
+  data <- "migr_asydcfsta" %>% get_eurostat %>% data.table
+  save(data, file="data_asylum.Rdata")
+}
+load("data_asylum.Rdata")
+dic <- lapply(names(data), get_eurostat_dic)
+eumap <- rjson::fromJSON(file = "http://code.highcharts.com/mapdata/custom/europe.geo.json", method = 'C')
+for (i in 1:length(eumap$features))
+{
+  names(eumap$features[[i]][[3]])[names(eumap$features[[i]][[3]]) %in% "iso-a2"] <- "code"
+}
+```
+  
+
+```{r }
+data[, period := year(time)]
+data[, time := NULL]
+
+data <- data[age %in% "TOTAL" & decision %in% c("TOTAL", "REJECTED") & citizen %in% "TOTAL" & sex %in% "T", ]
+data[, geo1 := as.character(geo)]
+data[, geo := NULL]
+setnames(data, "geo1", "geo")
+data[, c("age", "citizen", "sex") := NULL]
+setnames(data, "geo", "code")
+setnames(data, "values", "value")
+data <- data[!code %in% c("EU28", "TOTAL")]
+data[code %in% "UK", code := "GB"]
+data[code %in% "EL", code := "GR"]
+```
+
+
+```{r}
+datl <- c()
+coll <- c()
+coll1 <- c()
+yyl <- 2017
+for (yy in yyl)
+{
+  dat <- data[period == yy]
+  dat <- tidyr::spread(dat, decision, value)
+  setnames(dat, "TOTAL", "value")
+  dat <- dat[!is.na(value)]
+  dat[, prc := round(REJECTED / value * 100, 1)]
+  
+  sum <- summary(dat[, value])
+  sum1 <- summary(dat[, prc])
+  
+  dclass <- data_frame(from = sum[-6],
+                       to = sum[-1],
+                       color = substring(viridis(length(from), option = "C"), 0, 7))
+  dclass <- list.parse3(dclass)
+  dat <- tbl_df(dat)
+  dclass1 <- data_frame(from = sum1[-6],
+                        to = sum1[-1],
+                        color = substring(viridis(length(from), option = "C"), 0, 7))
+  dclass1 <- list.parse3(dclass1)
+  datl <- c(datl, list(dat))
+  coll <- c(coll, list(dclass))
+  coll1 <- c(coll1, list(dclass1))
+}  
+```
+
+
+```{r, echo=FALSE, message=FALSE, results = 'asis', comment = NA,fig.width=1}
+hcl <- c()
+namest <- c(
+    "Number of first time asylum applicants, ",
+    "Applications rejeceted, % in total ",
+    "Source: ",
+    "Dataset: ",
+    "Metadata:"
+  )
+
+for (i in 1:length(yyl)) {
+  hc1 <- highchart() %>%
+    hc_title(text = paste(namest[[1]], yyl[[i]], sep = "")) %>%
+    hc_add_series_map(eumap, datl[[i]],
+                      value = "value", joinBy = "code") %>%
+    hc_colorAxis(dataClasses = coll[[i]]) %>%
+    hc_legend(
+      layout = "vertical",
+      align = "right",
+      floating = TRUE,
+      valueDecimals = 0,
+      y = -200,
+      x = -60,
+      symbolWidth = 10,
+      symbolHeight = 10,
+      valueSuffix = "",
+      itemStyle = list(fontSize = 10)
+    ) %>%
+    hc_mapNavigation(enabled = TRUE) %>%
+    hc_exporting(enabled = TRUE)
+  hcl <- c(hcl, list(hc1))
+}
+hcl1 <- c()
+for (i in 1:length(yyl)) {
+  hc1 <- highchart() %>%
+    hc_title(text = paste(namest[2], yyl[[i]], sep = "")) %>%
+    hc_add_series_map(eumap, datl[[i]],
+                      value = "prc", joinBy = "code") %>%
+    hc_colorAxis(dataClasses = coll1[[i]]) %>%
+    hc_legend(
+      layout = "vertical",
+      align = "right",
+      floating = TRUE,
+      valueDecimals = 0,
+      y = -200,
+      x = -60,
+      symbolWidth = 10,
+      symbolHeight = 10,
+      valueSuffix = "%",
+      itemStyle = list(fontSize = 10)
+    ) %>%
+    hc_mapNavigation(enabled = TRUE) %>%
+    hc_exporting(enabled = TRUE)
+  hcl1 <- c(hcl1, list(hc1))
+}
+``` 
+
+```{r, eval=FALSE}
+hcl[[1]]
+hcl1[[1]]
+```
+
+```{r, echo=FALSE}
+widgetframe:::frameWidget(hcl[[1]])
+widgetframe:::frameWidget(hcl1[[1]])
+```
+
+
+
+
+`r namest[3]` [Eurostat](http://ec.europa.eu/eurostat).
+
+`r namest[4]` First instance decisions on applications by citizenship, age and sex Annual aggregated data (rounded) (migr_asydcfsta).
+
+`r namest[5]` [Meta](http://ec.europa.eu/eurostat/cache/metadata/en/migr_asyapp_esms.htm).
+

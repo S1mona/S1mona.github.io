@@ -1,0 +1,11 @@
+base
+eurostat
+data.table
+tidyr
+magrittr
+ggplot2
+plyr
+dplyr
+rjson
+viridisLite
+highcharter

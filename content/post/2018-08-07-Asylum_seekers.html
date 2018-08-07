@@ -1,0 +1,100 @@
+---
+title: "Asylum seekers"
+author: "Simona Jokubauskaite"
+date: 2018-08-07T00:07:14-05:00
+categories: ["highcharter"]
+tags: ["R", "eurostat", "highcharter"]
+thumbnailImagePosition: left
+thumbnailImage: https://www.sbs.com.au/programs/sites/sbs.com.au.programs/files/styles/full/public/quiz1.jpg?itok=1rF3vmuw.jpg
+coverImage: ./FOTO.jpg
+metaAlignment: center
+disable_comments: true
+output:
+  blogdown::html_page:
+    toc: false
+    css: "/css/my-style.css"
+--- 
+
+<script src="/./rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/./rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/./rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+  <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
+
+
+<p>Goal: visualize first instance decisions on applications by citizenship, age and sex annual aggregated data from Eurostat.</p>
+<ol style="list-style-type: decimal">
+<li>Load libraries:</li>
+</ol>
+<pre class="r"><code>library(eurostat)
+library(data.table)
+library(tidyr)
+library(magrittr)
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(rjson)
+library(viridisLite)
+library(highcharter)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Download the data:</li>
+</ol>
+<pre class="r"><code>if(!file.exists(&quot;data_asylum.Rdata&quot;)){
+  data &lt;- &quot;migr_asydcfsta&quot; %&gt;% get_eurostat %&gt;% data.table
+  save(data, file=&quot;data_asylum.Rdata&quot;)
+}
+load(&quot;data_asylum.Rdata&quot;)
+dic &lt;- lapply(names(data), get_eurostat_dic)
+eumap &lt;- rjson::fromJSON(file = &quot;http://code.highcharts.com/mapdata/custom/europe.geo.json&quot;, method = &#39;C&#39;)
+for (i in 1:length(eumap$features))
+{
+  names(eumap$features[[i]][[3]])[names(eumap$features[[i]][[3]]) %in% &quot;iso-a2&quot;] &lt;- &quot;code&quot;
+}</code></pre>
+<pre class="r"><code>data[, period := year(time)]
+data[, time := NULL]
+
+data &lt;- data[age %in% &quot;TOTAL&quot; &amp; decision %in% c(&quot;TOTAL&quot;, &quot;REJECTED&quot;) &amp; citizen %in% &quot;TOTAL&quot; &amp; sex %in% &quot;T&quot;, ]
+data[, geo1 := as.character(geo)]
+data[, geo := NULL]
+setnames(data, &quot;geo1&quot;, &quot;geo&quot;)
+data[, c(&quot;age&quot;, &quot;citizen&quot;, &quot;sex&quot;) := NULL]
+setnames(data, &quot;geo&quot;, &quot;code&quot;)
+setnames(data, &quot;values&quot;, &quot;value&quot;)
+data &lt;- data[!code %in% c(&quot;EU28&quot;, &quot;TOTAL&quot;)]
+data[code %in% &quot;UK&quot;, code := &quot;GB&quot;]
+data[code %in% &quot;EL&quot;, code := &quot;GR&quot;]</code></pre>
+<pre class="r"><code>datl &lt;- c()
+coll &lt;- c()
+coll1 &lt;- c()
+yyl &lt;- 2017
+for (yy in yyl)
+{
+  dat &lt;- data[period == yy]
+  dat &lt;- tidyr::spread(dat, decision, value)
+  setnames(dat, &quot;TOTAL&quot;, &quot;value&quot;)
+  dat &lt;- dat[!is.na(value)]
+  dat[, prc := round(REJECTED / value * 100, 1)]
+  
+  sum &lt;- summary(dat[, value])
+  sum1 &lt;- summary(dat[, prc])
+  
+  dclass &lt;- data_frame(from = sum[-6],
+                       to = sum[-1],
+                       color = substring(viridis(length(from), option = &quot;C&quot;), 0, 7))
+  dclass &lt;- list.parse3(dclass)
+  dat &lt;- tbl_df(dat)
+  dclass1 &lt;- data_frame(from = sum1[-6],
+                        to = sum1[-1],
+                        color = substring(viridis(length(from), option = &quot;C&quot;), 0, 7))
+  dclass1 &lt;- list.parse3(dclass1)
+  datl &lt;- c(datl, list(dat))
+  coll &lt;- c(coll, list(dclass))
+  coll1 &lt;- c(coll1, list(dclass1))
+}  </code></pre>
+<pre class="r"><code>hcl[[1]]
+hcl1[[1]]</code></pre>
+<p><div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/./post/2018-08-07-Asylum_seekers_files/figure-html//widgets/widget_unnamed-chunk-8.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script><div id="htmlwidget-2" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/./post/2018-08-07-Asylum_seekers_files/figure-html//widgets/widget_unnamed-chunk-8.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script></p>
+<p>Source: <a href="http://ec.europa.eu/eurostat">Eurostat</a>.</p>
+<p>Dataset: First instance decisions on applications by citizenship, age and sex Annual aggregated data (rounded) (migr_asydcfsta).</p>
+<p>Metadata: <a href="http://ec.europa.eu/eurostat/cache/metadata/en/migr_asyapp_esms.htm">Meta</a>.</p>
