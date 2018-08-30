@@ -167,9 +167,11 @@ hcl1[[1]]
 
 ```{r, echo=FALSE}
 widgetframe:::frameWidget(hcl[[1]])
-widgetframe:::frameWidget(hcl1[[1]])
 ```
 
+```{r, echo=FALSE}
+widgetframe:::frameWidget(hcl1[[1]])
+```
 
 
 
