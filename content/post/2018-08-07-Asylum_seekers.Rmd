@@ -17,14 +17,14 @@ output:
 
 Goal: visualize first instance decisions on applications by citizenship, age and sex annual aggregated data from Eurostat.
 
-```{r include=FALSE, cache=FALSE}
+```{r include=FALSE, cache=FALSE, eval=FALSE}
 knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE, fig.show = "animate",
                  collapse = TRUE,   collapse = TRUE, eval.after = 'fig.cap')
 ```
 
 1. Load libraries:
 
-```{r }
+```{r , eval=FALSE}
 library(eurostat)
 library(data.table)
 library(tidyr)
@@ -39,7 +39,7 @@ library(highcharter)
 
 2. Download the data:
 
-```{r }
+```{r , eval=FALSE}
 if(!file.exists("data_asylum.Rdata")){
   data <- "migr_asydcfsta" %>% get_eurostat %>% data.table
   save(data, file="data_asylum.Rdata")
@@ -54,7 +54,7 @@ for (i in 1:length(eumap$features))
 ```
   
 
-```{r }
+```{r , eval=FALSE}
 data[, period := year(time)]
 data[, time := NULL]
 
@@ -71,7 +71,7 @@ data[code %in% "EL", code := "GR"]
 ```
 
 
-```{r}
+```{r, eval=FALSE}
 datl <- c()
 coll <- c()
 coll1 <- c()
@@ -112,7 +112,9 @@ namest <- c(
     "Dataset: ",
     "Metadata:"
   )
+```
 
+```{r, echo=FALSE, message=FALSE, results = 'asis', comment = NA,fig.width=1, eval=FALSE}
 for (i in 1:length(yyl)) {
   hc1 <- highchart() %>%
     hc_title(text = paste(namest[[1]], yyl[[i]], sep = "")) %>%
@@ -165,12 +167,22 @@ hcl[[1]]
 hcl1[[1]]
 ```
 
-```{r, echo=FALSE}
-widgetframe:::frameWidget(hcl[[1]])
+Testing:
+
+```{r hhid=1, echo=FALSE}
+# a <- hcl[[1]]
+# a1 <- hcl1[[1]]
+# save(a,a1, file="post/asyl.Rdata")
+load("asyl.Rdata")
+widgetframe:::frameWidget(a)
+#a<-1
+#save(a, file="test.Rdata")
 ```
 
-```{r, echo=FALSE}
-widgetframe:::frameWidget(hcl1[[1]])
+```{r hhid=2, echo=FALSE}
+#saveWidget(hcl1[[1]], "C:/Users/joku/Documents/GitHub/S1mona.github.io/post/2018-08-07-Asylum_seekers_files/figure-html/widgets/asy2.html")
+widgetframe:::frameWidget(a1)
+#widgetframe:::frameWidget("post/2018-08-07-Asylum_seekers_files/figure-html/widgets/asy2.html")
 ```
 
 
