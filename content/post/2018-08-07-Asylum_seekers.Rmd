@@ -167,7 +167,6 @@ hcl[[1]]
 hcl1[[1]]
 ```
 
-Testing:
 
 ```{r hhid=1, echo=FALSE}
 # a <- hcl[[1]]
