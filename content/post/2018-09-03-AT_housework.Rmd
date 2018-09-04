@@ -1,0 +1,66 @@
+---
+title: "Hourly wage rate for domestic help in Austria"
+author: "Simona Jokubauskaite"
+date: 2018-09-03T00:07:14-05:00
+categories: ["highcharter"]
+tags: ["R", "sf", "ggplot", "rmapshaper", "Austria"]
+thumbnailImagePosition: left
+thumbnailImage: ./images/id1__total.png
+coverImage: ./FOTO.jpg
+metaAlignment: center
+disable_comments: true
+output:
+  blogdown::html_page:
+    toc: false
+    css: "/css/my-style.css"
+--- 
+
+```{r include=FALSE, cache=FALSE, eval=FALSE}
+knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE, fig.show = "animate",
+                 collapse = TRUE, eval=FALSE, collapse = TRUE)
+```
+
+
+So today I have submitted my first article for review. We have calculated some intresting time indicators for Austria, such as value of leisure (VoL). Although, this work is partially done, it left me with a lot of questions. The used theoretical model takes into account only the official/paid work, but the domestic/unpaid work is not considered as a "real" work, as it does not generate any money. 
+In our sample women work 8 hours less than men, but they are involved in 9 hours more of domestic work. 
+Thus the disposable income of women is considerably lower than the one of men, their estimated average VoL, which should show the value of leisure in monetary terms, is twice the one of men. This made me wonder how to correct this, how to value the domestic work. Apparently several options exist: the opportunity cost method(official wage rate), the replacement cost method(market value of provided services), and the input/output cost method. I decided to explore the second one and to prepare a map on hourly wage rate for domestic help.
+
+First I needed data. In the age of internet, almost everything is available online. I found this internet page  [haushaltshilfe24](https://haushaltshilfe24.at/de/). To download the records I used *RSelenium* (maybe later I will post about that too). 
+The data was by postal codes, so I had to aggregate them into the municipal data(Gemeinden). For this I used the table provided by [Statistik Austria](http://www.statistik.at/web_de/klassifikationen/regionale_gliederungen/gemeinden/index.html). 
+With some tricks I got a nice correspondence table between the ZIP codes and the municipal data, which can later easily be aggregated into larger geographical units. Now the problem arose, I needed shape files on the municipal level. Working at BOKU has some perks and my colleague pointed out several web-pages: [Municipal division]( https://www.data.gv.at/katalog/dataset/stat_gliederung-osterreichs-in-gemeinden14f53/resource/af56b0dd-be08-409c-b86e-f9e89175d34e) and [Administrative areas of all countries](https://gadm.org/download_country_v3.html). I used the first one. Here are some notes/tips on working with this file. 
+
+
+```{r, eval=FALSE}
+library(sf)
+library(rmapshaper)
+adm <- read_sf("OGDEXT_GEM_1_STATISTIK_AUSTRIA_20180101/STATISTIK_AUSTRIA_GEM_20180101.shp") %>%
+    dplyr::rename(id = ID, name = NAME) # read in data
+simplified <- ms_simplify(input = adm, keep = 0.1, keep_shapes = TRUE) # simplify the polygon
+simplified[, "id1"] <- substring(simplified$id, 1, 1) # create variable for states, this is need for aggregation
+```
+
+Now the I wanted to merge it with my wage data, for this I used *dplyr::full_join*. I wanted to have aggregated data by states and this involves the aggregation of polygons(function *st_cast* from issues on [sf](https://github.com/r-spatial/sf/issues/290)). Later I also wanted to have labels showing average wage rate in the middle of each state/polygon; solution to this was found in [stackoverflow](https://stackoverflow.com/questions/44678978/how-to-label-an-individual-state-on-the-map-while-the-others-at-sub-divisional-l). 
+
+```{r, eval=FALSE}
+# tmp is a result of full_join merge of simplified and wage data.
+# column nwage holds values of the wage rate
+pdat <- tmp  %>%  group_by(id1) %>% summarise(m = mean(nwage, na.rm=TRUE)) %>%  st_cast() %>%  mutate(
+   lon = map_dbl(geometry, ~st_centroid(.x)[[1]]),
+   lat = map_dbl(geometry, ~st_centroid(.x)[[2]])
+)
+```
+
+
+And the final step was to plot the data, which I did with ggplot+geom$\_$sf+...+scale$\_$fill$\_$viridis$\_$c(option = "plasma",...). I also wanted to have maps by different types of domestic work and combine them with the aggregated activities(package *cowplot*). The data-set provides information on the following services: cleaning, gardening and handicraft work. Some records have data purely on the involvement in one activity, others provide a mix of activities. The final result currently looks like this for Austria and separately for Vienna:
+
+```{r, echo=FALSE, results='asis'}
+cat('<img src="/content/post/id1_.png" alt="Austria" style="max-width:1800px;max-height:600px;">')
+```
+
+```{r, echo=FALSE, results='asis'}
+cat('<img src="/content/post/id4_9.png" alt="Vienna" style="max-width:1800px;max-height:600px;">')
+```
+
+
+
+ 

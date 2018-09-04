@@ -37,6 +37,8 @@
     <meta name="twitter:title" content="Who wonders ponders">
     <meta name="twitter:description" content="Tales of R - Hugo/R markdown blog">
     
+      <meta name="twitter:creator" content="@S1mona_J">
+    
     
 
     
@@ -222,6 +224,64 @@
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="/././2018/09/hourly-wage-rate-for-domestic-help-in-austria/">
+          Hourly wage rate for domestic help in Austria
+        </a>
+      </h1>
+      <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2018-09-03T00:07:14-05:00">
+      
+  September 3, 2018
+
+    </time>
+  
+  
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/./categories/highcharter">highcharter</a>
+    
+  
+
+
+</div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p>
+        So today I have submitted my first article for review. We have calculated some intresting time indicators for Austria, such as value of leisure (VoL). Although, this work is partially done, it left me with a lot of questions. The used theoretical model takes into account only the official/paid work, but the domestic/unpaid work is not considered as a “real” work, as it does not generate any money.
+In our sample women work 8 hours less than men, but they are involved in 9 hours more of domestic work.
+        <br>
+        <a href="/././2018/09/hourly-wage-rate-for-domestic-help-in-austria/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+    <a href="/././2018/09/hourly-wage-rate-for-domestic-help-in-austria/">
+      <div class="postShorten-thumbnailimg">
+        <img alt="" itemprop="image" src="/./images/id1__total.png"/>
+      </div>
+    </a>
+  
+</article>
+
+            
+              
+  
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="/././2018/08/asylum-seekers/">
           Asylum seekers
         </a>
@@ -256,7 +316,6 @@ Load libraries:</p>
 library(data.table)
 library(tidyr)
 library(magrittr)
-library(ggplot2)
 library(plyr)
 library(dplyr)
 library(rjson)
@@ -359,6 +418,23 @@ data[, geo1 := as.
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="/././2018/09/hourly-wage-rate-for-domestic-help-in-austria/">
+                <h3 class="media-heading">Hourly wage rate for domestic help in Austria</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">So today I have submitted my first article for review. We have calculated some intresting time indicators for Austria, such as value of leisure (VoL). Although, this work is partially done, it left me with a lot of questions. The used theoretical model takes into account only the official/paid work, but the domestic/unpaid work is not considered as a “real” work, as it does not generate any money.In our sample women work 8 hours less than men, but they are involved in 9 hours more of domestic work.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="/././2018/08/asylum-seekers/">
                 <h3 class="media-heading">Asylum seekers</h3>
               </a>
@@ -368,7 +444,7 @@ data[, geo1 := as.
                 </span>
               </span>
               <div class="media-content hide-xs font-merryweather">Goal: visualize first instance decisions on applications by citizenship, age and sex annual aggregated data from Eurostat.
-Load libraries:library(eurostat)library(data.table)library(tidyr)library(magrittr)library(ggplot2)library(plyr)library(dplyr)library(rjson)library(viridisLite)library(highcharter)Download the data:if(!file.exists(&quot;data_asylum.Rdata&quot;)){data &lt;- &quot;migr_asydcfsta&quot; %&gt;% get_eurostat %&gt;% data.tablesave(data, file=&quot;data_asylum.Rdata&quot;)}load(&quot;data_asylum.Rdata&quot;)dic &lt;- lapply(names(data), get_eurostat_dic)eumap &lt;- rjson::fromJSON(file = &quot;http://code.highcharts.com/mapdata/custom/europe.geo.json&quot;, method = &#39;C&#39;)for (i in 1:length(eumap$features)){names(eumap$features[[i]][[3]])[names(eumap$features[[i]][[3]]) %in% &quot;iso-a2&quot;] &lt;- &quot;code&quot;}data[, period := year(time)]data[, time := NULL]data &lt;- data[age %in% &quot;TOTAL&quot; &amp; decision %in% c(&quot;TOTAL&quot;, &quot;REJECTED&quot;) &amp; citizen %in% &quot;TOTAL&quot; &amp; sex %in% &quot;T&quot;, ]data[, geo1 := as.</div>
+Load libraries:library(eurostat)library(data.table)library(tidyr)library(magrittr)library(plyr)library(dplyr)library(rjson)library(viridisLite)library(highcharter)Download the data:if(!file.exists(&quot;data_asylum.Rdata&quot;)){data &lt;- &quot;migr_asydcfsta&quot; %&gt;% get_eurostat %&gt;% data.tablesave(data, file=&quot;data_asylum.Rdata&quot;)}load(&quot;data_asylum.Rdata&quot;)dic &lt;- lapply(names(data), get_eurostat_dic)eumap &lt;- rjson::fromJSON(file = &quot;http://code.highcharts.com/mapdata/custom/europe.geo.json&quot;, method = &#39;C&#39;)for (i in 1:length(eumap$features)){names(eumap$features[[i]][[3]])[names(eumap$features[[i]][[3]]) %in% &quot;iso-a2&quot;] &lt;- &quot;code&quot;}data[, period := year(time)]data[, time := NULL]data &lt;- data[age %in% &quot;TOTAL&quot; &amp; decision %in% c(&quot;TOTAL&quot;, &quot;REJECTED&quot;) &amp; citizen %in% &quot;TOTAL&quot; &amp; sex %in% &quot;T&quot;, ]data[, geo1 := as.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -467,7 +543,7 @@ Load libraries:library(eurostat)library(data.table)library(tidyr)library(ma
               </a>
               <span class="media-meta">
                 <span class="media-date text-small">
-                  Aug 8, 2018
+                  Sep 9, 2018
                 </span>
               </span>
               <div class="media-content hide-xs font-merryweather"></div>
@@ -483,7 +559,7 @@ Load libraries:library(eurostat)library(data.table)library(tidyr)library(ma
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         7 posts found
+         8 posts found
       </p>
     </div>
   </div>
