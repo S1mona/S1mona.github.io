@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Sep 2018 00:07:14 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 28 Aug 2019 21:07:14 -0500</lastBuildDate>
     
 	<atom:link href="/./tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,41 +14,50 @@
     <item>
       <title>Austria</title>
       <link>/./tags/austria/</link>
-      <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
+      <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
       
       <guid>/./tags/austria/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Cowplot</title>
-      <link>/./tags/cowplot/</link>
-      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      <title>derStandard</title>
+      <link>/./tags/derstandard/</link>
+      <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
       
-      <guid>/./tags/cowplot/</guid>
+      <guid>/./tags/derstandard/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Eurostat</title>
-      <link>/./tags/eurostat/</link>
-      <pubDate>Tue, 07 Aug 2018 00:07:14 -0500</pubDate>
+      <title>R</title>
+      <link>/./tags/r/</link>
+      <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
       
-      <guid>/./tags/eurostat/</guid>
+      <guid>/./tags/r/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Gganimate</title>
-      <link>/./tags/gganimate/</link>
-      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      <title>RSelenium</title>
+      <link>/./tags/rselenium/</link>
+      <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
       
-      <guid>/./tags/gganimate/</guid>
+      <guid>/./tags/rselenium/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Ggplot</title>
+      <title>wordcloud</title>
+      <link>/./tags/wordcloud/</link>
+      <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
+      
+      <guid>/./tags/wordcloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ggplot</title>
       <link>/./tags/ggplot/</link>
       <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
       
@@ -57,7 +66,34 @@
     </item>
     
     <item>
-      <title>Highcharter</title>
+      <title>rmapshaper</title>
+      <link>/./tags/rmapshaper/</link>
+      <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
+      
+      <guid>/./tags/rmapshaper/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sf</title>
+      <link>/./tags/sf/</link>
+      <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
+      
+      <guid>/./tags/sf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>eurostat</title>
+      <link>/./tags/eurostat/</link>
+      <pubDate>Tue, 07 Aug 2018 00:07:14 -0500</pubDate>
+      
+      <guid>/./tags/eurostat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>highcharter</title>
       <link>/./tags/highcharter/</link>
       <pubDate>Tue, 07 Aug 2018 00:07:14 -0500</pubDate>
       
@@ -66,11 +102,47 @@
     </item>
     
     <item>
-      <title>Leaflet</title>
+      <title>cowplot</title>
+      <link>/./tags/cowplot/</link>
+      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./tags/cowplot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gganimate</title>
+      <link>/./tags/gganimate/</link>
+      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./tags/gganimate/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TheEconomist</title>
+      <link>/./tags/theeconomist/</link>
+      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./tags/theeconomist/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>leaflet</title>
       <link>/./tags/leaflet/</link>
       <pubDate>Fri, 01 Sep 2017 21:07:14 -0500</pubDate>
       
       <guid>/./tags/leaflet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shiny</title>
+      <link>/./tags/shiny/</link>
+      <pubDate>Fri, 01 Sep 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./tags/shiny/</guid>
       <description></description>
     </item>
     
@@ -84,43 +156,7 @@
     </item>
     
     <item>
-      <title>R</title>
-      <link>/./tags/r/</link>
-      <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
-      
-      <guid>/./tags/r/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rmapshaper</title>
-      <link>/./tags/rmapshaper/</link>
-      <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
-      
-      <guid>/./tags/rmapshaper/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sf</title>
-      <link>/./tags/sf/</link>
-      <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
-      
-      <guid>/./tags/sf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Shiny</title>
-      <link>/./tags/shiny/</link>
-      <pubDate>Fri, 01 Sep 2017 21:07:14 -0500</pubDate>
-      
-      <guid>/./tags/shiny/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Symboliccomputation</title>
+      <title>SymbolicComputation</title>
       <link>/./tags/symboliccomputation/</link>
       <pubDate>Wed, 23 Aug 2017 21:13:14 -0500</pubDate>
       
@@ -129,16 +165,7 @@
     </item>
     
     <item>
-      <title>Theeconomist</title>
-      <link>/./tags/theeconomist/</link>
-      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
-      
-      <guid>/./tags/theeconomist/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Wxmaxima</title>
+      <title>wxMaxima</title>
       <link>/./tags/wxmaxima/</link>
       <pubDate>Wed, 23 Aug 2017 21:13:14 -0500</pubDate>
       

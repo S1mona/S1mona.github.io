@@ -19,7 +19,11 @@ output:
   <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
 
 
-<p>Package <code>rSymPy</code> offers a nice possibility to do symbolic computation in R. In this post I want to suggest an alternative to it, which helped me out to derive some complex expressions of conditional moments for multivariate normal distribution. <code>rSymPy</code> was simply too slow for my tasks, so I remembered computer algebra system - <a href="http://maxima.sourceforge.net/">Maxima</a>. What is also nice, that this option also produces <code>Tex</code> output. In this post I will provide some instructions for Windows users. The first step is to download and install <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a>. I wrote a function, which feeds commands into Maxima, executes them, returns strings, that can be evaluated in R, and allows the user to get <code>Tex</code> expressions.</p>
+<p>Package <code>rSymPy</code> offers a nice possibility to do symbolic computation in R. In this post I want to suggest an alternative to it, which helped me out to derive some complex expressions of conditional moments for multivariate normal distribution.
+<code>rSymPy</code> was simply too slow for my tasks, so I remembered computer algebra system - <a href="http://maxima.sourceforge.net/">Maxima</a>.
+What is also nice, that this option also produces <code>Tex</code> output.
+In this post I will provide some instructions for Windows users. The first step is to download and install <a href="https://sourceforge.net/projects/wxmaxima/">wxMaxima</a>.
+I wrote a function, which feeds commands into Maxima, executes them, returns strings, that can be evaluated in R, and allows the user to get <code>Tex</code> expressions.</p>
 <div id="function" class="section level2">
 <h2>Function</h2>
 <pre class="r"><code>require(magrittr)
@@ -58,7 +62,8 @@ runMaxima &lt;- function(obj, out, pathm = &quot;C:\\maxima-5.38.1\\bin\\maxima&
 </div>
 <div id="example" class="section level2">
 <h2>Example</h2>
-<p>Suppose for some reason, one needs to get expressions of trivariate normal distribution. First lets form variance-covariance matrix for usage in Maxima. R output:</p>
+<p>Suppose for some reason, one needs to get expressions of trivariate normal distribution.
+First lets form variance-covariance matrix for usage in Maxima. R output:</p>
 <pre class="r"><code>library(magrittr)</code></pre>
 <p>Define number of random variables:</p>
 <pre class="r"><code>neq &lt;- 3</code></pre>
@@ -154,9 +159,9 @@ r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
 <h2>Comparison with results from other functions and packages:</h2>
 <pre class="r"><code>require(emdbook)
 yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 2.417517e-16</code></pre>
+## [1] 1.340294e-16</code></pre>
 <pre class="r"><code>require(mnormt)
 yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 2.281568e-16</code></pre>
+## [1] 1.364299e-16</code></pre>
 <p>Solution is not perfect, but it made my life so much easier.</p>
 </div>

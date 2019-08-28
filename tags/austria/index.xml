@@ -6,10 +6,22 @@
     <description>Recent content in Austria on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Sep 2018 00:07:14 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 28 Aug 2019 21:07:14 -0500</lastBuildDate>
     
 	<atom:link href="/./tags/austria/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Elections in Austria</title>
+      <link>/./2019/08/elections-in-austria/</link>
+      <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
+      
+      <guid>/./2019/08/elections-in-austria/</guid>
+      <description>Amazed by the election advertisements in Austria, I have decided to get my hands dirty and do some analyses about the forthcoming election. derStandard decided to have discussions why Austrians are electing FPÖ, Neos, and ÖVP.Strangely enough I did not find a discussion on SPÖ.
+To get the postings I used wonderful RSelenium, for data cleaning tm, and for visualization wordcloud.
+FPÖ - 1963 posts
+Neos - 875 postings</description>
+    </item>
     
     <item>
       <title>Hourly wage rate for domestic help in Austria</title>

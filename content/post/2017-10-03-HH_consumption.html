@@ -15,7 +15,7 @@ output:
     css: "/css/my-style.css"
 --- 
 
-  <link rel="stylesheet" href="/css/my-style.css" type="text/css" />
+  <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
 
 
 <p>In 2015 I was working on my master thesis “<a href="https://www.researchgate.net/publication/309557441_The_integration_of_QUAIDS_and_input-output_analysis_in_a_panel_data_setting">The integration of (QU)AIDS and input-output analysis in a panel data setting</a>” and had to analyse the structure of household expenditure. I stumbled open several visualizations in <a href="http://www.economist.com/blogs">The Economist</a> (<a href="http://www.economist.com/blogs/graphicdetail/2015/09/daily-chart-9?fsrc=scn/fb/te/bl/ed/howcountriesspendtheirmoney">World</a> and <a href="http://www.economist.com/blogs/graphicdetail/2015/09/daily-chart-12">EU</a>) while searching for information on this topic. Thinking that they looked great I wanted to replicate these with R. The way I chose to do it is based on the question in <a href="http://stackoverflow.com/questions/15840926/categorical-bubble-plot-for-mapping-studies">stackoverflow</a>.</p>
@@ -184,4 +184,5 @@ q &lt;- q + theme_bw() + theme(legend.position = &quot;top&quot;,plot.title = el
 
 gganimate(q, file=&quot;HH_gif.gif&quot;, ani.width=1800, ani.height=720)</code></pre>
 <p><img src="/content/post/HH_gif.gif" alt="Bubble Chart" style="width:1800px;height:300px;"></p>
-<p>One can clearly see that expenditure on food makes out the biggest share in NMS and WB, whereas old member states spend more on housing. From this perspective WB is similar to NMS. Luxembourg(LU) has extremely high share of alcohol and tobacco consumption. “This does not imply that the households are heavy drinkers, it is more a sign of a huge gap between purchases done by residents and tourists, for more information on this problem see <a href="http://dx.doi.org/10.1787/factbook-2013-99-en">OECD</a>”<a href="https://www.researchgate.net/publication/309557441_The_integration_of_QUAIDS_and_input-output_analysis_in_a_panel_data_setting">[1]</a>. For the next task I will try to do something similar with <a href="http://jkunst.com/highcharter/">highcharter</a>.</p>
+<p>One can clearly see that expenditure on food makes out the biggest share in NMS and WB, whereas old member states spend more on housing. From this perspective WB is similar to NMS. Luxembourg(LU) has extremely high share of alcohol and tobacco consumption. “This does not imply that the households are heavy drinkers, it is more a sign of a huge gap between purchases done by residents and tourists, for more information on this problem see <a href="http://dx.doi.org/10.1787/factbook-2013-99-en">OECD</a>”<a href="https://www.researchgate.net/publication/309557441_The_integration_of_QUAIDS_and_input-output_analysis_in_a_panel_data_setting">[1]</a>.
+For the next task I will try to do something similar with <a href="http://jkunst.com/highcharter/">highcharter</a>.</p>

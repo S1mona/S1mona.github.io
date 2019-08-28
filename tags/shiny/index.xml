@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Shiny on Who wonders ponders</title>
+    <title>shiny on Who wonders ponders</title>
     <link>/./tags/shiny/</link>
-    <description>Recent content in Shiny on Who wonders ponders</description>
+    <description>Recent content in shiny on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Sep 2017 21:07:14 -0500</lastBuildDate>
@@ -17,7 +17,7 @@
       <pubDate>Fri, 01 Sep 2017 21:07:14 -0500</pubDate>
       
       <guid>/./2017/09/leaflet/</guid>
-      <description>Happy school year! With a lot of of help from RSelenium I did some Wikipedia scrapping and gathered a data set on schools in Lithuania. According to the ministry of education where were 1151 schools in 2016-2017. Data set covers about 80\(\%\) of the total population. In this post only information that can be found in the Wikipedia and schools websites which are listed in it is presented. One can see three major peak periods: education reform (1777-1781), first independence (1918-1919), second independence(1991-1993).</description>
+      <description>Happy school year! With a lot of of help from RSelenium I did some Wikipedia scrapping and gathered a data set on schools in Lithuania. According to the ministry of education where were 1151 schools in 2016-2017. Data set covers about 80\(\%\) of the total population. In this post only information that can be found in the Wikipedia and schools websites which are listed in it is presented.One can see three major peak periods: education reform (1777-1781), first independence (1918-1919), second independence(1991-1993).</description>
     </item>
     
   </channel>

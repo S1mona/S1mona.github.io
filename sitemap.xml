@@ -3,7 +3,82 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/./tags/austria/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./categories/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/derstandard/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./2019/08/elections-in-austria/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./post/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/r/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/rselenium/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./categories/wordcloud/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/wordcloud/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/ggplot/</loc>
+    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./categories/highcharter/</loc>
+    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/./2018/09/hourly-wage-rate-for-domestic-help-in-austria/</loc>
+    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/rmapshaper/</loc>
+    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/sf/</loc>
     <lastmod>2018-09-03T00:07:14-05:00</lastmod>
   </url>
   
@@ -13,8 +88,53 @@
   </url>
   
   <url>
+    <loc>/./tags/eurostat/</loc>
+    <lastmod>2018-08-07T00:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/highcharter/</loc>
+    <lastmod>2018-08-07T00:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/cowplot/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/./2017/10/final-consumption-expenditure-of-households/</loc>
     <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/gganimate/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./categories/gganimate/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/theeconomist/</loc>
+    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/leaflet/</loc>
+    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./categories/leaflet/</loc>
+    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/shiny/</loc>
+    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
   </url>
   
   <url>
@@ -23,158 +143,42 @@
   </url>
   
   <url>
-    <loc>/./2017/08/symbolic-computation-r---maxima/</loc>
-    <lastmod>2017-08-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/./1/01/</loc>
-  </url>
-  
-  <url>
-    <loc>/./1/01/</loc>
-  </url>
-  
-  <url>
-    <loc>/./archives/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/austria/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/cowplot/</loc>
-    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/eurostat/</loc>
-    <lastmod>2018-08-07T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/gganimate/</loc>
-    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./categories/gganimate/</loc>
-    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/ggplot/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/highcharter/</loc>
-    <lastmod>2018-08-07T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./categories/highcharter/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/leaflet/</loc>
-    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./categories/leaflet/</loc>
-    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/./tags/maxima/</loc>
     <lastmod>2017-08-23T21:13:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./post/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/r/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/./categories/r&#43;maxima/</loc>
     <lastmod>2017-08-23T21:13:14-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/./tags/rmapshaper/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/sf/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/shiny/</loc>
-    <lastmod>2017-09-01T21:07:14-05:00</lastmod>
-    <priority>0</priority>
+    <loc>/./2017/08/symbolic-computation-r-maxima/</loc>
+    <lastmod>2017-08-23T21:13:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>/./tags/symboliccomputation/</loc>
     <lastmod>2017-08-23T21:13:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./tags/theeconomist/</loc>
-    <lastmod>2017-10-03T21:07:14-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/./</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/./tags/wxmaxima/</loc>
     <lastmod>2017-08-23T21:13:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./1/01/</loc>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./1/01/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/./archives/</loc>
   </url>
   
 </urlset>

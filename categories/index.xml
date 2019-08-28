@@ -6,21 +6,22 @@
     <description>Recent content in Categories on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Wed, 28 Aug 2019 21:07:14 -0500</lastBuildDate>
     
 	<atom:link href="/./categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Gganimate</title>
-      <link>/./categories/gganimate/</link>
-      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      <title>wordcloud</title>
+      <link>/./categories/wordcloud/</link>
+      <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
       
-      <guid>/./categories/gganimate/</guid>
+      <guid>/./categories/wordcloud/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Highcharter</title>
+      <title>highcharter</title>
       <link>/./categories/highcharter/</link>
       <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
       
@@ -29,7 +30,16 @@
     </item>
     
     <item>
-      <title>Leaflet</title>
+      <title>gganimate</title>
+      <link>/./categories/gganimate/</link>
+      <pubDate>Tue, 03 Oct 2017 21:07:14 -0500</pubDate>
+      
+      <guid>/./categories/gganimate/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>leaflet</title>
       <link>/./categories/leaflet/</link>
       <pubDate>Fri, 01 Sep 2017 21:07:14 -0500</pubDate>
       
@@ -38,7 +48,7 @@
     </item>
     
     <item>
-      <title>R&#43;maxima</title>
+      <title>R&#43;Maxima</title>
       <link>/./categories/r&#43;maxima/</link>
       <pubDate>Wed, 23 Aug 2017 21:13:14 -0500</pubDate>
       

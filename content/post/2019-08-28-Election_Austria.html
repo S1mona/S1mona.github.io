@@ -1,0 +1,44 @@
+---
+title: "Elections in Austria"
+author: "Simona Jokubauskaite"
+categories: ["wordcloud"]
+date: 2019-08-28T21:07:14-05:00
+tags: ["R", "wordcloud", "Austria", "derStandard", "RSelenium"]
+thumbnailImagePosition: left
+thumbnailImage: ./images/all_part_at.png
+coverImage: ./FOTO.jpg
+metaAlignment: center
+disable_comments: true
+output:
+  blogdown::html_page:
+    toc: false
+    css: "/css/my-style.css"
+--- 
+
+  <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
+
+
+<p>Amazed by the election advertisements in Austria, I have decided to get my hands dirty and do some analyses about the forthcoming election. <a href="https://www.derstandard.at/">derStandard</a> decided to have discussions why Austrians are electing <a href="https://www.derstandard.at/story/2000107193243/warum-waehlen-sie-die-fpoe">FPÖ</a>, <a href="https://www.derstandard.at/story/2000106851093/warum-waehlen-sie-die-neos">Neos</a>, and <a href="https://www.derstandard.at/story/2000106635316/warum-waehlen-sie-die-oevp">ÖVP</a>.
+Strangely enough I did not find a discussion on SPÖ.</p>
+<p>To get the postings I used wonderful <code>RSelenium</code>, for data cleaning <code>tm</code>, and for visualization <code>wordcloud</code>.</p>
+<p><strong>FPÖ</strong> - 1963 posts</p>
+<p><img src="/content/post/fpo.png" alt="fpo" style="max-width:1800px;max-height:600px;"></p>
+<p><strong>Neos</strong> - 875 postings</p>
+<p><img src="/content/post/neos.png" alt="neos" style="max-width:1800px;max-height:600px;"></p>
+<p><strong>ÖVP</strong> - 1733 postings</p>
+<p><img src="/content/post/ovp.png" alt="ovp" style="max-width:1800px;max-height:600px;"></p>
+<p>Top 10 words for each party:</p>
+<ul>
+<li>FPÖ - <code>menschen, ausländer, österreich, parteien, migration, politik, demokratie, problem, probleme, regierung</code></li>
+<li>Neos - <code>parteien, österreich, programm, menschen, politik, neoliberal, weniger, freiheit, neoliberalismus, eigentlich</code></li>
+<li>ÖVP - <code>österreich, menschen, politik, regierung, gewählt, parteien, weniger, eigentlich, meinung, arbeitnehmer</code></li>
+</ul>
+<p>Some observations</p>
+<ul>
+<li>People discussing <strong>FPÖ</strong> were talking about foreigners (DE - “ausländer”, 231 frequency) and migration (132 frequency).
+These keywords were not that common for <strong>ÖVP</strong> (migration - 45, foreigners - 3) and <strong>Neos</strong> (migration - 5, foreigners - 8).<br />
+</li>
+<li>For discussion on <strong>Neos</strong> keyword <code>liberal</code> is important (199). <strong>FPÖ</strong> - 33, <strong>ÖVP</strong> - 30.</li>
+<li>In Top 10 for <strong>ÖVP</strong> keyword <code>arbeitnehmer</code> was present and sub-string <code>arbeit</code> (EN - work) was mentioned 259 times. <strong>FPÖ</strong> - 198, <strong>Neos</strong> - 114. Maybe because of the introduced 12 hours work day.</li>
+</ul>
+<p>Words with less than 7 letters were dropped. Used stop words <code>c(&quot;einfach&quot;, &quot;anderen&quot;, &quot;parteien&quot;, &quot;sondern&quot;, &quot;wirklich&quot;, &quot;natürlich&quot;, &quot;sowieso&quot;,&quot;vielleicht&quot;, &quot;dadurch&quot;, &quot;wichtig&quot;, &quot;deshalb&quot;, &quot;darüber&quot;, &quot;gegenüber&quot;, &quot;außerdem&quot;,&quot;irgendwie&quot;, &quot;geworden&quot;, &quot;gegeben&quot;, &quot;anstatt&quot;)</code>.</p>
