@@ -1,0 +1,179 @@
+---
+title: "Invisable/Domestic Work"
+author: "Simona Jokubauskaite"
+categories: ["Domestic Work"]
+date: 2019-09-02T11:07:14-05:00
+tags: ["R","eurostat", "invisable work", "ggplot"]
+thumbnailImagePosition: left
+thumbnailImage: ./images/time_use.png
+coverImage: ./FOTO.jpg
+metaAlignment: center
+disable_comments: true
+output:
+  blogdown::html_page:
+    toc: false
+    css: "/css/my-style.css"
+--- 
+
+  <link rel="stylesheet" href="\css\my-style.css" type="text/css" />
+
+
+<p>Domestic work so often unseen and underestimated might be valued “at 13 per cent of Global GDP” (<a href="https://www2.unwomen.org/-/media/field%20office%20eseasia/docs/publications/2017/01/unpaid-care-and-domestic-work-en.pdf?la=en&amp;vs=435&amp;la=en&amp;vs=435">UNWomen</a>). For some countries the estimates go up to 60% (<a href="https://www.ons.gov.uk/economy/nationalaccounts/satelliteaccounts/articles/householdsatelliteaccounts/2015and2016estimates">UK</a>, <a href="https://www.sp-sg.ch/wp-content/uploads/2017/12/Handout-T_Soiland.pdf">CH</a>). Most of the domestic work is still done by women in exchange for “lower” working hours in official job. As a result, usually women end up working more in total and thus having a less time for leisure. To look at this problem I have decided to analyse Eurostat data from time-use surveys.</p>
+<div id="eurostat-data" class="section level2">
+<h2>Eurostat data:</h2>
+<ul>
+<li>tus_00age - Time spent, participation time and participation rate in the main activity by sex and age group
+<a href="https://ec.europa.eu/eurostat/cache/metadata/en/tus_esms.htm">Metadata</a></li>
+</ul>
+<pre class="r"><code>library(eurostat)
+library(data.table)
+library(magrittr)
+library(ggplot2)
+library(ggthemes)
+library(stringr)
+library(knitr)</code></pre>
+<pre class="r"><code>id &lt;- &quot;tus_00age&quot;
+dat &lt;- get_eurostat(id, time_format =&quot;num&quot;, select_time=&quot;Y&quot;)
+dat &lt;- data.table(dat)
+datl &lt;- label_eurostat(dat)
+datl &lt;- data.table(datl)
+setnames(datl, &quot;acl00&quot;, &quot;acl&quot;)
+dat &lt;- cbind(dat[, .(unit, age, acl00, sex, time, values)], datl[, .(geo, acl)])
+dat[grepl(&quot;Germany&quot;, geo), geo:=&quot;Germany&quot;]
+dat &lt;- dat[age==&quot;TOTAL&quot;&amp;unit==&quot;PTP_TIME&quot;, ]
+dat[, c(&quot;age&quot;, &quot;unit&quot;):= NULL]</code></pre>
+<ul>
+<li>Convert format of time spent from hh:mm into hours:</li>
+</ul>
+<pre class="r"><code>hhmm &lt;- dat$values %&gt;% as.character()
+hhmm &lt;- str_pad(hhmm, 4, pad = &quot;0&quot;)
+
+dat[, values:=((hhmm %&gt;% substr(1,2) %&gt;% as.numeric %&gt;% `*`(60)+
+      hhmm %&gt;% substr(3,4) %&gt;% as.numeric))/60]</code></pre>
+<ul>
+<li>Add grouping</li>
+</ul>
+<pre class="r"><code>dat[grepl(&quot;work|job&quot;, acl, ignore.case = TRUE), .(acl, acl00)] %&gt;% unique %&gt;% kable
+dat[acl00==&quot;AC1A&quot;, act:=&quot;Work&quot;]</code></pre>
+<pre class="r"><code>dat[grepl(&quot;household&quot;, acl, ignore.case = TRUE), .(acl, acl00)] %&gt;% unique %&gt;% kable
+dat[acl00==&quot;AC3&quot;, act:=&quot;Housework&quot;]</code></pre>
+<pre class="r"><code>dat[grepl(&quot;leisure&quot;, acl, ignore.case = TRUE), .(acl, acl00)] %&gt;% unique %&gt;% kable
+dat[acl00==&quot;AC4-8&quot;, act:=&quot;Leisure&quot;]</code></pre>
+<pre class="r"><code>dat &lt;- dat[!is.na(act)]
+dat[,c(&quot;acl00&quot;, &quot;acl&quot;):=NULL]
+dat[, geo_act:=paste0(geo, &quot;_&quot;, act)]</code></pre>
+<div id="analysis-of-latest-available-year" class="section level3">
+<h3>Analysis of latest available year</h3>
+<ul>
+<li>Choose the most recent year, as some countries have to entries (2010, 2016)</li>
+</ul>
+<pre class="r"><code>dat[, nn:=length(values), by=.(geo, act)]
+dat6 &lt;- dat[nn==6&amp;time==2010|nn==3, ]
+dat6[, nn:=NULL]</code></pre>
+<ul>
+<li>Countries ordered by “Housework”</li>
+</ul>
+<pre class="r"><code>tmp &lt;- dat6[act==&quot;Housework&quot;&amp;sex==&quot;F&quot;, .(geo, values)]
+new_levels &lt;- tmp[order(values), &quot;geo&quot;] %&gt;% unlist
+dat6[, geo2:=factor(geo, levels=new_levels)]
+dat6[, sex:= sapply(sex, FUN=switch, &quot;F&quot;=&quot;Female&quot;, &quot;M&quot;=&quot;Male&quot;, &quot;T&quot;=&quot;Total&quot;)]</code></pre>
+<pre class="r"><code>tmp &lt;- dat6[act!=&quot;Leisure&quot;,]
+p &lt;- ggplot(tmp, aes(x=geo2, y=values, color=act)) + geom_point(aes(shape=sex), size=3) +
+  geom_line() +
+  geom_text(data=tmp, aes(label = round(values, 2), y=values, vjust=-0.3, hjust=-0.3), size=3)
+
+tmp &lt;- dat6[act==&quot;Leisure&quot;,]
+p &lt;- p + geom_point(data=tmp, aes(x=geo2, y=values, color=act, shape=sex)) +
+  geom_line(data=tmp, aes(x=geo2, y=values, color=act)) +
+  geom_text(data=tmp, aes(label = round(values, 2), y=values, vjust=1.4, hjust=0.3), size=3) +
+  coord_flip()
+
+
+vals &lt;- c(&quot;#5a5500&quot;, &quot;#d4468d&quot;, &quot;#002b61&quot;)
+names(vals) &lt;- c(&quot;Leisure&quot;, &quot;Work&quot;, &quot;Housework&quot;)
+elr &lt;- element_rect(&quot;#F5F5F5&quot;, &quot;#F5F5F5&quot;)
+
+p &lt;- p + labs(title=&quot;Mean time (h/day) spent in the activities&quot;,
+              subtitle=&quot;by those individuals who took part in the activity&quot;,
+              caption=&quot;Data source: Eurostat&quot;, x =&quot;&quot;, y = &quot;&quot;) +
+  theme_hc()+
+  scale_colour_manual(values=vals)+
+  theme(panel.background = elr,
+        plot.background = elr,
+        legend.background = elr,
+        legend.title=element_blank(),
+        plot.title = element_text(hjust = 0),
+        plot.subtitle = element_text(hjust = 0))</code></pre>
+<p><img src="/content/post/time_use.png" alt="Time use"></p>
+<p>Main observations:</p>
+<ul>
+<li>In all countries women:
+<ul>
+<li>do more housework,</li>
+<li>spend less time in paid work</li>
+<li>have less time for leisure.</li>
+</ul></li>
+<li>There is a greater gender equality in Scandinavian countries (Netherlands, Norway, Finland)</li>
+</ul>
+</div>
+<div id="comparison-in-time" class="section level3">
+<h3>Comparison in time</h3>
+<pre class="r"><code>dat6 &lt;- dat[nn==6, ]
+dat6[, nn:=NULL]</code></pre>
+<ul>
+<li>Countries ordered by “Housework”</li>
+</ul>
+<pre class="r"><code>tmp &lt;- dat6[act==&quot;Housework&quot;&amp;sex==&quot;F&quot;&amp;time==&quot;2010&quot;, .(geo, values)]
+new_levels &lt;- tmp[order(values), &quot;geo&quot;] %&gt;% unlist
+
+dat6[, geo2:=factor(geo, levels=new_levels)]
+dat6[, sex:= sapply(sex, FUN=switch, &quot;F&quot;=&quot;Female&quot;, &quot;M&quot;=&quot;Male&quot;, &quot;T&quot;=&quot;Total&quot;)]
+new_levels &lt;- paste0(rep(new_levels, rep(2, length(new_levels))),&quot;_&quot;, c(2000, 2010))
+dat6[, geo2_time:=factor(paste0(geo, &quot;_&quot;, time),
+                         levels = new_levels)]
+lab1n &lt;- new_levels
+lab1n[seq(2, length(new_levels), by=2)] &lt;- lab1n[seq(2, length(new_levels), by=2)] %&gt;% gsub(&quot;_&quot;,&quot;:&quot;, .)
+lab1n[seq(1, length(new_levels), by=2)] &lt;- lab1n[seq(1, length(new_levels), by=2)] %&gt;% gsub(&quot;.*_&quot;,&quot;&quot;, .)</code></pre>
+<pre class="r"><code>tmp &lt;- dat6[act!=&quot;Leisure&quot;,]
+p &lt;- ggplot(tmp, aes(x=geo2_time, y=values, color=act)) + geom_point(aes(shape=sex), size=3) +
+  geom_line() +
+  geom_line(aes(group=interaction( act, sex, geo)), linetype=&quot;dashed&quot;) +
+  geom_text(data=tmp, aes(label = round(values, 2), y=values, vjust=-0.3, hjust=-0.3), size=3)+
+  scale_x_discrete(labels=lab1n)
+
+tmp &lt;- dat6[act==&quot;Leisure&quot;,]
+p &lt;- p + geom_point(data=tmp, aes(x=geo2_time, y=values, color=act, shape=sex)) +
+  geom_line(data=tmp, aes(x=geo2_time, y=values, color=act)) +
+  geom_line(data=tmp, aes(x=geo2_time, y=values, color=act, group=interaction( act, sex, geo)),
+            linetype=&quot;dashed&quot;) +
+  geom_text(data=tmp, aes(label = round(values, 2), y=values, vjust=1.4, hjust=0.3), size=3) +
+  coord_flip()
+
+
+vals &lt;- c(&quot;#5a5500&quot;, &quot;#d4468d&quot;, &quot;#002b61&quot;)
+names(vals) &lt;- c(&quot;Leisure&quot;, &quot;Work&quot;, &quot;Housework&quot;)
+elr &lt;- element_rect(&quot;#F5F5F5&quot;, &quot;#F5F5F5&quot;)
+
+p &lt;- p + labs(title=&quot;Mean time (h/day) spent in the activities&quot;,
+              subtitle=&quot;by those individuals who took part in the activity&quot;,
+              caption=&quot;Data source: Eurostat&quot;, x =&quot;&quot;, y = &quot;&quot;) +
+  theme_hc()+
+  scale_colour_manual(values=vals)+
+  theme(panel.background = elr,
+        plot.background = elr,
+        legend.background = elr,
+        legend.title=element_blank(),
+        plot.title = element_text(hjust = 0),
+        plot.subtitle = element_text(hjust = 0))</code></pre>
+<p><img src="/content/post/time_use_2.png" alt="Two years data"></p>
+<p>Main observations:</p>
+<ul>
+<li>Gender gap in :
+<ul>
+<li>“Housework” is decreasing (males do more and females less)</li>
+<li>“Leisure” is constant and both genders enjoy more leisure</li>
+<li>“Work” - for some countries work time increased, for some decreased and for some remained almost constant</li>
+</ul></li>
+</ul>
+</div>
+</div>

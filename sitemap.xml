@@ -3,12 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/./tags/austria/</loc>
-    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
+    <loc>/./categories/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/./categories/</loc>
+    <loc>/./categories/domestic-work/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/eurostat/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/ggplot/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/invisable-work/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./2019/09/invisable/domestic-work/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./post/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/r/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./</loc>
+    <lastmod>2019-09-02T11:07:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/./tags/austria/</loc>
     <lastmod>2019-08-28T21:07:14-05:00</lastmod>
   </url>
   
@@ -23,32 +68,7 @@
   </url>
   
   <url>
-    <loc>/./post/</loc>
-    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/./tags/r/</loc>
-    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/./tags/rselenium/</loc>
-    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/./tags/</loc>
-    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/./</loc>
-    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/./categories/wordcloud/</loc>
     <lastmod>2019-08-28T21:07:14-05:00</lastmod>
   </url>
   
@@ -58,8 +78,8 @@
   </url>
   
   <url>
-    <loc>/./tags/ggplot/</loc>
-    <lastmod>2018-09-03T00:07:14-05:00</lastmod>
+    <loc>/./categories/wordcloud/</loc>
+    <lastmod>2019-08-28T21:07:14-05:00</lastmod>
   </url>
   
   <url>
@@ -88,11 +108,6 @@
   </url>
   
   <url>
-    <loc>/./tags/eurostat/</loc>
-    <lastmod>2018-08-07T00:07:14-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/./tags/highcharter/</loc>
     <lastmod>2018-08-07T00:07:14-05:00</lastmod>
   </url>
@@ -108,12 +123,12 @@
   </url>
   
   <url>
-    <loc>/./tags/gganimate/</loc>
+    <loc>/./categories/gganimate/</loc>
     <lastmod>2017-10-03T21:07:14-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/./categories/gganimate/</loc>
+    <loc>/./tags/gganimate/</loc>
     <lastmod>2017-10-03T21:07:14-05:00</lastmod>
   </url>
   

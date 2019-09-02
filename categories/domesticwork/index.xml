@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DomesticWork on Who wonders ponders</title>
+    <link>/./categories/domesticwork/</link>
+    <description>Recent content in DomesticWork on Who wonders ponders</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Sep 2019 11:07:14 -0500</lastBuildDate>
+    
+	<atom:link href="/./categories/domesticwork/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Invisable work</title>
+      <link>/./2019/09/invisable-work/</link>
+      <pubDate>Mon, 02 Sep 2019 11:07:14 -0500</pubDate>
+      
+      <guid>/./2019/09/invisable-work/</guid>
+      <description>Eurostat data:
+tus_00age - Time spent, participation time and participation rate in the main activity by sex and age groupMetadatalibrary(eurostat)## Warning: Paket &amp;#39;eurostat&amp;#39; wurde unter R Version 3.6.1 erstelltlibrary(data.table)library(magrittr)library(ggplot2)## Registered S3 methods overwritten by &amp;#39;ggplot2&amp;#39;:## method from ## [.quosures rlang## c.quosures rlang## print.quosures rlanglibrary(ggthemes)library(stringr)library(knitr)id &amp;lt;- &amp;quot;tus_00age&amp;quot;dat &amp;lt;- get_eurostat(id, time_format =&amp;quot;num&amp;quot;, select_time=&amp;quot;Y&amp;quot;)## Table tus_00age cached at C:\Users\joku\AppData\Local\Temp\RtmpKy66VP/eurostat/tus_00age_num_codeY_TF.</description>
+    </item>
+    
+  </channel>
+</rss>

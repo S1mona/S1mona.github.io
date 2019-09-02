@@ -159,9 +159,9 @@ r1 &lt;- expr%&gt;%parse(text=.)%&gt;%eval</code></pre>
 <h2>Comparison with results from other functions and packages:</h2>
 <pre class="r"><code>require(emdbook)
 yy%&gt;%dmvnorm(.,mu=mu,Sigma=cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 1.340294e-16</code></pre>
+## [1] 1.803223e-16</code></pre>
 <pre class="r"><code>require(mnormt)
 yy%&gt;%dmnorm(.,mean=mu,cov(.))%&gt;%&quot;-&quot;(r1)%&gt;%abs%&gt;%sum
-## [1] 1.364299e-16</code></pre>
+## [1] 1.411284e-16</code></pre>
 <p>Solution is not perfect, but it made my life so much easier.</p>
 </div>

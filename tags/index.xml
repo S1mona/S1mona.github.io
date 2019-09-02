@@ -6,10 +6,46 @@
     <description>Recent content in Tags on Who wonders ponders</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Aug 2019 21:07:14 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 02 Sep 2019 11:07:14 -0500</lastBuildDate>
     
 	<atom:link href="/./tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>eurostat</title>
+      <link>/./tags/eurostat/</link>
+      <pubDate>Mon, 02 Sep 2019 11:07:14 -0500</pubDate>
+      
+      <guid>/./tags/eurostat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ggplot</title>
+      <link>/./tags/ggplot/</link>
+      <pubDate>Mon, 02 Sep 2019 11:07:14 -0500</pubDate>
+      
+      <guid>/./tags/ggplot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>invisable work</title>
+      <link>/./tags/invisable-work/</link>
+      <pubDate>Mon, 02 Sep 2019 11:07:14 -0500</pubDate>
+      
+      <guid>/./tags/invisable-work/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/./tags/r/</link>
+      <pubDate>Mon, 02 Sep 2019 11:07:14 -0500</pubDate>
+      
+      <guid>/./tags/r/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Austria</title>
@@ -26,15 +62,6 @@
       <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
       
       <guid>/./tags/derstandard/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>/./tags/r/</link>
-      <pubDate>Wed, 28 Aug 2019 21:07:14 -0500</pubDate>
-      
-      <guid>/./tags/r/</guid>
       <description></description>
     </item>
     
@@ -57,15 +84,6 @@
     </item>
     
     <item>
-      <title>ggplot</title>
-      <link>/./tags/ggplot/</link>
-      <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
-      
-      <guid>/./tags/ggplot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>rmapshaper</title>
       <link>/./tags/rmapshaper/</link>
       <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
@@ -80,15 +98,6 @@
       <pubDate>Mon, 03 Sep 2018 00:07:14 -0500</pubDate>
       
       <guid>/./tags/sf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>eurostat</title>
-      <link>/./tags/eurostat/</link>
-      <pubDate>Tue, 07 Aug 2018 00:07:14 -0500</pubDate>
-      
-      <guid>/./tags/eurostat/</guid>
       <description></description>
     </item>
     
